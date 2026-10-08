@@ -1,5 +1,10 @@
-.DS_Store
 node_modules/
+.DS_Store
 DESIGN-SPEC.md
 artifact.html
 gallery-coverflow.html
+components.html
+library/
+.claude/
+img/hero_ezarchi.jpg
+img/hero_locals.jpg

@@ -1,31 +1,21 @@
-# Built by Omar
+# Omar
 
-Portfolio of seven live websites — commodity trading, real estate, a festival, artist sites and voice AI.
+Seven websites built with AI in my free time. Every one opens the real, running site.
 
-A gallery of first-screen shots flies through a 3D corridor, followed by a plain list of the seven
-sites. Hover a row and a card pops out with what the site is and a way to open it; everything
-appears as you scroll.
+**Live:** https://omarjnbz.github.io/portfolio/
 
-## Projects
+## What's on the page
 
-**Client sites**
-- [Arminak Caravan](https://arminakcaravantrading.com/) — agricultural commodity trading, Abu Dhabi
-- [Ariana Integrity](https://www.arianaintegrity.com/) — real estate consultancy, Dubai (admin panel + Zoho CRM)
-- [Nur Elite Properties](https://nurelite.properties/) — global real estate investment advisory
-
-**Site designs**
-- [UNHEARD 2.0](https://unheard-f.vercel.app/) — music and wellness gathering, Rishikesh, April 2026
-- [Jinie Bhatnagar](https://omarjnbz.github.io/Jinie-Portfolio/) — DJ & producer portfolio
-- [KAS5H](https://kas-5-h.vercel.app/) — DJ press kit, Delhi selector and producer
-
-**Voice AI**
-- [EVA](https://bng-eva.vercel.app) — live voice agent demo
+- A gallery of first-screen shots flying through a 3D corridor
+- A plain list of the seven sites; hover a row (or tap on a phone) for a short description and a link
+- Everything appears as you scroll
 
 ## Built with
 
-Plain HTML/CSS/JS — no build step. GSAP + ScrollTrigger on native scroll (no Lenis),
-a CSS 3D image corridor, Archivo + Martian Mono.
+Plain HTML, CSS and JavaScript with no build step. Animation by GSAP and ScrollTrigger. Archivo and Martian Mono.
+Fonts and scripts are served from this repository, and the page sets no cookies and runs no analytics or trackers.
 
-## Contact
+## Notes
 
-Omarjnbz@gmail.com
+All rights reserved. The page design and code are mine. The screenshots show other people's websites and
+remain the property of their respective owners.

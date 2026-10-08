@@ -4,21 +4,36 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#080807">
 <meta name="description" content="Seven websites built with AI in my free time — commodity trading, real estate, a festival, artists and voice AI. Every one opens the real, running site">
+<link rel="canonical" href="https://omarjnbz.github.io/portfolio/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Omar">
 <meta property="og:title" content="Omar — Explore my ideas">
 <meta property="og:description" content="Seven websites built with AI in my free time — commodity trading, real estate, a festival, artists and voice AI. Every one opens the real, running site">
-<meta property="og:url" content="https://omarbng.github.io/portfolio/">
-<meta property="og:image" content="https://omarbng.github.io/portfolio/img/hero_nurelite.jpg">
+<meta property="og:url" content="https://omarjnbz.github.io/portfolio/">
+<meta property="og:image" content="https://omarjnbz.github.io/portfolio/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OMAR — I build ideas in my free time, with AI">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080807'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='20' font-weight='900' fill='%23e8e8e3' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E">
+<meta name="twitter:title" content="Omar — Explore my ideas">
+<meta name="twitter:description" content="Seven websites built with AI in my free time — commodity trading, real estate, a festival, artists and voice AI. Every one opens the real, running site">
+<meta name="twitter:image" content="https://omarjnbz.github.io/portfolio/og.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Omar — Explore my ideas</title>
+<link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Martian+Mono:wght@300;400;500&display=swap">
 
 <style>
+/* Self-hosted: no request ever leaves this site for fonts. Variable fonts, Latin subset. */
+@font-face{font-family:"Archivo";font-style:normal;font-weight:400 900;font-display:swap;
+  src:url(fonts/archivo-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Martian Mono";font-style:normal;font-weight:300 500;font-display:swap;
+  src:url(fonts/martian-mono-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
   --ink:#080807;
   --ink-raise:#12110f;
@@ -54,6 +69,7 @@ body{
 }
 a{color:inherit}
 .mono{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase}
+@media (max-width:640px){.mono{font-size:.7rem;letter-spacing:.14em}}
 .wrap{padding-inline:var(--gutter)}
 
 .grain{
@@ -79,10 +95,14 @@ a{color:inherit}
   mix-blend-mode:difference; color:var(--sand-bright);
 }
 .hdr__mark{font-weight:900;font-size:.95rem;letter-spacing:-.02em;text-decoration:none}
-.hdr__social{display:flex;align-items:center;gap:1.1rem}
+.hdr__social{display:flex;align-items:center;gap:1.75rem}
 .hdr__social a{display:block;width:20px;height:20px;color:inherit;opacity:.8;transition:opacity .3s,transform .45s var(--ease)}
 .hdr__social a:hover,.hdr__social a:focus-visible{opacity:1;transform:translateY(-2px)}
 .hdr__social svg{width:100%;height:100%;fill:currentColor;display:block}
+/* invisible hit areas: the icons stay 20px, the tappable area is 48px */
+.hdr__mark,.hdr__social a,.stream__go,.end__mail{position:relative}
+.hdr__mark::after,.hdr__social a::after{content:"";position:absolute;inset:-14px}
+.stream__go::before,.end__mail::before{content:"";position:absolute;inset:-12px -6px}
 
 /* ─── hero ─── */
 /* overflow-x:clip trims the oversized wordmark sideways only. No hidden box
@@ -190,7 +210,7 @@ a{color:inherit}
 }
 .row{grid-template-columns:3.2rem minmax(0,1fr) auto;align-items:center}
 @media (max-width:640px){.row{grid-template-columns:2.2rem minmax(0,1fr) auto}}
-.row__n{color:var(--sand-ghost)}
+.row__n{color:var(--sand-dim)}
 .row__name{
   margin:0;font-size:clamp(1.05rem,.95rem + .45vw,1.35rem);
   font-weight:600;line-height:1.15;letter-spacing:-.02em;
@@ -202,7 +222,7 @@ a{color:inherit}
   transition:transform .45s var(--ease),color .45s var(--ease);
 }
 .row__name{color:var(--sand)}
-.row:hover .row__name,.row:focus-visible .row__name{color:var(--olive-bright)}
+.row:focus-visible .row__name{color:var(--olive-bright)}
 /* the pop-out: hover or focus a row and a card rises from it with what the site
    is and a way to open it. It floats over the rows below, so nothing shifts. */
 .row{position:relative}
@@ -215,7 +235,7 @@ a{color:inherit}
   transition:opacity .35s var(--ease),transform .5s var(--ease),visibility 0s linear .5s;
   pointer-events:none;
 }
-.row:hover .row__pop,.row:focus-visible .row__pop{
+.row:focus-visible .row__pop{
   opacity:1;visibility:visible;transform:none;pointer-events:auto;
   transition:opacity .35s var(--ease),transform .5s var(--ease),visibility 0s;
 }
@@ -223,18 +243,36 @@ a{color:inherit}
 .row__points{list-style:none;margin:.8rem 0 0;padding:0;display:grid;gap:.4rem}
 .row__points li{position:relative;padding-left:1.1rem;color:var(--sand-dim);font-size:.85rem;line-height:1.4}
 .row__points li::before{content:"";position:absolute;left:0;top:.7em;width:.6rem;height:1px;background:var(--olive)}
-.row__open{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem;padding-top:.8rem;border-top:var(--rule);color:var(--sand-ghost)}
-.row__open b{font-weight:400;color:var(--olive-bright)}
-.row:hover{background:linear-gradient(90deg,rgba(232,232,227,.03),transparent)}
-/* no hover on touch screens: the card is simply open under each row */
+.row__open{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem;padding-top:.8rem;border-top:var(--rule);color:var(--sand-dim)}
+.row__open b{font-weight:400;color:var(--olive-bright);white-space:nowrap}
+.row__open i{font-style:normal;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row:focus-visible .row__go{color:var(--sand);transform:translate(4px,-4px)}
+.row:focus-visible{outline:2px solid var(--olive);outline-offset:4px}
+@media (hover:hover){
+  .row:hover .row__name{color:var(--olive-bright)}
+  .row:hover .row__pop{
+    opacity:1;visibility:visible;transform:none;pointer-events:auto;
+    transition:opacity .35s var(--ease),transform .5s var(--ease),visibility 0s;
+  }
+  .row:hover{background:linear-gradient(90deg,rgba(232,232,227,.03),transparent)}
+  .row:hover .row__go{color:var(--sand);transform:translate(4px,-4px)}
+}
+/* touch screens have no hover: the first tap on a row opens its card in place
+   (a + becomes an arrow), the second tap opens the site */
 @media (hover:none){
   .row{grid-template-columns:2.2rem minmax(0,1fr) auto}
-  .row__pop{position:static;grid-column:2 / -1;opacity:1;visibility:visible;transform:none;pointer-events:none;
-    background:none;border:0;box-shadow:none;padding:.5rem 0 0}
-  .row__open{display:none}
+  .row__pop{
+    display:none;position:static;grid-column:2 / -1;margin-top:.7rem;padding:.9rem 1rem 1rem;
+    opacity:1;visibility:visible;transform:none;pointer-events:none;box-shadow:none;
+  }
+  .row.is-open .row__pop{display:block;animation:popIn .45s var(--ease)}
+  .row.is-open{background:linear-gradient(90deg,rgba(232,232,227,.04),transparent)}
+  .row.is-open .row__name{color:var(--olive-bright)}
+  .row__go{font-size:0;padding-top:0}
+  .row__go::after{content:"+";display:block;font-size:1.6rem;line-height:1;color:var(--sand-dim)}
+  .row.is-open .row__go::after{content:"↗";color:var(--sand)}
 }
-.row:hover .row__go,.row:focus-visible .row__go{color:var(--sand);transform:translate(4px,-4px)}
-.row:focus-visible{outline:2px solid var(--olive);outline-offset:4px}
+@keyframes popIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @media (max-width:959px){.row__name{color:var(--sand)}}
 
 
@@ -322,8 +360,8 @@ a{color:inherit}
 </main>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
 <script>
 (function () {
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -367,10 +405,23 @@ a{color:inherit}
       '<div class="row__pop">' +
         '<p class="row__line">' + p[4] + "</p>" +
         '<ul class="row__points">' + p[7].map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul>" +
-        '<span class="row__open mono">' + p[5] + " <b>Open site ↗</b></span>" +
+        '<span class="row__open mono"><i>' + p[5] + "</i><b>Open site ↗</b></span>" +
       "</div>";
     list.appendChild(a);
   });
+
+  if (window.matchMedia("(hover:none)").matches) {
+    [].forEach.call(list.querySelectorAll(".row"), function (r) { r.setAttribute("aria-expanded", "false"); });
+    list.addEventListener("click", function (e) {
+      var row = e.target.closest(".row");
+      if (!row || row.classList.contains("is-open")) return;
+      e.preventDefault();
+      [].forEach.call(list.querySelectorAll(".row.is-open"), function (r) {
+        r.classList.remove("is-open"); r.setAttribute("aria-expanded", "false");
+      });
+      row.classList.add("is-open"); row.setAttribute("aria-expanded", "true");
+    });
+  }
 
   /* ── statement split into words (motion below brightens them) ── */
   var say = document.querySelector("[data-say]");
@@ -418,6 +469,7 @@ a{color:inherit}
     var G = { perspective: 30, cardWidth: 28, cardHeight: 15.75, cardRadius: .5,
       birthHeight: 2.6, exitHeight: 17, railBirth: -11, railExit: 40,
       fan: 3.3, turnBirth: 6, turnExit: 28, stops: 24 };
+    if (window.matchMedia("(max-width:640px)").matches) { G.birthHeight = 3.4; G.exitHeight = 34; G.railExit = 38; }
     var CARDS = P.length, SPEED = 26, AXIS = 55;
 
     function frames(dir, name) {
@@ -505,7 +557,10 @@ a{color:inherit}
     gsap.fromTo(targets,
       { opacity: 0, y: 46, filter: "blur(10px)" },
       { opacity: 1, y: 0, filter: "blur(0px)", ease: "none", immediateRender: true,
-        scrollTrigger: { trigger: trigger, start: start || "top 94%", end: end || "top 64%", scrub: .6 } });
+        /* clamp(): a block near the foot of the page may never get as high as the
+           "end" line, however far you scroll. Clamping pulls both lines inside
+           the scrollable range, so it always finishes appearing. */
+        scrollTrigger: { trigger: trigger, start: "clamp(" + (start || "top 94%") + ")", end: "clamp(" + (end || "top 64%") + ")", scrub: .6 } });
   }
   gsap.utils.toArray("[data-sc]").forEach(function (el) { appear(el, el); });
   gsap.utils.toArray(".group").forEach(function (el) { appear(el, el); });
