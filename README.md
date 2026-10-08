@@ -1,13 +1,13 @@
 # Omar
 
-Seven websites built with AI in my free time. Every one opens the real, running site.
+Eight websites built with AI in my free time. Every one opens the real, running site.
 
 **Live:** https://omarjnbz.github.io/portfolio/
 
 ## What's on the page
 
 - A gallery of first-screen shots flying through a 3D corridor
-- A plain list of the seven sites; hover a row (or tap on a phone) for a short description and a link
+- A plain list of the eight sites; hover a row (or tap on a phone) for a short description and a link
 - Everything appears as you scroll
 
 ## Built with
