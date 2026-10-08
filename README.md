@@ -1,9 +1,10 @@
 # Built by Omar
 
-Portfolio of nine live websites — commodity trading, real estate, festivals, artist sites and voice AI.
+Portfolio of seven live websites — commodity trading, real estate, a festival, artist sites and voice AI.
 
-All nine sit in a coverflow gallery. The card in front plays its real page top to bottom; drag,
-arrow-key or swipe between them, and clicking the front card opens the live site.
+A gallery of first-screen shots flies through a 3D corridor, followed by a plain list of the seven
+sites. Hover a row and a card pops out with what the site is and a way to open it; everything
+appears as you scroll.
 
 ## Projects
 
@@ -13,8 +14,6 @@ arrow-key or swipe between them, and clicking the front card opens the live site
 - [Nur Elite Properties](https://nurelite.properties/) — global real estate investment advisory
 
 **Site designs**
-- [EZ-ARCHI](https://ez-archi.vercel.app) — AI copilot for architects
-- [Locals District](https://locals-district.vercel.app) — festival microsite, three hero directions
 - [UNHEARD 2.0](https://unheard-f.vercel.app/) — music and wellness gathering, Rishikesh, April 2026
 - [Jinie Bhatnagar](https://omarjnbz.github.io/Jinie-Portfolio/) — DJ & producer portfolio
 - [KAS5H](https://kas-5-h.vercel.app/) — DJ press kit, Delhi selector and producer
@@ -24,8 +23,8 @@ arrow-key or swipe between them, and clicking the front card opens the live site
 
 ## Built with
 
-Plain HTML/CSS/JS — no build step. GSAP + ScrollTrigger, Lenis smooth scroll,
-a hand-written WebGL fragment shader for the hero, Archivo + Martian Mono.
+Plain HTML/CSS/JS — no build step. GSAP + ScrollTrigger on native scroll (no Lenis),
+a CSS 3D image corridor, Archivo + Martian Mono.
 
 ## Contact
 
