@@ -140,6 +140,18 @@ main{position:relative;z-index:1}
 .sheet__media .mono{margin-top:.7rem;display:flex;justify-content:space-between}
 .sheet__top{margin:0;display:flex;justify-content:space-between}
 .sheet__name{margin:.6rem 0 0;font-size:clamp(2.6rem,5.6vw,6rem);font-weight:500;line-height:.92;letter-spacing:-.05em}
+/* what kind of work: client sites in ink, ideas dashed, concepts in clay so they read as different at a glance */
+:root{--clay:#b8573a}
+.kind{position:absolute;top:clamp(.6rem,1.2vw,1rem);left:clamp(.6rem,1.2vw,1rem);padding:.4rem .6rem;background:var(--ink);color:var(--paper);pointer-events:none}
+.is-idea .kind{background:rgba(248,246,242,.92);color:var(--ink);outline:1px dashed var(--ink);outline-offset:-4px}
+.is-concept .kind{background:var(--clay);color:#fff}
+.is-product .kind{background:rgba(248,246,242,.92);color:var(--ink)}
+.piece.is-concept .slice{outline:2px solid var(--clay);outline-offset:7px}
+.piece.is-concept .cap,.piece.is-concept .cap .dim{color:var(--clay)}
+.sheet__kind{margin:1.3rem 0 0;padding:.9rem 1rem;border:1px solid var(--line);line-height:1.6;max-width:52ch;text-transform:none;font-size:.72rem}
+.sheet__kind b{display:block;margin-bottom:.3rem;font-weight:400;text-transform:uppercase}
+.sheet__kind.is-concept{border-color:var(--clay);color:var(--clay)}
+.sheet__kind.is-idea{border-style:dashed}
 .sheet__sum{margin:1.2rem 0 0;font-size:clamp(1.05rem,1.35vw,1.3rem);font-weight:500;line-height:1.35;letter-spacing:-.015em;max-width:38ch}
 .sheet__rows{margin-top:clamp(1.6rem,4vh,2.6rem)}
 .row{position:relative;padding:1rem 0 0}
@@ -156,6 +168,7 @@ main{position:relative;z-index:1}
 .sheet__open:hover i{transform:translate(3px,-3px)}
 .sheet__close{position:fixed;top:.75rem;right:var(--gutter);z-index:3;font:inherit;text-transform:uppercase;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;color:var(--paper);background:var(--ink);border:0;padding:.55rem .8rem;cursor:pointer}
 .sheet__close:hover{opacity:.8}
+.sheet__close:focus:not(:focus-visible){outline:none}
 .fly{position:fixed;z-index:101;background-size:cover;background-position:top;pointer-events:none;will-change:transform}
 @media (max-width:860px){.sheet__grid{grid-template-columns:1fr;padding-top:4rem}.sheet__media{position:relative;top:0}}
 @media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
@@ -227,7 +240,7 @@ main{position:relative;z-index:1}
   </section>
 
   <section class="work" id="work">
-    <p class="label mono dim" data-w>Eight sites_All live</p>
+    <p class="label mono dim" data-w>Eight projects_Three for clients</p>
     <h2 class="big work__title"><span data-w>Work</span><span class="n mono dim" data-w>[008]</span></h2>
     <div class="cols" id="pieces"></div>
   </section>
@@ -243,7 +256,7 @@ main{position:relative;z-index:1}
   </section>
 
   <section class="screen latest" id="latest">
-    <p class="label mono dim" data-w>Currently working on_KAS5H</p>
+    <p class="label mono dim" data-w>Currently working on_KAS5H concept</p>
     <h2 class="big" data-w data-caption>What I'm building right now</h2>
     <div class="panel" id="frames"></div>
     <a class="latest__open mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-w>Open the site ↗</a>
@@ -265,11 +278,12 @@ main{position:relative;z-index:1}
   <div class="sheet__bg"></div>
   <div class="sheet__scroll">
     <div class="sheet__grid">
-      <div class="sheet__media"><img data-s-img alt=""><p class="mono dim"><span data-s-url></span><span>Live</span></p></div>
+      <div class="sheet__media"><img data-s-img alt=""><p class="mono dim"><span data-s-url></span><span data-s-state></span></p></div>
       <div class="sheet__body">
         <p class="sheet__top mono dim"><span class="mk"><span data-s-n></span></span><span class="mk"><span data-s-sector></span></span></p>
         <h3 class="sheet__name mk" id="sheetName"><span data-s-name></span></h3>
         <p class="sheet__sum" data-s-sum></p>
+        <p class="sheet__kind mono" data-s-kind></p>
         <div class="sheet__rows" data-s-rows></div>
         <a class="sheet__open mono" data-s-open target="_blank" rel="noopener">Open the live site<i>↗</i></a>
       </div>
@@ -290,15 +304,21 @@ main{position:relative;z-index:1}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "3D trade-route globe", "Quotation request desk", "English and Russian"], "A trading house site that works like a catalogue"],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Live property listings from the CRM", "Sale and rent search with filters", "Property pages with gallery and enquiry", "Mortgage and investment calculators", "Listings sent to Bayut automatically", "Its own blog"], "A Dubai real estate brokerage, run live from its CRM"],
-    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"], "My first web project, an investment advisory led by image and video"],
-    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Passes and stay options", "Everything about the gathering on one page"], "A music and wellness gathering in Rishikesh"],
-    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait", "Editorial type", "The story behind the decks"], "A portfolio for a Delhi DJ and producer"],
-    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"], "A newer site for the same artist, built around the live sets"],
-    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records you can play", "Two characters, KAS5H and MØRF", "Press kit and bookings"], "A press kit for a Delhi selector with two aliases"],
-    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live voice, not a recording"], "A voice agent you talk to in the browser"]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "3D trade-route globe", "Quotation request desk", "English and Russian"], "A trading house site that works like a catalogue", "client"],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Live property listings from the CRM", "Sale and rent search with filters", "Property pages with gallery and enquiry", "Mortgage and investment calculators", "Listings sent to Bayut automatically", "Its own blog"], "A Dubai real estate brokerage, run live from its CRM", "client"],
+    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"], "My first web project, an investment advisory led by image and video", "client"],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Passes and stay options", "Everything about the gathering on one page"], "A music and wellness gathering in Rishikesh", "idea"],
+    ["hero_jinie", "Jinie Bhatnagar", "Image portfolio", "An image portfolio with 3D effects", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait", "3D WebGL effects", "Editorial type"], "An image portfolio built around one studio portrait, with 3D effects running underneath", "concept"],
+    ["hero_djjinie", "DJ Jinie", "DJ site", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"], "A DJ site built around the live sets", "concept"],
+    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records you can play", "Two characters, KAS5H and MØRF", "Press kit and bookings"], "A press kit for a Delhi selector with two aliases", "concept"],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live voice, not a recording"], "A voice agent you talk to in the browser", "product"]
   ];
+  var KIND = {
+    client: ["Client site_End to end", "A client site I built end to end: design, development and launch, all done by me"],
+    idea: ["Idea_Not launched", "An idea that never went live. Designed and built, then left on the shelf"],
+    concept: ["Concept", "A concept, made on my own and not commissioned. The names, music and images belong to their owners and appear here only to show the design"],
+    product: ["Product", "A product build, live and working"]
+  };
   var K = [
     ["kash_deck", "The record crate", "Sets", "His sets as records, each one plays on the page"],
     ["kash_press", "Press kit", "Press", "Photos and bio, ready for promoters in one go"],
@@ -319,9 +339,9 @@ main{position:relative;z-index:1}
   var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
     var a = document.createElement("a");
-    a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
+    a.className = "piece is-" + p[7]; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", " + p[2] + ". Show the details");
-    a.innerHTML = '<div class="pic">' + sliced(p[0]) + "</div>" +
+    a.innerHTML = '<div class="pic">' + sliced(p[0]) + '<span class="kind mono">' + KIND[p[7]][0] + "</span></div>" +
       '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>" ;
     a.addEventListener("click", function (e) {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
@@ -345,6 +365,9 @@ main{position:relative;z-index:1}
     q("[data-s-n]").textContent = String(i + 1).padStart(3, "0") + "/" + String(P.length).padStart(3, "0");
     q("[data-s-sector]").textContent = p[2];
     q("[data-s-name]").textContent = p[1];
+    q("[data-s-state]").textContent = { client: "Live", product: "Live", idea: "Idea", concept: "Concept" }[p[7]];
+    q("[data-s-open]").firstChild.nodeValue = p[7] === "client" || p[7] === "product" ? "Open the live site" : "Open the " + (p[7] === "idea" ? "idea" : "concept");
+    var sk = q("[data-s-kind]"); sk.innerHTML = '<b>' + KIND[p[7]][0] + "</b>" + KIND[p[7]][1]; sk.className = "sheet__kind mono is-" + p[7];
     q("[data-s-sum]").innerHTML = p[6].split(" ").map(function (w) { return '<span class="sw">' + w + "</span>"; }).join(" ");
     q("[data-s-url]").textContent = p[4].replace(/^https?:\/\//, "").replace(/\/$/, "");
     q("[data-s-rows]").innerHTML = '<div class="row"><p class="mono dim mk"><span>What it does</span></p>' +
@@ -368,6 +391,7 @@ main{position:relative;z-index:1}
       .fromTo(words, { opacity: 0, y: 10, color: "#a7a39c" }, { opacity: 1, y: 0, duration: .5 * d, ease: "expo.out", stagger: .012 * d }, .6 * d)
       .to(words, { color: "#050505", duration: .14 * d, stagger: .03 * d }, .8 * d)
       .fromTo(rows, { "--ln": 0 }, { "--ln": 1, duration: .9 * d, ease: "expo.out", stagger: .1 * d }, .7 * d)
+      .fromTo(sk, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, .95 * d)
       .fromTo(go, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, 1.1 * d);
   }
   function closeSheet() {
