@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#f8f6f2">
-<meta name="description" content="Omar — eight live websites, built in my free time with AI. Every one opens the real, running site">
+<meta name="description" content="Omar — a library of eight live websites, built in my free time with AI. Every one opens the real, running site">
 <link rel="canonical" href="https://omarjnbz.github.io/portfolio/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Omar">
 <meta property="og:title" content="Omar — Portfolio">
-<meta property="og:description" content="Eight live websites, built in my free time with AI. Every one opens the real, running site">
+<meta property="og:description" content="A library of eight live websites, built in my free time with AI">
 <meta property="og:url" content="https://omarjnbz.github.io/portfolio/">
 <meta property="og:image" content="https://omarjnbz.github.io/portfolio/og.png">
 <meta property="og:image:width" content="1200">
@@ -42,39 +42,30 @@ body.dark{--fg:var(--paper);--line:rgba(248,246,242,.14)}
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--paper);color:var(--fg);
-  font-family:var(--f-sans);font-size:1rem;line-height:1.4;
-  -webkit-font-smoothing:antialiased;
-  transition:color .5s;
-}
+body{margin:0;background:var(--paper);color:var(--fg);font-family:var(--f-sans);font-size:1rem;line-height:1.4;-webkit-font-smoothing:antialiased;transition:color .5s}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
+.mono{font-variant-numeric:slashed-zero;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;text-transform:uppercase;line-height:1.55}
+.dim{color:var(--grey)}
 
-/* ─── the start: black, a counter, then paper rises as a soft curve ─── */
-.pre{position:fixed;inset:0;z-index:200;background:var(--ink);color:var(--paper);overflow:hidden}
-.pre__n{position:absolute;left:var(--gutter);top:10vh;margin:0;font-size:clamp(4.5rem,13vw,14rem);font-weight:500;line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+/* ─── start: black, a centred counter, then paper rises as a soft curve ─── */
+.pre{position:fixed;inset:0;z-index:200;background:var(--ink);color:var(--paper);overflow:hidden;display:grid;place-items:center}
+.pre__c{text-align:center}
+.pre__n{display:block;font-size:clamp(3rem,7vw,6.5rem);font-weight:500;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums slashed-zero}
+.pre__l{display:block;margin-top:1rem;color:var(--grey)}
 .pre__wipe{position:absolute;left:-25vw;right:-25vw;top:100%;height:220vh;background:var(--paper);border-radius:50% 50% 0 0 / 24vh 24vh 0 0;box-shadow:0 -60px 120px 50px var(--paper);will-change:transform}
 .pre.done{display:none}
 body.loading .hdr{opacity:0}
-.hdr{transition:opacity .6s}
 
-/* the dark comes in as a soft edge that you scroll through, not a fade */
-.veil{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:linear-gradient(180deg,var(--paper) calc(var(--p) - 30%),var(--ink) calc(var(--p) + 22%));
-}
-/* the faint dashed column grid */
+/* the dark comes in as a soft edge you scroll through */
+.veil{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,var(--paper) calc(var(--p) - 30%),var(--ink) calc(var(--p) + 22%))}
 .grid{position:fixed;inset:0;z-index:0;pointer-events:none;padding-inline:var(--gutter);display:grid;grid-template-columns:repeat(12,1fr);opacity:.55}
 .grid i{border-left:1px dashed var(--line);transition:border-color .5s}
 .grid i:last-child{border-right:1px dashed var(--line)}
 @media (max-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.grid i:nth-child(n+5){display:none}}
 
-.mono{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.02em;text-transform:uppercase;line-height:1.5}
-.dim{color:var(--grey)}
-
 /* ─── header ─── */
-.hdr{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:.9rem var(--gutter);font-size:.6rem}
+.hdr{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:.9rem var(--gutter);font-size:.6rem;transition:opacity .6s}
 .hdr nav{display:flex;gap:clamp(1rem,2.2vw,2.2rem);align-items:center}
 .hdr nav a{position:relative;padding:.15rem 0}
 .hdr nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
@@ -84,202 +75,136 @@ body.dark .hdr .talk{color:var(--ink)}
 .hdr .talk::after{display:none}
 @media (max-width:560px){.hdr nav{gap:.9rem}}
 
+/* ─── every section is one screen, centred ─── */
 main{position:relative;z-index:1}
-.wrap{padding-inline:var(--gutter)}
-.cols{display:grid;grid-template-columns:repeat(12,1fr);column-gap:1.5rem}
+.screen{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5.5rem var(--gutter) 3rem;position:relative}
+.label{margin:0 0 clamp(.9rem,2vh,1.4rem)}
+.big{margin:0;font-size:clamp(2.6rem,6.2vw,6.8rem);font-weight:500;line-height:.95;letter-spacing:-.045em}
 
-/* ─── hero ─── */
-.hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:6rem;padding-bottom:1.4rem}
-.hero__name{grid-column:4 / 13;align-self:center;position:relative;font-size:clamp(6rem,21vw,25rem);font-weight:500;line-height:.86;letter-spacing:-.05em;margin:0;transform-origin:50% 100%}
-/* the name is drawn once more in vertical strips; each strip slides in from above or
-   below and lands, then the single plain copy takes over */
-.hero__name .base{display:block}
-.hero__name.on .base{visibility:hidden}
-.hero__name .strip{position:absolute;inset:0;display:none;will-change:transform;pointer-events:none}
-.hero__name.on .strip{display:block}
-.hero__name .tile{position:absolute;inset:0;display:none;will-change:transform,opacity;pointer-events:none}
-.hero__name.tiles .tile{display:block}
-.hero__sub{grid-column:4 / 11;margin:clamp(2.4rem,6vh,4rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
-.hero__sub .dim{font-weight:500}
-.hero__meta{grid-column:4 / 13;margin-top:1.4rem;display:flex;gap:2rem}
-.hero__foot{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;margin-top:clamp(3rem,10vh,8rem)}
+/* water: text is drawn through a moving noise field that calms to nothing */
+.wv{opacity:0}
+[data-w]{display:inline-block}
+/* caption-style highlight: each word of a statement lights up in turn as you scroll */
+.cw{transition:color .25s}
+
+/* hero */
+.hero__name{margin:0;font-size:clamp(6rem,24vw,27rem);font-weight:500;line-height:.82;letter-spacing:-.055em;cursor:default}
+.hero__sub{margin:clamp(1.6rem,4vh,2.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
+.hero__meta{margin:1.2rem 0 0;display:flex;gap:2rem;justify-content:center}
+.hero__foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;justify-content:space-between;align-items:flex-end}
 .hero__foot a:hover{opacity:.5}
-@media (max-width:760px){
-  .hero__name,.hero__sub,.hero__meta{grid-column:1 / -1}
-  .hero__name{font-size:clamp(4.6rem,30vw,10rem)}
-  .hero__foot{flex-direction:column;align-items:flex-start}
-}
+@media (max-width:760px){.hero__meta{flex-direction:column;gap:.2rem}}
 
-/* ─── section titles: hollow, then filled ─── */
-.title{margin:0;font-size:clamp(3rem,7.4vw,8rem);font-weight:500;line-height:.92;letter-spacing:-.04em;display:flex;align-items:flex-start;gap:.35em;transform-origin:0 100%}
-.title .n{font:300 .11em var(--f-mono);letter-spacing:.02em;color:var(--grey);padding-top:1.6em}
-.title .w{color:transparent;-webkit-text-stroke:1px var(--fg);transition:color .5s,-webkit-text-stroke-color .5s}
-.title .w.in{color:var(--fg)}
-
-/* ─── work ─── */
-.work{padding-block:clamp(6rem,14vh,10rem) clamp(3rem,8vh,6rem)}
-.work .cols{row-gap:clamp(5rem,14vh,11rem);margin-top:clamp(3rem,8vh,5rem)}
+/* work: all eight on one screen, 4 by 2 */
+.works{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,1.8vw,1.8rem);width:min(100%,1320px);margin-top:clamp(1.6rem,4vh,2.8rem);text-align:left}
 .piece{position:relative;display:block}
-.piece:nth-child(odd){grid-column:1 / 7}
-.piece:nth-child(even){grid-column:8 / 13;margin-top:clamp(6rem,18vh,14rem)}
-.piece:nth-child(4n+3){grid-column:2 / 7}
-.piece:nth-child(4n){grid-column:7 / 12}
-.piece .cap{margin-top:.7rem;display:grid;grid-template-columns:1fr auto;gap:.25rem 1.2rem}
+.piece .cap{margin-top:.55rem;display:flex;justify-content:space-between;gap:.8rem}
 .piece .cap b{font-weight:400}
-.piece .cap .line{grid-column:1 / -1;max-width:46ch}
-@media (max-width:760px){.piece,.piece:nth-child(n){grid-column:1 / -1;margin-top:0}}
+.piece .info{position:absolute;inset:0;display:flex;align-items:flex-end;padding:.8rem;background:linear-gradient(180deg,rgba(5,5,5,0) 30%,rgba(5,5,5,.86));color:var(--paper);opacity:0;transition:opacity .45s var(--ease);pointer-events:none}
+@media (hover:hover){.piece:hover .info{opacity:1}}
+@media (max-width:980px){.works{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* each image is cut into strips; they land one after another, and breathe on hover */
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
 .slice i{flex:1 0 0;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
 .slice.in i{transform:none;transition:transform .9s var(--ease)}
 .slice.in i:nth-child(n){transition-delay:calc(var(--d) * 45ms)}
-@media (hover:hover){
-  .piece:hover .slice.in i{transition:transform .6s var(--ease);transition-delay:calc(var(--d) * 18ms)}
-  .piece:hover .slice.in i:nth-child(odd){transform:translateY(-2.2%) scaleY(1.045)}
-  .piece:hover .slice.in i:nth-child(even){transform:translateY(2.2%) scaleY(1.045)}
-}
 
-.see{display:inline-block;margin-top:clamp(4rem,10vh,7rem);background:var(--fg);color:var(--paper);padding:.3rem .5rem;transition:background .5s,color .5s}
-body.dark .see{color:var(--ink)}
+/* about: one screen, small, centred */
+.about__pic{width:clamp(9rem,17vw,15rem);aspect-ratio:1;margin:0 0 clamp(1.4rem,3.5vh,2.2rem);overflow:hidden;background:#111}
+.about__pic img{width:100%;height:100%;object-fit:cover}
+.about .big{max-width:20ch}
+.about__copy{margin:clamp(1.4rem,3.5vh,2.2rem) auto 0;max-width:46ch}
+.about__copy p{margin:0 0 .9rem}
 
-/* ─── about: one huge statement, then the photo holds while the story scrolls past ─── */
-.about{padding-block:clamp(5rem,12vh,9rem) clamp(6rem,14vh,10rem)}
-.eye{margin:0 0 clamp(1.2rem,3vh,2rem)}
-.big{margin:0;max-width:none;font-size:clamp(2.4rem,6.3vw,7rem);font-weight:500;line-height:.96;letter-spacing:-.045em;transform-origin:0 100%}
-.about__dual{margin-top:clamp(7rem,18vh,13rem);align-items:start}
-.about__pic{grid-column:1 / 5;margin:0;position:sticky;top:5.5rem;background:#111}
-.about__pic .slice{aspect-ratio:1}
-.about__pic .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);color:var(--ink);padding:.3rem .5rem}
-.about__pic .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);color:var(--ink);padding:.3rem .5rem}
-.about__text{grid-column:6 / 12;padding-top:clamp(2rem,10vh,8rem)}
-.about__text p{margin:0 0 clamp(1.6rem,4vh,2.6rem);font-size:clamp(1.1rem,1.5vw,1.45rem);font-weight:500;line-height:1.3;letter-spacing:-.015em}
-.about__text p.mono{font-size:.68rem;font-weight:400;letter-spacing:.02em;line-height:1.5;margin-top:clamp(3rem,8vh,5rem)}
-.about__text a{border-bottom:1px solid currentColor}
-.about__text a:hover{opacity:.5}
-@media (max-width:760px){
-  .big{font-size:clamp(2.2rem,9.5vw,4rem)}
-  .about__pic,.about__text{grid-column:1 / -1}
-  .about__pic{position:static;aspect-ratio:4/5;max-width:70%}
-  .about__text{padding-top:2.5rem}
-}
-
-/* ─── latest work: one site, walked through top to bottom ─── */
-.case{padding-block:clamp(6rem,16vh,12rem) clamp(4rem,10vh,8rem)}
-
-.case__frames{margin-top:clamp(3rem,8vh,5rem)}
-.frame{position:relative;display:block}
-.case__frames{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(1.5rem,4vw,4rem);row-gap:clamp(3rem,7vh,5rem);max-width:min(100%,1040px)}
-.frame{position:relative;display:block}
-.frame .cap{margin-top:.7rem;display:grid;grid-template-columns:1fr auto;gap:.25rem 1.2rem}
+/* latest work: one screen, 2 by 2 on its own panel */
+.latest .big{font-size:clamp(2rem,4.2vw,4.6rem)}
+.panel{margin-top:clamp(1.2rem,3vh,2rem);width:min(100%,760px,96vh);padding:clamp(.9rem,1.6vw,1.4rem);background:#1b1916;border:1px solid rgba(248,246,242,.1);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.9rem,1.6vw,1.4rem);text-align:left}
+.frame{display:block}
+.frame .cap{margin-top:.5rem;display:flex;justify-content:space-between;gap:.8rem}
 .frame .cap b{font-weight:400}
-.frame .cap .line{grid-column:1 / -1;max-width:46ch}
-@media (max-width:760px){.case__frames{grid-template-columns:1fr}}
+.frame .line{margin:.15rem 0 0}
+.latest__open{margin-top:clamp(1rem,2.4vh,1.6rem)}
+.latest__open:hover{opacity:.5}
+@media (max-width:760px){.panel{grid-template-columns:1fr}}
 
-/* ─── touch: the big line is drawn in horizontal bands that ripple ─── */
-.touch{padding-block:clamp(6rem,16vh,12rem) clamp(3rem,6vh,4rem);overflow:hidden}
-.touch__ask{margin:0 0 clamp(1.5rem,4vh,3rem);max-width:40ch;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;letter-spacing:-.015em;line-height:1.25}
-.rip{position:relative;display:block;margin:0 calc(var(--gutter) * -1);padding-inline:var(--gutter);font-size:clamp(4rem,17vw,21rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap;cursor:pointer}
-.rip__base{display:block;transition:opacity .2s}
+/* get in touch */
+.touch__sub{margin:clamp(1rem,2.5vh,1.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;letter-spacing:-.015em}
+.rip{position:relative;display:inline-block;font-size:clamp(4rem,16vw,19rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap;cursor:pointer}
+.rip__base{display:block}
 .rip.on .rip__base{opacity:0}
-.rip__band{position:absolute;inset:0;padding-inline:inherit;display:none;will-change:transform;pointer-events:none}
+.rip__band{position:absolute;inset:0;display:none;will-change:transform;pointer-events:none}
 .rip.on .rip__band{display:block}
-.touch__row{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:clamp(1.5rem,4vh,2.5rem)}
-.touch__row .see{margin-top:0}
-.foot{margin-top:clamp(5rem,14vh,9rem)}
-.foot .mono{line-height:1.7}
-.foot .mono a:hover{opacity:.5}
-.foot .l1{grid-column:7 / 10}.foot .l2{grid-column:10 / 13}
-.foot .cred{grid-column:7 / 13;margin-top:2.4rem}
-.foot .cred b{font-weight:400;color:var(--fg)}
-.foot .copy{grid-column:7 / 13;margin-top:2.2rem}
-@media (max-width:760px){.foot .l1,.foot .l2,.foot .cred,.foot .copy{grid-column:1 / -1}.foot .l2{margin-top:.6rem}}
-
-.wd{display:inline-block;white-space:nowrap}
-.ch{display:inline-block;white-space:pre}
-[data-decode],[data-decode-once]{transition:translate .9s var(--ease)}
-.hush{visibility:hidden;translate:0 22px}
-.lit .ch{color:var(--grey);transition:color .35s}
-.lit .ch.ok{color:inherit}
-/* labels sharpen under the pointer and re-decode */
-.hot{color:var(--fg)!important;font-weight:500}
+.foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 2rem}
+.foot a:hover{opacity:.5}
+.foot b{font-weight:400;color:var(--fg)}
 
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .slice i{transform:none!important}
-  .title .w{color:var(--fg)}
+  .wv{opacity:1}
 }
 </style>
 </head>
 <body class="loading">
-<div class="pre" aria-hidden="true" data-pre><span class="pre__n" data-counter>000</span><div class="pre__wipe"></div></div>
+<div class="pre" aria-hidden="true" data-pre>
+  <div class="pre__c"><span class="pre__n" data-counter>000</span><span class="pre__l mono">Omar_Portfolio</span></div>
+  <div class="pre__wipe"></div>
+</div>
 <div class="veil" aria-hidden="true"></div>
 <div class="grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
 <header class="hdr mono">
-  <a href="#top" class="dim" data-decode><span data-clock>--:--</span></a>
+  <a href="#top" class="dim"><span data-clock>--:--</span></a>
   <nav>
-    <a href="#work" data-decode>Portfolio</a>
-    <a href="#about" data-decode>About</a>
-    <a class="talk" href="mailto:Omarjnbz@gmail.com" data-decode>Lets talk</a>
+    <a href="#work">Portfolio</a>
+    <a href="#about">About</a>
+    <a class="talk" href="#contact">Lets talk</a>
   </nav>
 </header>
 
 <main id="top">
 
-  <section class="hero wrap">
-    <div class="cols">
-      <h1 class="hero__name" data-warp><span class="base" data-decode>Omar</span></h1>
-      <p class="hero__sub" data-rise>A library of websites, built in my free time<br><span class="dim">Explore ideas and build them</span></p>
-      <p class="hero__meta mono dim"><span data-decode>Portfolio_26</span><span data-decode>Eight sites_All live</span></p>
-    </div>
+  <section class="screen hero">
+    <h1 class="hero__name" data-w data-hero>Omar</h1>
+    <p class="hero__sub" data-w data-hero>A library of websites, built in my free time<br><span class="dim">Explore ideas and build them</span></p>
+    <p class="hero__meta mono dim" data-w data-hero><span>Portfolio_26</span><span>Eight sites_All live</span></p>
     <div class="hero__foot mono">
-      <span class="dim" data-decode>[Scroll to explore]</span>
-      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode>Instagram ↗</a>
+      <span class="dim" data-w data-hero>[Scroll to explore]</span>
+      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Instagram ↗</a>
     </div>
   </section>
 
-  <section class="work wrap" id="work">
-    <h2 class="title" data-warp><span class="w" data-fill>Featured works</span><span class="n">[008]</span></h2>
-    <div class="cols" id="pieces"></div>
+  <section class="screen" id="work">
+    <p class="label mono dim" data-w>Portfolio_008</p>
+    <h2 class="big" data-w>Featured works</h2>
+    <div class="works" id="pieces"></div>
   </section>
 
-  <section class="about wrap" id="about">
-    <p class="eye mono dim" data-decode-once>About_Omar</p>
-    <h2 class="big" data-decode-once data-warp>Explore my ideas, built with AI. Every site here is finished properly and opens the real, running thing.</h2>
-    <div class="cols about__dual">
-      <figure class="about__pic" data-photo></figure>
-      <div class="about__text">
-        <p data-decode-once>I design and build websites in my free time. Each one starts as an idea I want to see working, and ends as a live site: designed, coded and launched, with the admin tools behind it when a client needs them.</p>
-        <p data-decode-once>The work so far covers <span class="dim">commodity trading, real estate, a festival, two DJs and a voice agent</span>. Some run on a full CMS, one on Zoho CRM, all of them in production.</p>
-        <p data-decode-once>Everything is done properly, at the highest level, and every link on this page opens the real site. If you have an idea, I'm ready to build it. <a href="mailto:Omarjnbz@gmail.com">Get in touch ↗</a></p>
-        <p class="mono dim" data-decode-once>Eight sites_All live_2024–26</p>
-      </div>
+  <section class="screen about" id="about">
+    <figure class="about__pic" data-w><img src="img/omar.jpg" alt="Omar"></figure>
+    <p class="label mono dim" data-w>About_Omar</p>
+    <h2 class="big" data-w data-caption>I explore ideas and build them into websites</h2>
+    <div class="about__copy mono">
+      <p data-w>Web designer in Dubai. In my free time I take an idea and turn it into a live site, designed, built and launched with AI, finished properly at the highest level.</p>
+      <p class="dim" data-w>Commodity trading_Real estate_A festival_Two DJs_A voice agent</p>
     </div>
   </section>
 
-  <section class="case wrap" id="latest">
-    <p class="eye mono dim" data-decode-once>Latest work_KAS5H</p>
-    <h2 class="big" data-decode-once data-warp>This is my latest work</h2>
-    <div class="cols case__frames" id="frames"></div>
-    <a class="see mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-decode-once>Open the site ↗</a>
+  <section class="screen latest" id="latest">
+    <p class="label mono dim" data-w>Latest work_KAS5H</p>
+    <h2 class="big" data-w data-caption>This is my latest work</h2>
+    <div class="panel" id="frames"></div>
+    <a class="latest__open mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-w>Open the site ↗</a>
   </section>
 
-  <section class="touch wrap" id="contact">
-    <p class="touch__ask" data-decode-once>Get in touch with me<br><span class="dim">I'm ready to build anything</span></p>
-    <a class="rip" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-rip><span class="rip__base" data-decode-once>Get in touch</span></a>
-    <div class="touch__row">
-      <a class="see mono" href="#latest" data-decode-once>Check my latest work ↓</a>
-      <a class="see mono" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode-once>Message on Instagram ↗</a>
-    </div>
-    <div class="foot cols mono">
-      <div class="l1">
-        <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode-once>Instagram ↗</a><br>
-        <a href="mailto:Omarjnbz@gmail.com" data-decode-once>Email ↗</a>
-      </div>
-      <div class="l2 dim" data-decode-once>Direct inquiry_Instagram<br>Coming_SoundCloud player, follow and more</div>
-      <p class="cred dim" data-decode-once>Designed by_<b>Omar</b><br>Developed by_<b>Omar</b></p>
-      <p class="copy dim" data-decode-once>©2026_All rights reserved</p>
+  <section class="screen touch" id="contact">
+    <p class="label mono dim" data-w>Contact</p>
+    <a class="rip" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-rip><span class="rip__base" data-w>Get in touch</span></a>
+    <p class="touch__sub" data-w>I'm ready to build anything<br><span class="dim">Message me on Instagram</span></p>
+    <div class="foot mono">
+      <span><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram ↗</a>&nbsp;&nbsp;&nbsp;<a href="mailto:Omarjnbz@gmail.com" data-w>Email ↗</a></span>
+      <span class="dim" data-w>Coming_SoundCloud player, follow and more</span>
+      <span class="dim" data-w>©2026_Designed by <b>Omar</b></span>
     </div>
   </section>
 
@@ -293,155 +218,58 @@ body.dark .see{color:var(--ink)}
   var touch = matchMedia("(hover:none)").matches;
   var hasGsap = !!(window.gsap && window.ScrollTrigger);
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+  var animate = hasGsap && !reduced;
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce for agricultural commodities with a full admin panel CMS behind it: catalogue, spec sheets, trade-corridor map and quotation desk, in English and Russian", "https://arminakcaravantrading.com/"],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and running in production, with strong assets and a full video playing in the hero", "https://www.arianaintegrity.com/"],
-    ["hero_nurelite", "Nur Elite Properties", "Real estate", "My first web project. Global investment advisory, led by image and video, with a large off-market collection", "https://nurelite.properties/"],
-    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh: illustrated hills and pass booking always in reach", "https://unheard-f.vercel.app/"],
-    ["hero_jinie", "Jinie Bhatnagar", "Artist portfolio", "Portfolio for a DJ and producer, Delhi to the world, with a full-screen studio portrait", "https://omarjnbz.github.io/Jinie-Portfolio/"],
-    ["hero_djjinie", "DJ Jinie", "Artist site", "The newer site: a live set behind the hero, a playable music library and booking on one page", "https://jinie.vercel.app/"],
-    ["hero_kash", "KAS5H", "Press kit", "Press kit for a Delhi selector and producer: UK garage, house and techno, with SoundCloud up front", "https://kas5h.vercel.app/"],
-    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser. Press Start, speak, and it answers in 95+ languages", "https://bng-eva.vercel.app"]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/"],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/"],
+    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/"],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/"],
+    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/"],
+    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/"],
+    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/"],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app"]
   ];
-  var STRIPS = touch ? 8 : 14;
-  function sliced(file) {
-    var s = '<div class="slice" aria-hidden="true">';
-    for (var k = 0; k < STRIPS; k++) {
-      s += '<i style="--d:' + k + ';background-image:url(img/' + (touch ? "sm/" : "") + file + '.jpg);background-position:' + (k / (STRIPS - 1) * 100) + '% 0"></i>';
-    }
-    return s + "</div>";
-  }
-  var sio = ("IntersectionObserver" in window && !reduced) ? new IntersectionObserver(function (es) {
+  var K = [
+    ["kash_deck", "The record crate", "Sets", "His sets as records, each one plays on the page"],
+    ["kash_press", "Press kit", "Press", "Photos and bio, ready for promoters in one go"],
+    ["kash_signals", "Two characters", "Aliases", "KAS5H the groove side, MØRF the pressure side"],
+    ["kash_footer", "Bookings", "Footer", "Every link a promoter needs, in one block"]
+  ];
+  var STRIPS = touch ? 6 : 10;
+  var sio = ("IntersectionObserver" in window && animate) ? new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); sio.unobserve(e.target); } });
   }, { threshold: .2 }) : null;
-  function sliceWatch(el) { if (sio) sio.observe(el); else el.classList.add("in"); }
+  function sliced(file) {
+    var s = '<div class="slice" aria-hidden="true">';
+    for (var k = 0; k < STRIPS; k++) s += '<i style="--d:' + k + ';background-image:url(img/' + (touch ? "sm/" : "") + file + '.jpg);background-position:' + (k / (STRIPS - 1) * 100) + '% 0"></i>';
+    return s + "</div>";
+  }
+  function watchSlice(root) { var el = root.querySelector(".slice"); if (sio) sio.observe(el); else el.classList.add("in"); }
+
   var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
     var a = document.createElement("a");
     a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
-    a.setAttribute("aria-label", p[1] + ", opens the live site in a new tab");
-    a.innerHTML = sliced(p[0]) +
-      '<div class="cap mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + '</span><span class="line dim">' + p[3] + "</span></div>";
-    pieces.appendChild(a);
-    sliceWatch(a.querySelector(".slice"));
+    a.setAttribute("aria-label", p[1] + ", " + p[3] + ". Opens the live site in a new tab");
+    a.innerHTML = '<div style="position:relative">' + sliced(p[0]) + '<span class="info mono">' + p[3] + "</span></div>" +
+      '<div class="cap mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>";
+    pieces.appendChild(a); watchSlice(a);
   });
-
-  /* ── the latest build, section by section ── */
-  var K = [
-    ["kash_deck", "The record crate", "Sets", "His sets as records: each one plays here, with the tracklist, before you ever leave the page"],
-    ["kash_press", "Press & promo kit", "Press", "Photos, posters and the bio, packaged for promoters to download in one go"],
-    ["kash_booth", "In the booth", "About", "The bio, with him playing live beside it"],
-    ["kash_signals", "Two signals", "Aliases", "The two characters he plays as: KAS5H, the groove side, and MØRF, the pressure side"],
-    ["kash_book", "What he's for", "Booking", "DJ sets, mixes, curation and sets, with the contacts for each"],
-    ["kash_footer", "The sign-off", "Footer", "Bookings in one block, in the orange, with every link a promoter needs"]
-  ];
-  /* the portrait: sliced like the site shots. Uses img/omar.jpg the moment that
-     file exists; until then a placeholder, so nothing on the page breaks. */
-  (function photo() {
-    var fig = document.querySelector("[data-photo]"), probe = new Image();
-    function set(file, note) {
-      fig.innerHTML = sliced(file) + (note ? '<span class="tag mono">' + note + "</span>" : "");
-      fig.querySelector(".slice").style.aspectRatio = "1";
-      sliceWatch(fig.querySelector(".slice"));
-    }
-    probe.onload = function () { set("omar"); };
-    probe.onerror = function () { set("kash_booth", "Photo_Coming soon"); };
-    probe.src = "img/omar.jpg";
-  })();
-
   var frames = document.getElementById("frames");
   K.forEach(function (k, i) {
     var a = document.createElement("a");
     a.className = "frame"; a.href = "https://kas5h.vercel.app/"; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", "KAS5H, " + k[1] + ". Opens the live site in a new tab");
-    a.innerHTML = sliced(k[0]) +
-      '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span><span class="line dim">' + k[3] + "</span></div>";
-    frames.appendChild(a);
-    sliceWatch(a.querySelector(".slice"));
+    a.innerHTML = sliced(k[0]) + '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span></div><p class="line mono dim">' + k[3] + "</p>";
+    frames.appendChild(a); watchSlice(a);
   });
 
-  /* ── clock, Dubai time ── */
+  /* ── clock ── */
   var clockEl = document.querySelector("[data-clock]");
-  function clock() {
-    clockEl.textContent = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Dubai" }).format(new Date());
-  }
+  function clock() { clockEl.textContent = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Dubai" }).format(new Date()); }
   clock(); setInterval(clock, 20000);
-
-  /* ── decode: letters cycle through symbols, then settle ── */
-  var GLYPHS = "##·$%&/=€|()@+09*+]}{[";
-  function wrap(el) {
-    if (el.dataset.wrapped) return;
-    el.dataset.wrapped = "1";
-    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(function (n) {
-      if (!n.textContent.trim()) return;
-      var frag = document.createDocumentFragment();
-      n.textContent.split(/(\s+)/).forEach(function (part) {
-        if (!part) return;
-        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
-        var w = document.createElement("span");
-        w.className = "wd";
-        part.split("").forEach(function (c) {
-          var s = document.createElement("span");
-          s.className = "ch"; s.textContent = c; s.dataset.c = c;
-          w.appendChild(s);
-        });
-        frag.appendChild(w);
-      });
-      n.parentNode.replaceChild(frag, n);
-    });
-  }
-  function decode(el, opts) {
-    opts = opts || {};
-    wrap(el);
-    var chars = [].slice.call(el.querySelectorAll(".ch")).filter(function (s) { return s.dataset.c.trim(); });
-    if (reduced || !chars.length) { el.classList.remove("hush"); return; }
-    var per = opts.per || 28, hold = opts.hold || 420, t0 = performance.now();
-    chars.forEach(function (s, i) { s.dataset.t = t0 + i * per; s.textContent = GLYPHS[Math.random() * GLYPHS.length | 0]; s.classList.remove("ok"); });
-    el.classList.add("lit");
-    el.classList.remove("hush");
-    (function tick(now) {
-      var live = false;
-      chars.forEach(function (s) {
-        var end = +s.dataset.t + hold;
-        if (now >= end) { if (s.textContent !== s.dataset.c) s.textContent = s.dataset.c; s.classList.add("ok"); }
-        else { live = true; if (now >= +s.dataset.t && (now * 7 | 0) % 2) s.textContent = GLYPHS[Math.random() * GLYPHS.length | 0]; }
-      });
-      if (live) requestAnimationFrame(tick); else el.classList.remove("lit");
-    })(t0);
-  }
-  var onLoad = [].slice.call(document.querySelectorAll("[data-decode]"));
-  onLoad.forEach(function (el) { wrap(el); el.classList.add("hush"); });
-  var later = [].slice.call(document.querySelectorAll("[data-decode-once]"));
-  later.forEach(function (el) { wrap(el); el.classList.add("hush"); });
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        io.unobserve(e.target);
-        decode(e.target, e.target.matches(".big") ? { per: 14, hold: 520 } : e.target.matches(".rip__base") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
-      });
-    }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
-    later.forEach(function (el) { io.observe(el); });
-    var sweeping = false;
-    function sweep() {
-      sweeping = false;
-      var atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 2;
-      later = later.filter(function (el) {
-        if (!el.classList.contains("hush")) return false;
-        if (atEnd || el.getBoundingClientRect().top < innerHeight * .96) { io.unobserve(el); decode(el, { per: 10, hold: 320 }); return false; }
-        return true;
-      });
-      if (!later.length) removeEventListener("scroll", onScroll);
-    }
-    function onScroll() { if (!sweeping) { sweeping = true; requestAnimationFrame(sweep); } }
-    addEventListener("scroll", onScroll, { passive: true });
-  } else later.forEach(function (el) { el.classList.remove("hush"); });
-
-  /* ── images land strip by strip ── */
 
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
@@ -451,99 +279,93 @@ body.dark .see{color:var(--ink)}
     });
   });
 
-  if (!touch && !reduced) {
-    var all = [].slice.call(document.querySelectorAll("[data-decode], [data-decode-once]"));
-    all.forEach(function (el) {
-      el.addEventListener("pointerenter", function () {
-        if (el.classList.contains("hush")) return;
-        el.classList.add("hot");
-        decode(el, el.classList.contains("mono") || el.closest(".mono") ? { per: 8, hold: 200 } : { per: 3, hold: 160 });
-      });
-      el.addEventListener("pointerleave", function () { el.classList.remove("hot"); });
-    });
-    /* the small labels never quite sit still: every few seconds one of them re-writes itself */
-    var labels = all.filter(function (el) { return el.classList.contains("mono") || el.closest(".mono"); });
-    setInterval(function () {
-      if (document.hidden) return;
-      var vis = labels.filter(function (el) { var r = el.getBoundingClientRect(); return !el.classList.contains("hush") && r.bottom > 0 && r.top < innerHeight; });
-      if (vis.length) decode(vis[Math.random() * vis.length | 0], { per: 10, hold: 180 });
-    }, 2600);
-  }
-
-  if (reduced || !hasGsap) {
-    document.body.classList.remove("loading");
-    var preEl = document.querySelector("[data-pre]"); if (preEl) preEl.classList.add("done");
-    onLoad.forEach(function (el) { el.classList.remove("hush"); });
-    document.body.classList.add("dark");
+  var pre = document.querySelector("[data-pre]");
+  if (!animate) {
+    pre.classList.add("done"); document.body.classList.remove("loading"); document.body.classList.add("dark");
     document.documentElement.style.setProperty("--p", "-30%");
-    document.querySelectorAll("[data-fill]").forEach(function (w) { w.classList.add("in"); });
     return;
   }
 
-  /* ── intro: the name rises letter by letter while it decodes; the lines follow ── */
-  var nameEl = document.querySelector(".hero__name"), nameBusy = false;
-  function nameStrips(spread, dur, delay) {
-    if (nameBusy) return; nameBusy = true;
-    var n = touch ? 10 : 22, strips = [];
-    for (var i = 0; i < n; i++) {
-      var el = document.createElement("span");
-      el.className = "strip"; el.setAttribute("aria-hidden", "true"); el.textContent = "Omar";
-      el.style.clipPath = "inset(0 " + (100 - (i + 1) / n * 100).toFixed(3) + "% 0 " + (i / n * 100).toFixed(3) + "%)";
-      nameEl.appendChild(el); strips.push(el);
-    }
-    nameEl.classList.add("on");
-    gsap.fromTo(strips,
-      { yPercent: function (i) { return (i % 2 ? 1 : -1) * (spread * .6 + ((i * 37) % spread)); }, opacity: spread > 30 ? 0 : 1 },
-      { yPercent: 0, opacity: 1, duration: dur, ease: "expo.out", delay: delay,
-        stagger: { each: dur * .032, from: "center" },
-        onComplete: function () { nameEl.classList.remove("on"); strips.forEach(function (e) { e.remove(); }); nameBusy = false; } });
+  /* ── water ──
+     Each block of text is drawn through an SVG noise field (feTurbulence) that
+     displaces it like a surface of water. On arrival the field starts strong and
+     calms to nothing while the text fades up; on hover a ripple runs through it
+     and settles. One filter per element, removed once the text is still. */
+  var NS = "http://www.w3.org/2000/svg", defs = document.createElementNS(NS, "svg"), fid = 0;
+  defs.setAttribute("width", "0"); defs.setAttribute("height", "0"); defs.setAttribute("aria-hidden", "true");
+  defs.style.position = "absolute"; document.body.appendChild(defs);
+  function field(el) {
+    var fs = parseFloat(getComputedStyle(el).fontSize) || 16;
+    if (el.tagName === "FIGURE") fs = el.offsetWidth / 4;
+    var id = "w" + (fid++), f = document.createElementNS(NS, "filter");
+    f.setAttribute("id", id); f.setAttribute("x", "-10%"); f.setAttribute("y", "-30%"); f.setAttribute("width", "120%"); f.setAttribute("height", "160%");
+    var t = document.createElementNS(NS, "feTurbulence");
+    t.setAttribute("type", "fractalNoise"); t.setAttribute("numOctaves", "2"); t.setAttribute("seed", String(Math.random() * 90 | 0));
+    var d = document.createElementNS(NS, "feDisplacementMap");
+    d.setAttribute("in", "SourceGraphic"); d.setAttribute("xChannelSelector", "R"); d.setAttribute("yChannelSelector", "G"); d.setAttribute("scale", "0");
+    f.appendChild(t); f.appendChild(d); defs.appendChild(f);
+    el.style.filter = "url(#" + id + ")";
+    var fx = Math.min(.06, 1.1 / fs), fy = Math.min(.24, 4.4 / fs);
+    return {
+      fs: fs,
+      set: function (s, k) { d.setAttribute("scale", s.toFixed(2)); t.setAttribute("baseFrequency", (fx * (1 + k * .5)).toFixed(4) + " " + (fy * (1 - k * .35)).toFixed(4)); },
+      end: function () { el.style.filter = ""; f.remove(); }
+    };
   }
-  /* hover: the name breaks into tiles that jump and partly grey out, then snap back */
-  function nameTiles() {
-    if (nameBusy) return; nameBusy = true;
-    var cols = 12, rows = 3, tiles = [];
-    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
-      var el = document.createElement("span");
-      el.className = "tile"; el.setAttribute("aria-hidden", "true"); el.textContent = "Omar";
-      el.style.clipPath = "inset(" + (r / rows * 100).toFixed(2) + "% " + (100 - (c + 1) / cols * 100).toFixed(2) + "% " + (100 - (r + 1) / rows * 100).toFixed(2) + "% " + (c / cols * 100).toFixed(2) + "%)";
-      nameEl.appendChild(el); tiles.push(el);
-    }
-    nameEl.classList.add("tiles"); nameEl.classList.add("on");
-    var tl = gsap.timeline({ onComplete: function () { nameEl.classList.remove("tiles"); nameEl.classList.remove("on"); tiles.forEach(function (e) { e.remove(); }); nameBusy = false; } });
-    tiles.forEach(function (t) {
-      if (Math.random() > .55) return;
-      var dx = (Math.random() - .5) * 6, dy = (Math.random() - .5) * 26, grey = Math.random() < .3;
-      tl.to(t, { xPercent: dx, yPercent: dy, opacity: grey ? .35 : 1, duration: .08, ease: "steps(1)" }, Math.random() * .22)
-        .to(t, { xPercent: dx * .4, yPercent: dy * -.6, opacity: 1, duration: .1, ease: "steps(1)" }, ">" + (Math.random() * .12))
-        .to(t, { xPercent: 0, yPercent: 0, opacity: 1, duration: .35, ease: "expo.out" }, ">" + (Math.random() * .1));
-    });
+  function waterIn(el, delay) {
+    if (el._w) return; el._w = 1;
+    var w = field(el), st = { s: Math.min(140, w.fs * .9), k: 0 };
+    w.set(st.s, 0);
+    gsap.timeline({ delay: delay || 0, onComplete: function () { w.end(); el._w = 0; } })
+      .fromTo(el, { opacity: 0, y: Math.min(28, w.fs * .25) }, { opacity: 1, y: 0, duration: 1.1, ease: "power2.out" }, 0)
+      .to(st, { s: 0, k: 1, duration: 1.6, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } }, 0);
+    el.classList.remove("wv");
   }
-  function beginHero() {
-    document.body.classList.remove("loading");
-    nameStrips(50, 1.4, .2);
-    onLoad.forEach(function (el, i) {
-      var big = el.classList.contains("base");
-      setTimeout(function () { decode(el, big ? { per: 90, hold: 600 } : { per: 22, hold: 380 }); }, big ? 1500 : 160 + i * 90);
-    });
-    gsap.from("[data-rise]", { y: 28, opacity: 0, duration: 1.1, ease: "power3.out", delay: .75 });
-    gsap.from(".hero__meta, .hero__foot", { opacity: 0, duration: .9, delay: 1.1, stagger: .15 });
+  function ripple(el) {
+    if (el._w || el.classList.contains("wv")) return; el._w = 1;
+    var w = field(el), st = { s: 0, k: 0 }, peak = Math.min(48, w.fs * .32);
+    gsap.timeline({ onComplete: function () { w.end(); el._w = 0; } })
+      .to(st, { s: peak, k: .5, duration: .22, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } })
+      .to(st, { s: 0, k: 1, duration: 1.2, ease: "power3.out", onUpdate: function () { w.set(st.s, st.k); } });
   }
-  if (!touch) nameEl.addEventListener("pointerenter", nameTiles);
 
-  /* ── the start: count to 100, then paper sweeps the black away, then the hero ── */
+  var waters = [].slice.call(document.querySelectorAll("[data-w]"));
+  waters.forEach(function (el) { el.classList.add("wv"); });
+  var heroW = waters.filter(function (el) { return el.hasAttribute("data-hero"); });
+  var restW = waters.filter(function (el) { return !el.hasAttribute("data-hero"); });
+  var wio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { wio.unobserve(e.target); waterIn(e.target); } });
+  }, { threshold: 0 });
+  if (!touch) waters.forEach(function (el) { el.addEventListener("pointerenter", function () { ripple(el); }); });
+
+  /* ── caption highlight (from the captions skill: word-by-word, TikTok-style) ──
+     The big statements are split into words; each word turns from grey to full
+     colour in order as the statement moves up the screen. */
+  document.querySelectorAll("[data-caption]").forEach(function (el) {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map(function (w) { return '<span class="cw">' + w + "</span>"; }).join(" ");
+    var words = el.querySelectorAll(".cw");
+    gsap.fromTo(words, { color: "#5c5a56" }, { color: "inherit", ease: "none", stagger: .3,
+      scrollTrigger: { trigger: el, start: "top 78%", end: "bottom 45%", scrub: .4 } });
+  });
+
+  /* ── the start: count to 100, paper sweeps the black away, the hero surfaces ── */
   (function start() {
-    var pre = document.querySelector("[data-pre]"), n = pre.querySelector("[data-counter]"), wipe = pre.querySelector(".pre__wipe");
-    var c = { v: 0 };
+    var n = pre.querySelector("[data-counter]"), lab = pre.querySelector(".pre__l"), wipe = pre.querySelector(".pre__wipe"), c = { v: 0 };
     gsap.set(wipe, { y: "30vh" });
     gsap.timeline()
-      .to(c, { v: 100, duration: 1.5, ease: "power2.inOut", onUpdate: function () { n.textContent = String(Math.round(c.v)).padStart(3, "0"); } })
-      .to(n, { opacity: 0, duration: .25 }, "-=.1")
-      .to(wipe, { y: "-140vh", duration: 1.15, ease: "power3.inOut" }, "-=.3")
-      .add(beginHero, "-=.45")
+      .from(lab, { opacity: 0, duration: .5 })
+      .to(c, { v: 100, duration: 1.4, ease: "power2.inOut", onUpdate: function () { n.textContent = String(Math.round(c.v)).padStart(3, "0"); } }, 0)
+      .to([n, lab], { opacity: 0, y: -14, duration: .3, ease: "power2.in" }, "-=.1")
+      .to(wipe, { y: "-140vh", duration: 1.15, ease: "power3.inOut" }, "-=.15")
+      .add(function () {
+        document.body.classList.remove("loading");
+        heroW.forEach(function (el, i) { waterIn(el, i * .14); });
+        restW.forEach(function (el) { wio.observe(el); });
+      }, "-=.5")
       .to(pre, { opacity: 0, duration: .35, onComplete: function () { pre.classList.add("done"); } }, "-=.2");
   })();
 
-  /* ── paper → dark: a soft edge that sweeps down the screen as About approaches ── */
+  /* ── paper → dark as About arrives ── */
   var root = document.documentElement;
   ScrollTrigger.create({
     trigger: "#about", start: "top bottom", end: "top 25%", scrub: .35,
@@ -553,70 +375,27 @@ body.dark .see{color:var(--ink)}
     }
   });
 
-  /* ── section titles fill in as they rise ── */
-  document.querySelectorAll("[data-fill]").forEach(function (w) {
-    ScrollTrigger.create({ trigger: w, start: "top 80%", onEnter: function () { w.classList.add("in"); }, onLeaveBack: function () { w.classList.remove("in"); } });
-  });
-
-  /* ── the warp: big type stretches with scroll speed and springs back (desktop) ── */
-  if (!touch) {
-    var setters = [].slice.call(document.querySelectorAll("[data-warp]")).map(function (el) {
-      return { sy: gsap.quickTo(el, "scaleY", { duration: .55, ease: "power3.out" }),
-               sk: gsap.quickTo(el, "skewY", { duration: .55, ease: "power3.out" }) };
-    });
-    var calm;
-    ScrollTrigger.create({
-      onUpdate: function (self) {
-        var v = self.getVelocity();
-        var s = 1 + Math.min(Math.abs(v) / 3200, .85), k = Math.max(-6, Math.min(6, -v / 900));
-        setters.forEach(function (q) { q.sy(s); q.sk(k); });
-        clearTimeout(calm);
-        calm = setTimeout(function () { setters.forEach(function (q) { q.sy(1); q.sk(0); }); }, 90);
-      }
-    });
-  }
-
-
-  gsap.to(".hero__name", { yPercent: -18, opacity: 0, ease: "none",
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 30%", scrub: .5 } });
-
-  /* ── "Get in touch": the ripple ──
-     The line is drawn again in N horizontal bands, each a copy clipped to its
-     own slice. Every band is pushed sideways by a wave that runs down the text
-     and dies away: it plays once as the line arrives, and again whenever the
-     pointer moves over it. Same idea as a displacement shader, done in DOM. */
-  var rip = document.querySelector("[data-rip]"), base = rip.querySelector(".rip__base");
+  /* ── "Get in touch": horizontal bands that ripple once on arrival and under the pointer ── */
+  var rip = document.querySelector("[data-rip]");
   var N = touch ? 14 : 30, bands = [], energy = 0, t = 0, running = false;
   for (var i = 0; i < N; i++) {
     var b = document.createElement("span");
-    b.className = "rip__band"; b.setAttribute("aria-hidden", "true");
-    b.textContent = "Get in touch";
-    var top = i / N * 100, bottom = 100 - (i + 1) / N * 100;
-    b.style.clipPath = "inset(" + top + "% 0 " + bottom + "% 0)";
+    b.className = "rip__band"; b.setAttribute("aria-hidden", "true"); b.textContent = "Get in touch";
+    b.style.clipPath = "inset(" + (i / N * 100) + "% 0 " + (100 - (i + 1) / N * 100) + "% 0)";
     rip.appendChild(b); bands.push({ el: b, y: (i + .5) / N });
   }
   function frame() {
-    t += .016;
-    energy *= .962;
+    t += .016; energy *= .962;
     var w = rip.clientWidth;
-    bands.forEach(function (b) {
-      var wave = Math.sin(b.y * 9 - t * 7) * Math.sin(b.y * 2.3 + t * 1.7);
-      b.el.style.transform = "translateX(" + (wave * energy * w * .06).toFixed(2) + "px)";
-    });
+    bands.forEach(function (b) { b.el.style.transform = "translateX(" + (Math.sin(b.y * 9 - t * 7) * Math.sin(b.y * 2.3 + t * 1.7) * energy * w * .05).toFixed(2) + "px)"; });
     if (energy < .004) { running = false; rip.classList.remove("on"); bands.forEach(function (b) { b.el.style.transform = ""; }); return; }
     requestAnimationFrame(frame);
   }
-  function kick(amount) {
-    energy = Math.min(1, energy + amount);
-    if (!running) { running = true; rip.classList.add("on"); requestAnimationFrame(frame); }
-  }
-  ScrollTrigger.create({ trigger: rip, start: "top 85%", onEnter: function () { setTimeout(function () { kick(1); }, 350); } });
+  function kick(a) { energy = Math.min(1, energy + a); if (!running) { running = true; rip.classList.add("on"); requestAnimationFrame(frame); } }
+  ScrollTrigger.create({ trigger: rip, start: "top 80%", onEnter: function () { setTimeout(function () { kick(1); }, 900); } });
   var lastX = null;
   if (!touch) {
-    rip.addEventListener("pointermove", function (e) {
-      if (lastX !== null) kick(Math.min(.25, Math.abs(e.clientX - lastX) / 400));
-      lastX = e.clientX;
-    });
+    rip.addEventListener("pointermove", function (e) { if (lastX !== null) kick(Math.min(.25, Math.abs(e.clientX - lastX) / 400)); lastX = e.clientX; });
     rip.addEventListener("pointerleave", function () { lastX = null; });
   }
 })();
