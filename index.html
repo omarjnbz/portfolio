@@ -216,7 +216,7 @@ main{position:relative;z-index:1}
     <a class="rip" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-rip><span class="rip__base" data-w>Get in touch</span></a>
     <p class="touch__sub" data-w data-bold>I'm ready to build anything<br><span class="dim">Message me on Instagram</span></p>
     <div class="foot mono">
-      <span><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram ↗</a>&nbsp;&nbsp;&nbsp;<a href="mailto:Omarjnbz@gmail.com" data-w>Email ↗</a></span>
+      <span><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram ↗</a>&nbsp;&nbsp;&nbsp;<a href="mailto:Omarjnbz@gmail.com" data-w>Email ↗</a>&nbsp;&nbsp;&nbsp;<a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w>LinkedIn ↗</a></span>
       <span class="dim" data-w>Coming_SoundCloud player, follow and more</span>
       <span class="dim" data-w>©2026_Designed by <b>Omar</b></span>
     </div>
@@ -403,7 +403,11 @@ main{position:relative;z-index:1}
     gsap.fromTo(words, { fontWeight: mono ? 300 : 400, opacity: .4 }, { fontWeight: mono ? 500 : 700, opacity: 1, ease: "none", stagger: .2,
       scrollTrigger: { trigger: el, scrub: .4,
         start: function () { return Math.max(0, el.getBoundingClientRect().top + scrollY - innerHeight * .92); },
-        end: function () { var t = el.getBoundingClientRect().top + scrollY; return Math.max(Math.max(0, t - innerHeight * .92) + innerHeight * .4, t - innerHeight * .42); } } });
+        end: function () {
+          var t = el.getBoundingClientRect().top + scrollY, st = Math.max(0, t - innerHeight * .92);
+          /* text near the page foot finishes by the time you reach the bottom */
+          return Math.max(st + 40, Math.min(ScrollTrigger.maxScroll(window), Math.max(st + innerHeight * .4, t - innerHeight * .42)));
+        } } });
   });
 
   /* ── the start: count to 100, paper sweeps the black away, the hero surfaces ── */
