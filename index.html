@@ -113,10 +113,25 @@ main{position:relative;z-index:1}
 .piece .cap b{font-weight:400}
 .piece .cap .dim{margin-left:auto}
 .piece .line{margin:.25rem 0 0;max-width:52ch}
+/* hover: the site lifts and grows on a soft spring, then its features rise in one by one */
+.pic{position:relative;transition:transform .9s cubic-bezier(.32,.72,0,1),box-shadow .9s cubic-bezier(.32,.72,0,1)}
+.feat{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(.9rem,1.8vw,1.5rem);background:linear-gradient(180deg,rgba(5,5,5,0) 22%,rgba(5,5,5,.84));color:var(--paper);opacity:0;transition:opacity .55s cubic-bezier(.32,.72,0,1);pointer-events:none}
+.feat ol{list-style:none;margin:0;padding:0;width:100%;font-size:.72rem}
+.feat li{overflow:hidden;border-top:1px solid rgba(248,246,242,.2)}
+.feat em{display:flex;gap:1rem;padding:.55rem 0;font-style:normal;transform:translateY(105%);transition:transform .8s cubic-bezier(.32,.72,0,1)}
+.feat .dim{color:rgba(248,246,242,.55)}
 @media (hover:hover){
-  .piece:hover .slice.in i{transition:transform .5s var(--ease);transition-delay:calc(var(--d) * 22ms)}
-  .piece:hover .slice.in i:nth-child(odd){transform:translateY(-4.5%)}
-  .piece:hover .slice.in i:nth-child(even){transform:translateY(4.5%)}
+  .piece:hover{z-index:2}
+  .piece:hover .pic{transform:scale(1.045);box-shadow:0 50px 100px -50px rgba(5,5,5,.4),0 18px 40px -26px rgba(5,5,5,.25)}
+  .piece:hover .feat{opacity:1}
+  .piece:hover .feat em{transform:none;transition-delay:calc(.18s + var(--i) * 80ms)}
+}
+/* touch screens have no hover, so the features sit under each site */
+@media (hover:none){
+  .feat{position:static;opacity:1;background:none;color:inherit;padding:.7rem 0 0}
+  .feat em{transform:none}
+  .feat li{border-top-color:var(--line)}
+  .feat .dim{color:var(--grey)}
 }
 @media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
 
@@ -167,7 +182,7 @@ main{position:relative;z-index:1}
 <header class="hdr mono">
   <a href="#top" class="dim"><span data-clock>--:--</span></a>
   <nav>
-    <a href="#work">Portfolio</a>
+    <a href="#work">Websites</a>
     <a href="#about">About</a>
     <a class="talk" href="#contact">Get in touch</a>
   </nav>
@@ -188,7 +203,7 @@ main{position:relative;z-index:1}
 
   <section class="work" id="work">
     <p class="label mono dim" data-w>Eight sites_All live</p>
-    <h2 class="big work__title"><span data-w>Portfolio</span><span class="n mono dim" data-w>[008]</span></h2>
+    <h2 class="big work__title"><span data-w>Websites</span><span class="n mono dim" data-w>[008]</span></h2>
     <div class="cols" id="pieces"></div>
   </section>
 
@@ -203,8 +218,8 @@ main{position:relative;z-index:1}
   </section>
 
   <section class="screen latest" id="latest">
-    <p class="label mono dim" data-w>Latest work_KAS5H</p>
-    <h2 class="big" data-w data-caption>This is my latest work</h2>
+    <p class="label mono dim" data-w>Currently working on_KAS5H</p>
+    <h2 class="big" data-w data-caption>What I'm building right now</h2>
     <div class="panel" id="frames"></div>
     <a class="latest__open mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-w>Open the site ↗</a>
   </section>
@@ -215,7 +230,6 @@ main{position:relative;z-index:1}
     <p class="touch__sub" data-w data-bold>I'm ready to build anything<br><span class="dim">Message me on Instagram</span></p>
     <div class="foot mono">
       <span class="links"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram<i>↗</i></a><a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w>LinkedIn<i>↗</i></a><a href="mailto:Omarjnbz@gmail.com" data-w>Email<i>↗</i></a></span>
-      <span class="dim" data-w>Coming_SoundCloud player, follow and more</span>
       <span class="dim" data-w>©2026_Designed by <b>Omar</b></span>
     </div>
   </section>
@@ -234,14 +248,14 @@ main{position:relative;z-index:1}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/"],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/"],
-    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/"],
-    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/"],
-    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/"],
-    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/"],
-    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/"],
-    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app"]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "Full admin panel CMS", "Trade map and quotation desk"]],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Built entirely on Zoho CRM", "A full video in the hero", "Every word edited without code"]],
+    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"]],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Pass booking always in reach", "Music and wellness in Rishikesh"]],
+    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait hero", "Editorial serif type", "The story behind the decks"]],
+    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"]],
+    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records that play on the page", "Two characters, KAS5H and MØRF", "Press kit and bookings"]],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live, not a recording"]]
   ];
   var K = [
     ["kash_deck", "The record crate", "Sets", "His sets as records, each one plays on the page"],
@@ -264,10 +278,12 @@ main{position:relative;z-index:1}
   P.forEach(function (p, i) {
     var a = document.createElement("a");
     a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
-    a.setAttribute("aria-label", p[1] + ", " + p[3] + ". Opens the live site in a new tab");
-    a.innerHTML = sliced(p[0]) +
-      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + ' ↗</b></span><span class="dim">' + p[2] + "</span></div>" +
-      '<p class="line mono dim" data-bold>' + p[3] + "</p>";
+    a.setAttribute("aria-label", p[1] + ", " + p[3] + ". " + p[5].join(", ") + ". Opens the live site in a new tab");
+    a.innerHTML = '<div class="pic">' + sliced(p[0]) + '<div class="feat mono" aria-hidden="true"><ol>' +
+      p[5].map(function (f, k) { return '<li style="--i:' + k + '"><em><span class="dim">0' + (k + 1) + "</span>" + f + "</em></li>"; }).join("") + "</ol></div></div>" +
+      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + ' ↗</b></span><span class="dim">' + p[2] + "</span></div>";
+    /* on touch screens the features follow the caption */
+    if (touch) a.appendChild(a.querySelector(".feat"));
     pieces.appendChild(a); watchSlice(a);
   });
   var frames = document.getElementById("frames");
