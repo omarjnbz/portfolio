@@ -92,10 +92,7 @@ main{position:relative;z-index:1}
 .hero__sub{margin:clamp(1.6rem,4vh,2.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
 .hero__hey{margin:0 0 clamp(.4rem,1.2vh,1rem);font-size:clamp(1.3rem,2.4vw,2.2rem);font-weight:500;letter-spacing:-.02em}
 .hero__meta{margin:1.4rem 0 0;line-height:1.6}
-.hero__go{display:inline-flex;gap:.5em;align-items:center;padding:.55rem .9rem;border:1px solid var(--line);transition:background .5s cubic-bezier(.32,.72,0,1),color .5s cubic-bezier(.32,.72,0,1)}
-.hero__go i{font-style:normal;transition:transform .5s cubic-bezier(.32,.72,0,1)}
-.hero__go:hover{background:var(--fg);color:var(--paper)}
-.hero__go:hover i{transform:translateY(3px)}
+.hero__go{display:inline-block;padding:.5rem 0}
 /* roll: on hover each word slides out of its slot and back in, lighting up in reading order */
 .rw{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
 .rw>span{display:inline-block}
@@ -120,13 +117,9 @@ main{position:relative;z-index:1}
 .piece .cap b{font-weight:400}
 .piece .cap .dim{margin-left:auto}
 .piece .line{margin:.25rem 0 0;max-width:52ch}
-/* hover: the site tilts toward the pointer and lifts, and its stack rises in as tags */
+/* hover: the site tilts toward the pointer and lifts */
 .pic{position:relative;transform-style:preserve-3d;will-change:transform}
 .pic .slice{transition:box-shadow .9s cubic-bezier(.32,.72,0,1)}
-.tags{position:absolute;left:clamp(.7rem,1.4vw,1.1rem);bottom:clamp(.7rem,1.4vw,1.1rem);right:clamp(.7rem,1.4vw,1.1rem);display:flex;flex-wrap:wrap;gap:.35rem;pointer-events:none}
-.tags span{padding:.38rem .6rem;background:rgba(248,246,242,.94);color:var(--ink);border:1px solid rgba(5,5,5,.08);opacity:0;transform:translateY(14px) scale(.96)}
-.tags .tags__go{margin-left:auto;background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.tagline{margin:.3rem 0 0}
 @media (hover:hover){
   .piece:hover{z-index:2}
   .piece:hover .slice{box-shadow:0 50px 100px -50px rgba(40,30,20,.38),0 18px 40px -26px rgba(40,30,20,.22)}
@@ -145,10 +138,12 @@ main{position:relative;z-index:1}
 .sheet__name{margin:.6rem 0 0;font-size:clamp(2.6rem,5.6vw,6rem);font-weight:500;line-height:.92;letter-spacing:-.05em}
 .sheet__sum{margin:1.2rem 0 0;font-size:clamp(1.05rem,1.35vw,1.3rem);font-weight:500;line-height:1.35;letter-spacing:-.015em;max-width:38ch}
 .sheet__rows{margin-top:clamp(1.6rem,4vh,2.6rem)}
-.row{position:relative;display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:1rem;padding:1rem 0}
+.row{position:relative;padding:1rem 0 0}
+.row>p{margin:0 0 .4rem}
 .row::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transform-origin:left;transform:scaleX(var(--ln,1))}
 .row ul{list-style:none;margin:0;padding:0}
-.row li{padding:.18rem 0;font-size:1rem;font-weight:500;letter-spacing:-.01em;line-height:1.35}
+.row li b{display:inline-block;width:2.4rem;font-weight:400}
+.row li{padding:.55rem 0;border-bottom:1px solid var(--line);font-size:clamp(1rem,1.2vw,1.15rem);font-weight:500;letter-spacing:-.01em;line-height:1.35}
 .mk{display:block;overflow:hidden}
 .mk>span{display:block}
 .sheet__open{display:inline-flex;gap:.6em;align-items:center;margin-top:1.6rem;padding:.85rem 1.1rem;background:var(--ink);color:var(--paper);transition:transform .4s cubic-bezier(.32,.72,0,1)}
@@ -158,7 +153,7 @@ main{position:relative;z-index:1}
 .sheet__close{position:fixed;top:.75rem;right:var(--gutter);z-index:3;font:inherit;text-transform:uppercase;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;color:var(--paper);background:var(--ink);border:0;padding:.55rem .8rem;cursor:pointer}
 .sheet__close:hover{opacity:.8}
 .fly{position:fixed;z-index:101;background-size:cover;background-position:top;pointer-events:none;will-change:transform}
-@media (max-width:860px){.sheet__grid{grid-template-columns:1fr;padding-top:4rem}.sheet__media{position:relative;top:0}.row{grid-template-columns:1fr;gap:.4rem}}
+@media (max-width:860px){.sheet__grid{grid-template-columns:1fr;padding-top:4rem}.sheet__media{position:relative;top:0}}
 @media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
 
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
@@ -220,7 +215,7 @@ main{position:relative;z-index:1}
     <p class="hero__hey" data-w data-hero>Hey, I'm</p>
     <h1 class="hero__name" data-w data-hero>Omar</h1>
     <p class="hero__sub" data-w data-hero data-roll>I build websites, applications<br>and much more with AI</p>
-    <p class="hero__meta mono" data-w data-hero><a class="hero__go" href="#work">Explore my work<i>↓</i></a></p>
+    <p class="hero__meta mono" data-w data-hero data-roll><a class="hero__go" href="#work">Explore my work ↓</a></p>
     <div class="hero__foot mono" data-hfoot>
       <span class="dim" data-w data-hero>[Scroll to explore]</span>
       <span class="links"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Instagram<i>↗</i></a><a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w data-hero>LinkedIn<i>↗</i></a><a href="mailto:Omarjnbz@gmail.com" data-w data-hero>Email<i>↗</i></a></span>
@@ -291,14 +286,14 @@ main{position:relative;z-index:1}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "Full admin panel CMS", "Trade map and quotation desk"], "A trading house site that works like a catalogue. Buyers browse products with full spec sheets, follow the trade routes on a 3D globe and request a quotation, in English or Russian", ["Hand-coded HTML, CSS and JavaScript, no framework", "3D trade-route globe in Three.js, loaded only when needed", "English and Russian on every page"], ["Product catalogue driven from one data file", "Quotation and qualification forms through Web3Forms and Formspree", "Password-protected admin sign-in"], ["Hostinger, on arminakcaravantrading.com"], [], ["Three.js", "EN / RU", "Web3Forms", "Admin"]],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Built entirely on Zoho CRM", "A full video in the hero", "Every word edited without code"], "A Dubai brokerage site with a live property feed from Zoho CRM, leads going straight into the CRM, automatic listing on Bayut and its own blog CMS. Built solo, from design to deployment", ["Hand-coded HTML, CSS and JavaScript, no framework", "GSAP, ScrollTrigger and Lenis for motion", "Sale and rent listings with filters, property pages and two calculators"], ["Node.js and Express API on Zoho Catalyst", "Zoho CRM, Desk and Recruit connected through OAuth", "Listings published to Bayut, Bayut leads pulled back every 15 minutes", "PHP blog CMS with login and static page generation"], ["Hostinger, on arianaintegrity.com", "Images served from Supabase Storage"], ["~13,300 lines of code", "12 API routes", "6 platforms connected"], ["Zoho CRM", "Node.js", "Bayut", "GSAP"]],
-    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"], "My first web project. An investment advisory site led by image and video, in English and Russian", ["Image and video on every page", "An off-market collection", "English and Russian"], ["Media served from Supabase Storage"], ["Hostinger, on nurelite.properties"], [], ["Supabase", "EN / RU", "Video"]],
-    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Pass booking always in reach", "Music and wellness in Rishikesh"], "A music and wellness gathering in Rishikesh, with an illustrated hills hero and passes and stays always one tap away", ["Tailwind CSS", "Illustrated hills hero", "Iconify icons"], ["Passes and stay options", "Assets on Supabase Storage"], ["Vercel, on unheard-f.vercel.app"], [], ["Tailwind", "Supabase", "Vercel"]],
-    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait hero", "Editorial serif type", "The story behind the decks"], "A portfolio for a Delhi DJ and producer, built around a full-screen studio portrait and editorial type", ["WebGL canvas effects", "Editorial serif type", "Full-screen portrait hero"], ["Static site, no server needed"], ["GitHub Pages"], [], ["WebGL", "GitHub Pages"]],
-    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"], "A newer site for the same artist, built around the live sets: video behind the hero, a playable library and booking", ["Three.js visuals", "GSAP and ScrollTrigger", "Web Audio for playback"], ["SoundCloud and YouTube embeds for the music", "Mixes and booking on one page"], ["Vercel, on jinie.vercel.app"], [], ["Three.js", "GSAP", "Web Audio", "SoundCloud"]],
-    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records that play on the page", "Two characters, KAS5H and MØRF", "Press kit and bookings"], "A press kit for a Delhi selector with two aliases. His sets are records you can play right on the page", ["React with Vite", "GSAP, ScrollTrigger and Lenis", "A Web Audio record player"], ["SoundCloud widget for the sets", "All copy for both aliases in one content file"], ["Vercel, on kas5h.vercel.app, every push goes live"], [], ["React", "Vite", "GSAP", "SoundCloud"]],
-    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live, not a recording"], "A voice agent you talk to in the browser. Press start, speak, and EVA answers live in more than 95 languages", ["React with Vite", "Three.js voice visual", "Microphone access in the browser"], ["ElevenLabs conversational voice over WebSocket", "Live, not a recording"], ["Vercel, on bng-eva.vercel.app"], [], ["React", "ElevenLabs", "WebSocket", "Three.js"]]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "3D trade-route globe", "Quotation request desk", "English and Russian"], "A trading house site that works like a catalogue"],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Live property listings from the CRM", "Sale and rent search with filters", "Property pages with gallery and enquiry", "Mortgage and investment calculators", "Listings sent to Bayut automatically", "Its own blog"], "A Dubai real estate brokerage, run live from its CRM"],
+    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"], "My first web project, an investment advisory led by image and video"],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Passes and stay options", "Everything about the gathering on one page"], "A music and wellness gathering in Rishikesh"],
+    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait", "Editorial type", "The story behind the decks"], "A portfolio for a Delhi DJ and producer"],
+    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"], "A newer site for the same artist, built around the live sets"],
+    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records you can play", "Two characters, KAS5H and MØRF", "Press kit and bookings"], "A press kit for a Delhi selector with two aliases"],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live voice, not a recording"], "A voice agent you talk to in the browser"]
   ];
   var K = [
     ["kash_deck", "The record crate", "Sets", "His sets as records, each one plays on the page"],
@@ -322,10 +317,8 @@ main{position:relative;z-index:1}
     var a = document.createElement("a");
     a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", " + p[2] + ". Show the details");
-    a.innerHTML = '<div class="pic">' + sliced(p[0]) +
-      '<div class="tags mono" aria-hidden="true">' + p[11].map(function (t) { return "<span>" + t + "</span>"; }).join("") + '<span class="tags__go">Details +</span></div></div>' +
-      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>" +
-      (touch ? '<p class="tagline mono dim">' + p[11].join("_") + "_Tap for details</p>" : "");
+    a.innerHTML = '<div class="pic">' + sliced(p[0]) + "</div>" +
+      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>" ;
     a.addEventListener("click", function (e) {
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
       e.preventDefault(); openSheet(i, a);
@@ -350,11 +343,8 @@ main{position:relative;z-index:1}
     q("[data-s-name]").textContent = p[1];
     q("[data-s-sum]").innerHTML = p[6].split(" ").map(function (w) { return '<span class="sw">' + w + "</span>"; }).join(" ");
     q("[data-s-url]").textContent = p[4].replace(/^https?:\/\//, "").replace(/\/$/, "");
-    q("[data-s-rows]").innerHTML =
-      '<div class="row"><p class="mono dim mk"><span>Frontend</span></p>' + li(p[7]) + "</div>" +
-      '<div class="row"><p class="mono dim mk"><span>Backend</span></p>' + li(p[8]) + "</div>" +
-      '<div class="row"><p class="mono dim mk"><span>Hosting_Domain</span></p>' + li(p[9]) + "</div>" +
-      (p[10].length ? '<div class="row"><p class="mono dim mk"><span>In numbers</span></p>' + li(p[10]) + "</div>" : "");
+    q("[data-s-rows]").innerHTML = '<div class="row"><p class="mono dim mk"><span>What it does</span></p>' +
+      "<ul>" + p[5].map(function (t, k) { return '<li><span class="mk"><span><b class="mono dim">0' + (k + 1) + "</b>" + t + "</span></span></li>"; }).join("") + "</ul></div>";
     var go = q("[data-s-open]"); go.href = p[4];
     sImg.src = src; sImg.alt = p[1];
     sheet.hidden = false; sScroll.scrollTop = 0;
@@ -553,19 +543,18 @@ main{position:relative;z-index:1}
 
   /* ── the hero's bottom row belongs to the first screen: it fades as you scroll away ── */
   gsap.to("[data-hfoot]", { opacity: 0, y: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "top -22%", scrub: .3 } });
-  /* ── work: each card tilts toward the pointer and its stack rises in as tags ── */
+  /* ── work: each card tilts toward the pointer and lifts ── */
   if (!touch) gsap.utils.toArray(".piece").forEach(function (a) {
-    var pic = a.querySelector(".pic"), tags = a.querySelectorAll(".tags span");
+    var pic = a.querySelector(".pic");
     gsap.set(pic, { transformPerspective: 1100 });
     var rx = gsap.quickTo(pic, "rotationX", { duration: .7, ease: "power3.out" }), ry = gsap.quickTo(pic, "rotationY", { duration: .7, ease: "power3.out" });
     var sc = gsap.quickTo(pic, "scale", { duration: .9, ease: "expo.out" });
-    var tl = gsap.timeline({ paused: true }).to(tags, { opacity: 1, y: 0, scale: 1, duration: .55, ease: "back.out(1.7)", stagger: .05 });
-    a.addEventListener("pointerenter", function () { sc(1.035); tl.timeScale(1).play(); });
+    a.addEventListener("pointerenter", function () { sc(1.035); });
     a.addEventListener("pointermove", function (e) {
       var r = pic.getBoundingClientRect();
       ry(((e.clientX - r.left) / r.width - .5) * 7); rx(-((e.clientY - r.top) / r.height - .5) * 6);
     });
-    a.addEventListener("pointerleave", function () { sc(1); rx(0); ry(0); tl.timeScale(2).reverse(); });
+    a.addEventListener("pointerleave", function () { sc(1); rx(0); ry(0); });
   });
 
   /* ── hero line: each word rolls out of its slot and back, lighting up in turn ── */
