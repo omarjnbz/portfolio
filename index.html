@@ -66,12 +66,12 @@ img{display:block;max-width:100%}
 .dim{color:var(--grey)}
 
 /* ─── header ─── */
-.hdr{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.1rem var(--gutter)}
+.hdr{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:.9rem var(--gutter);font-size:.6rem}
 .hdr nav{display:flex;gap:clamp(1rem,2.2vw,2.2rem);align-items:center}
 .hdr nav a{position:relative;padding:.15rem 0}
 .hdr nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hdr nav a:hover::after{transform:scaleX(1);transform-origin:left}
-.hdr .talk{background:var(--fg);color:var(--paper);padding:.3rem .5rem;transition:background .5s,color .5s}
+.hdr .talk{background:var(--fg);color:var(--paper);padding:.25rem .45rem;transition:background .5s,color .5s}
 body.dark .hdr .talk{color:var(--ink)}
 .hdr .talk::after{display:none}
 @media (max-width:560px){.hdr nav{gap:.9rem}}
@@ -82,15 +82,21 @@ main{position:relative;z-index:1}
 
 /* ─── hero ─── */
 .hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:6rem;padding-bottom:1.4rem}
-.hero__name{grid-column:7 / 13;align-self:center;font-size:clamp(5.2rem,16vw,19rem);font-weight:500;line-height:.86;letter-spacing:-.045em;margin:0;transform-origin:50% 100%}
-.hero__sub{grid-column:7 / 12;margin:clamp(2.4rem,6vh,4rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
+.hero__name{grid-column:4 / 13;align-self:center;position:relative;font-size:clamp(6rem,21vw,25rem);font-weight:500;line-height:.86;letter-spacing:-.05em;margin:0;transform-origin:50% 100%}
+/* the name is drawn once more in vertical strips; each strip slides in from above or
+   below and lands, then the single plain copy takes over */
+.hero__name .base{display:block}
+.hero__name.on .base{visibility:hidden}
+.hero__name .strip{position:absolute;inset:0;display:none;will-change:transform;pointer-events:none}
+.hero__name.on .strip{display:block}
+.hero__sub{grid-column:4 / 11;margin:clamp(2.4rem,6vh,4rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
 .hero__sub .dim{font-weight:500}
-.hero__meta{grid-column:7 / 13;margin-top:1.4rem;display:flex;gap:2rem}
+.hero__meta{grid-column:4 / 13;margin-top:1.4rem;display:flex;gap:2rem}
 .hero__foot{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;margin-top:clamp(3rem,10vh,8rem)}
 .hero__foot a:hover{opacity:.5}
 @media (max-width:760px){
   .hero__name,.hero__sub,.hero__meta{grid-column:1 / -1}
-  .hero__name{font-size:clamp(4.2rem,26vw,9rem)}
+  .hero__name{font-size:clamp(4.6rem,30vw,10rem)}
   .hero__foot{flex-direction:column;align-items:flex-start}
 }
 
@@ -101,7 +107,7 @@ main{position:relative;z-index:1}
 .title .w.in{color:var(--fg)}
 
 /* ─── work ─── */
-.work{padding-block:clamp(6rem,14vh,10rem) clamp(4rem,10vh,8rem)}
+.work{padding-block:clamp(6rem,14vh,10rem) clamp(3rem,8vh,6rem)}
 .work .cols{row-gap:clamp(5rem,14vh,11rem);margin-top:clamp(3rem,8vh,5rem)}
 .piece{position:relative;display:block}
 .piece:nth-child(odd){grid-column:1 / 7}
@@ -128,7 +134,7 @@ main{position:relative;z-index:1}
 body.dark .see{color:var(--ink)}
 
 /* ─── about: one huge statement, then the photo holds while the story scrolls past ─── */
-.about{padding-block:clamp(8rem,22vh,16rem) clamp(6rem,14vh,10rem)}
+.about{padding-block:clamp(5rem,12vh,9rem) clamp(6rem,14vh,10rem)}
 .about__eye{text-align:center;margin:0 0 clamp(2rem,5vh,3.5rem)}
 .about__big{
   margin:0 auto;max-width:22ch;text-align:center;
@@ -136,10 +142,10 @@ body.dark .see{color:var(--ink)}
   transform-origin:50% 100%;
 }
 .about__dual{margin-top:clamp(7rem,18vh,13rem);align-items:start}
-.about__pic{grid-column:1 / 7;margin:0;position:sticky;top:5.5rem;aspect-ratio:4/5;overflow:hidden;background:#111}
-.about__pic img{width:100%;height:124%;object-fit:cover;object-position:top;will-change:transform}
+.about__pic{grid-column:1 / 5;margin:0;position:sticky;top:5.5rem;aspect-ratio:1;overflow:hidden;background:#111}
+.about__pic img{width:100%;height:116%;object-fit:cover;object-position:center;will-change:transform}
 .about__pic .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);color:var(--ink);padding:.3rem .5rem}
-.about__text{grid-column:8 / 13;padding-top:clamp(2rem,10vh,8rem)}
+.about__text{grid-column:6 / 12;padding-top:clamp(2rem,10vh,8rem)}
 .about__text p{margin:0 0 clamp(1.6rem,4vh,2.6rem);font-size:clamp(1.1rem,1.5vw,1.45rem);font-weight:500;line-height:1.3;letter-spacing:-.015em}
 .about__text p.mono{font-size:.68rem;font-weight:400;letter-spacing:.02em;line-height:1.5;margin-top:clamp(3rem,8vh,5rem)}
 .about__text a{border-bottom:1px solid currentColor}
@@ -147,22 +153,22 @@ body.dark .see{color:var(--ink)}
 @media (max-width:760px){
   .about__big{max-width:none}
   .about__pic,.about__text{grid-column:1 / -1}
-  .about__pic{position:static;aspect-ratio:4/5}
+  .about__pic{position:static;aspect-ratio:4/5;max-width:70%}
   .about__text{padding-top:2.5rem}
 }
 
 /* ─── latest work: one site, walked through top to bottom ─── */
 .case{padding-block:clamp(6rem,16vh,12rem) clamp(4rem,10vh,8rem)}
-.case__eye{margin:clamp(1.2rem,3vh,2rem) 0 0;max-width:52ch}
+.case__eye{margin:0 0 clamp(1.2rem,3vh,2rem)}
+.case__big{margin:0;max-width:12ch;font-size:clamp(3rem,8.5vw,9.5rem);font-weight:500;line-height:.9;letter-spacing:-.045em;transform-origin:0 100%}
 .case__frames{row-gap:clamp(4rem,10vh,7rem);margin-top:clamp(3rem,8vh,5rem)}
 .frame{position:relative;display:block}
 .frame:nth-child(1){grid-column:1 / 13}
-.frame:nth-child(2){grid-column:1 / 8}
-.frame:nth-child(3){grid-column:8 / 13;margin-top:clamp(5rem,14vh,10rem)}
-.frame:nth-child(4){grid-column:3 / 13}
-.frame:nth-child(5){grid-column:1 / 8}
-.frame:nth-child(6){grid-column:8 / 13;margin-top:clamp(5rem,14vh,10rem)}
-.frame:nth-child(7){grid-column:1 / 13}
+.frame:nth-child(2){grid-column:1 / 7}
+.frame:nth-child(3){grid-column:7 / 13;margin-top:clamp(5rem,14vh,10rem)}
+.frame:nth-child(4){grid-column:2 / 12}
+.frame:nth-child(5){grid-column:1 / 7}
+.frame:nth-child(6){grid-column:7 / 13;margin-top:clamp(5rem,14vh,10rem)}
 .frame .cap{margin-top:.7rem;display:grid;grid-template-columns:1fr auto;gap:.25rem 1.2rem}
 .frame .cap b{font-weight:400}
 .frame .cap .line{grid-column:1 / -1;max-width:46ch}
@@ -185,6 +191,7 @@ body.dark .see{color:var(--ink)}
 .foot .copy{grid-column:7 / 13;margin-top:2.2rem}
 @media (max-width:760px){.foot .l1,.foot .l2,.foot .cred,.foot .copy{grid-column:1 / -1}.foot .l2{margin-top:.6rem}}
 
+.wd{display:inline-block;white-space:nowrap}
 .ch{display:inline-block;white-space:pre}
 .hush{visibility:hidden}
 
@@ -212,7 +219,7 @@ body.dark .see{color:var(--ink)}
 
   <section class="hero wrap">
     <div class="cols">
-      <h1 class="hero__name" data-decode data-warp>Omar</h1>
+      <h1 class="hero__name" data-warp><span class="base" data-decode>Omar</span></h1>
       <p class="hero__sub" data-rise>A library of websites, built in my free time<br><span class="dim">Explore ideas and build them</span></p>
       <p class="hero__meta mono dim"><span data-decode>Portfolio_26</span><span data-decode>Eight sites_All live</span></p>
     </div>
@@ -225,7 +232,6 @@ body.dark .see{color:var(--ink)}
   <section class="work wrap" id="work">
     <h2 class="title" data-warp><span class="w" data-fill>Featured works</span><span class="n">[008]</span></h2>
     <div class="cols" id="pieces"></div>
-    <a class="see mono" href="#about" data-decode>See about</a>
   </section>
 
   <section class="about wrap" id="about">
@@ -233,8 +239,7 @@ body.dark .see{color:var(--ink)}
     <h2 class="about__big" data-decode-once data-warp>Explore my ideas, built with AI. Every site here is finished properly, at the highest level, and opens the real, running thing.</h2>
     <div class="cols about__dual">
       <figure class="about__pic">
-        <img src="img/kash_booth.jpg" alt="" data-parallax>
-        <span class="tag mono" data-decode-once>Photo_Coming soon</span>
+        <img src="img/omar.jpg" alt="Omar" data-parallax>
       </figure>
       <div class="about__text">
         <p data-rise-once>I design and build websites in my free time. Each one starts as an idea I want to see working, and ends as a live site: designed, coded and launched, with the admin tools behind it when a client needs them.</p>
@@ -246,8 +251,8 @@ body.dark .see{color:var(--ink)}
   </section>
 
   <section class="case wrap" id="latest">
-    <h2 class="title" data-warp><span class="w" data-fill>Latest work</span><span class="n">[KAS5H]</span></h2>
-    <p class="case__eye mono dim" data-decode-once>The newest build, shown section by section_Press kit for a Delhi DJ and producer</p>
+    <p class="case__eye mono dim" data-decode-once>Latest work_KAS5H</p>
+    <h2 class="case__big" data-decode-once data-warp>This is my latest work</h2>
     <div class="cols case__frames" id="frames"></div>
     <a class="see mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-decode-once>Open the site ↗</a>
   </section>
@@ -305,7 +310,6 @@ body.dark .see{color:var(--ink)}
 
   /* ── the latest build, section by section ── */
   var K = [
-    ["kash_hero", "The opening", "Hero", "Name, sound and a vinyl that spins. One line on the music, and the latest set a tap away"],
     ["kash_deck", "The record crate", "Sets", "His sets as records: each one plays here, with the tracklist, before you ever leave the page"],
     ["kash_press", "Press & promo kit", "Press", "Photos, posters and the bio, packaged for promoters to download in one go"],
     ["kash_booth", "In the booth", "About", "The bio, with him playing live beside it"],
@@ -319,7 +323,7 @@ body.dark .see{color:var(--ink)}
     a.className = "frame"; a.href = "https://kas5h.vercel.app/"; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", "KAS5H, " + k[1] + ". Opens the live site in a new tab");
     a.innerHTML = sliced(k[0]) +
-      '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span><span class="line dim">' + k[3] + "</span></div>";
+      '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + "</span></div>";
     frames.appendChild(a);
   });
 
@@ -340,10 +344,17 @@ body.dark .see{color:var(--ink)}
     nodes.forEach(function (n) {
       if (!n.textContent.trim()) return;
       var frag = document.createDocumentFragment();
-      n.textContent.split("").forEach(function (c) {
-        var s = document.createElement("span");
-        s.className = "ch"; s.textContent = c; s.dataset.c = c;
-        frag.appendChild(s);
+      n.textContent.split(/(\s+)/).forEach(function (part) {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+        var w = document.createElement("span");
+        w.className = "wd";
+        part.split("").forEach(function (c) {
+          var s = document.createElement("span");
+          s.className = "ch"; s.textContent = c; s.dataset.c = c;
+          w.appendChild(s);
+        });
+        frag.appendChild(w);
       });
       n.parentNode.replaceChild(frag, n);
     });
@@ -369,8 +380,8 @@ body.dark .see{color:var(--ink)}
   var onLoad = [].slice.call(document.querySelectorAll("[data-decode]"));
   onLoad.forEach(function (el) { wrap(el); el.classList.add("hush"); });
   onLoad.forEach(function (el, i) {
-    var big = el.classList.contains("hero__name");
-    setTimeout(function () { decode(el, big ? { per: 110, hold: 760 } : { per: 22, hold: 380 }); }, 160 + i * 90);
+    var big = el.classList.contains("base");
+    setTimeout(function () { decode(el, big ? { per: 90, hold: 600 } : { per: 22, hold: 380 }); }, big ? 1500 : 160 + i * 90);
   });
   var later = [].slice.call(document.querySelectorAll("[data-decode-once]"));
   later.forEach(function (el) { wrap(el); el.classList.add("hush"); });
@@ -379,7 +390,7 @@ body.dark .see{color:var(--ink)}
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
-        decode(e.target, e.target.matches(".about__big") ? { per: 14, hold: 520 } : e.target.matches(".rip__base") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
+        decode(e.target, e.target.matches(".about__big, .case__big") ? { per: 14, hold: 520 } : e.target.matches(".rip__base") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
       });
     }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
     later.forEach(function (el) { io.observe(el); });
@@ -422,7 +433,21 @@ body.dark .see{color:var(--ink)}
   }
 
   /* ── intro: the name rises letter by letter while it decodes; the lines follow ── */
-  gsap.from(".hero__name .ch", { yPercent: 70, opacity: 0, duration: 1.3, stagger: .07, ease: "expo.out", delay: .15 });
+  (function nameStrips() {
+    var h = document.querySelector(".hero__name"), n = touch ? 10 : 22, strips = [];
+    for (var i = 0; i < n; i++) {
+      var el = document.createElement("span");
+      el.className = "strip"; el.setAttribute("aria-hidden", "true"); el.textContent = "Omar";
+      el.style.clipPath = "inset(0 " + (100 - (i + 1) / n * 100).toFixed(3) + "% 0 " + (i / n * 100).toFixed(3) + "%)";
+      h.appendChild(el); strips.push(el);
+    }
+    h.classList.add("on");
+    gsap.fromTo(strips,
+      { yPercent: function (i) { return (i % 2 ? 1 : -1) * (40 + ((i * 37) % 50)); }, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 1.4, ease: "expo.out", delay: .2,
+        stagger: { each: .045, from: "center" },
+        onComplete: function () { h.classList.remove("on"); strips.forEach(function (e) { e.remove(); }); } });
+  })();
   gsap.from("[data-rise]", { y: 28, opacity: 0, duration: 1.1, ease: "power3.out", delay: .75 });
   gsap.from(".hero__meta, .hero__foot", { opacity: 0, duration: .9, delay: 1.1, stagger: .15 });
   gsap.utils.toArray("[data-rise-once]").forEach(function (el) {
@@ -463,7 +488,7 @@ body.dark .see{color:var(--ink)}
   }
 
   /* ── About image slides inside its frame ── */
-  gsap.fromTo("[data-parallax]", { yPercent: -19 }, { yPercent: 0, ease: "none",
+  gsap.fromTo("[data-parallax]", { yPercent: -13 }, { yPercent: 0, ease: "none",
     scrollTrigger: { trigger: ".about__pic", start: "top bottom", end: "bottom top", scrub: .4 } });
 
   gsap.to(".hero__name", { yPercent: -18, opacity: 0, ease: "none",
