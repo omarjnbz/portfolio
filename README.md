@@ -2,7 +2,7 @@
 
 Eight websites built with AI in my free time. Every one opens the real, running site.
 
-**Live:** https://omarjnbz.github.io/portfolio/
+**Live:** https://omarjnbz.vercel.app/
 
 ## What's on the page
 
