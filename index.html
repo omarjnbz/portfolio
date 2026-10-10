@@ -412,22 +412,22 @@ main{position:relative;z-index:1}
     });
   });
 
-  /* ── speed lock ──
-     Wheel and trackpad scrolling is taken over and replayed at a capped speed:
-     however hard you flick, the page glides at most ~2500px a second, and it can
-     never run more than a short way ahead of where it is, so it settles soon
-     after you stop. The page still scrolls natively underneath (scrollTo), so
-     ScrollTrigger, anchors, keys and the scrollbar all keep working. Touch
-     screens and reduced motion keep normal scrolling. */
+  /* ── smooth scroll ──
+     Wheel and trackpad input moves a target, and the page eases toward it on a
+     time-based curve (frame-rate independent), so motion is soft at both ends.
+     Each wheel step and the distance the target may run ahead are capped, so a
+     hard flick still glides instead of racing. The page scrolls natively
+     underneath (scrollTo), so ScrollTrigger, anchors, keys and the scrollbar
+     keep working. Touch screens and reduced motion keep normal scrolling. */
   if (!touch && !reduced) (function () {
-    var target = scrollY, cur = scrollY, raf = 0;
-    var MAX_STEP = 42, LEAD = 950, EASE = .11;
+    var target = scrollY, cur = scrollY, raf = 0, last = 0;
+    var TAU = 140, STEP = 150, LEAD = 900;
     function limit() { return document.documentElement.scrollHeight - innerHeight; }
     function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
-    function tick() {
-      var diff = target - cur;
-      if (Math.abs(diff) < .5) { cur = target; scrollTo(0, cur); raf = 0; return; }
-      cur += clamp(diff * EASE, -MAX_STEP, MAX_STEP);
+    function tick(t) {
+      var dt = last ? Math.min(48, t - last) : 16.7; last = t;
+      cur += (target - cur) * (1 - Math.exp(-dt / TAU));
+      if (Math.abs(target - cur) < .25) { cur = target; scrollTo(0, cur); raf = 0; last = 0; return; }
       scrollTo(0, cur);
       raf = requestAnimationFrame(tick);
     }
@@ -437,7 +437,7 @@ main{position:relative;z-index:1}
       e.preventDefault();
       if (!raf) cur = target = scrollY;
       var d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
-      target = clamp(clamp(target + clamp(d, -170, 170), cur - LEAD, cur + LEAD), 0, limit());
+      target = clamp(clamp(target + clamp(d, -STEP, STEP), cur - LEAD, cur + LEAD), 0, limit());
       if (!raf) raf = requestAnimationFrame(tick);
     }, { passive: false });
     addEventListener("scroll", function () { if (!raf) cur = target = scrollY; }, { passive: true });
