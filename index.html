@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#f8f6f2">
-<meta name="description" content="Omar — eight live websites. Every one opens the real, running site">
+<meta name="description" content="Omar — eight live websites, built in my free time with AI. Every one opens the real, running site">
 <link rel="canonical" href="https://omarjnbz.github.io/portfolio/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Omar">
 <meta property="og:title" content="Omar — Portfolio">
-<meta property="og:description" content="Eight live websites. Every one opens the real, running site">
+<meta property="og:description" content="Eight live websites, built in my free time with AI. Every one opens the real, running site">
 <meta property="og:url" content="https://omarjnbz.github.io/portfolio/">
 <meta property="og:image" content="https://omarjnbz.github.io/portfolio/og.png">
 <meta property="og:image:width" content="1200">
@@ -35,30 +35,30 @@
   --f-mono:"Martian Mono",ui-monospace,Menlo,monospace;
   --gutter:clamp(1rem,2vw,2rem);
   --ease:cubic-bezier(.16,1,.3,1);
-  --flip:.9s;
+  --p:125%;
 }
-/* the page turns dark once you reach About, and back to paper at the very end */
-body{--bg:var(--paper);--fg:var(--ink)}
-body.dark{--bg:var(--ink);--fg:var(--paper);--line:rgba(248,246,242,.14)}
+body{--fg:var(--ink)}
+body.dark{--fg:var(--paper);--line:rgba(248,246,242,.14)}
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--bg);color:var(--fg);
+  margin:0;background:var(--paper);color:var(--fg);
   font-family:var(--f-sans);font-size:1rem;line-height:1.4;
   -webkit-font-smoothing:antialiased;
-  transition:background var(--flip) var(--ease),color var(--flip) var(--ease);
+  transition:color .5s;
 }
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 
-/* the faint dashed column grid behind everything */
-.grid{
+/* the dark comes in as a soft edge that you scroll through, not a fade */
+.veil{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  padding-inline:var(--gutter);
-  display:grid;grid-template-columns:repeat(12,1fr);opacity:.55;
+  background:linear-gradient(180deg,var(--paper) calc(var(--p) - 30%),var(--ink) calc(var(--p) + 22%));
 }
-.grid i{border-left:1px dashed var(--line);transition:border-color var(--flip)}
+/* the faint dashed column grid */
+.grid{position:fixed;inset:0;z-index:0;pointer-events:none;padding-inline:var(--gutter);display:grid;grid-template-columns:repeat(12,1fr);opacity:.55}
+.grid i{border-left:1px dashed var(--line);transition:border-color .5s}
 .grid i:last-child{border-right:1px dashed var(--line)}
 @media (max-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.grid i:nth-child(n+5){display:none}}
 
@@ -66,18 +66,15 @@ img{display:block;max-width:100%}
 .dim{color:var(--grey)}
 
 /* ─── header ─── */
-.hdr{
-  position:fixed;left:0;right:0;top:0;z-index:50;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.1rem var(--gutter);
-}
+.hdr{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.1rem var(--gutter)}
 .hdr nav{display:flex;gap:clamp(1rem,2.2vw,2.2rem);align-items:center}
 .hdr nav a{position:relative;padding:.15rem 0}
 .hdr nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hdr nav a:hover::after{transform:scaleX(1);transform-origin:left}
-.hdr .talk{background:var(--fg);color:var(--bg);padding:.3rem .5rem;transition:background var(--flip),color var(--flip)}
+.hdr .talk{background:var(--fg);color:var(--paper);padding:.3rem .5rem;transition:background .5s,color .5s}
+body.dark .hdr .talk{color:var(--ink)}
 .hdr .talk::after{display:none}
-@media (max-width:560px){.hdr nav{gap:.9rem}.hdr .clock{display:none}}
+@media (max-width:560px){.hdr nav{gap:.9rem}}
 
 main{position:relative;z-index:1}
 .wrap{padding-inline:var(--gutter)}
@@ -85,30 +82,22 @@ main{position:relative;z-index:1}
 
 /* ─── hero ─── */
 .hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:6rem;padding-bottom:1.4rem}
-.hero__name{
-  grid-column:7 / 13;align-self:center;
-  font-size:clamp(5.2rem,16vw,19rem);font-weight:500;line-height:.86;letter-spacing:-.045em;
-  margin:0;transform-origin:50% 100%;
-}
-.hero__sub{grid-column:7 / 13;margin:clamp(2.4rem,6vh,4rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
-.hero__sub + .mono{grid-column:7 / 13;margin-top:1.4rem}
+.hero__name{grid-column:7 / 13;align-self:center;font-size:clamp(5.2rem,16vw,19rem);font-weight:500;line-height:.86;letter-spacing:-.045em;margin:0;transform-origin:50% 100%}
+.hero__sub{grid-column:7 / 12;margin:clamp(2.4rem,6vh,4rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
+.hero__sub .dim{font-weight:500}
+.hero__meta{grid-column:7 / 13;margin-top:1.4rem;display:flex;gap:2rem}
 .hero__foot{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;margin-top:clamp(3rem,10vh,8rem)}
-.hero__foot .links{display:flex;gap:clamp(1rem,2vw,2rem)}
-.hero__foot .links a:hover{opacity:.5}
+.hero__foot a:hover{opacity:.5}
 @media (max-width:760px){
-  .hero__name,.hero__sub,.hero__sub + .mono{grid-column:1 / -1}
+  .hero__name,.hero__sub,.hero__meta{grid-column:1 / -1}
   .hero__name{font-size:clamp(4.2rem,26vw,9rem)}
   .hero__foot{flex-direction:column;align-items:flex-start}
 }
 
-/* ─── section titles: hollow outline that fills in as you scroll ─── */
-.title{
-  margin:0;font-size:clamp(3rem,7.4vw,8rem);font-weight:500;line-height:.92;letter-spacing:-.04em;
-  display:flex;align-items:flex-start;gap:.35em;
-  transform-origin:0 100%;
-}
+/* ─── section titles: hollow, then filled ─── */
+.title{margin:0;font-size:clamp(3rem,7.4vw,8rem);font-weight:500;line-height:.92;letter-spacing:-.04em;display:flex;align-items:flex-start;gap:.35em;transform-origin:0 100%}
 .title .n{font:300 .11em var(--f-mono);letter-spacing:.02em;color:var(--grey);padding-top:1.6em}
-.title .w{color:transparent;-webkit-text-stroke:1px var(--fg);transition:color .5s,-webkit-text-stroke-color var(--flip)}
+.title .w{color:transparent;-webkit-text-stroke:1px var(--fg);transition:color .5s,-webkit-text-stroke-color .5s}
 .title .w.in{color:var(--fg)}
 
 /* ─── work ─── */
@@ -119,46 +108,44 @@ main{position:relative;z-index:1}
 .piece:nth-child(even){grid-column:8 / 13;margin-top:clamp(6rem,18vh,14rem)}
 .piece:nth-child(4n+3){grid-column:2 / 7}
 .piece:nth-child(4n){grid-column:7 / 12}
-.piece .mono{margin-top:.7rem;display:flex;gap:1.2rem}
-.piece .mono b{font-weight:400}
-.piece .mono .dim{margin-left:auto}
+.piece .cap{margin-top:.7rem;display:grid;grid-template-columns:1fr auto;gap:.25rem 1.2rem}
+.piece .cap b{font-weight:400}
+.piece .cap .line{grid-column:1 / -1;max-width:46ch}
 @media (max-width:760px){.piece,.piece:nth-child(n){grid-column:1 / -1;margin-top:0}}
 
-/* the image is cut into vertical strips; they land one after another and shuffle on hover */
+/* each image is cut into strips; they land one after another, and breathe on hover */
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
 .slice i{flex:1 0 0;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
 .slice.in i{transform:none;transition:transform .9s var(--ease)}
 .slice.in i:nth-child(n){transition-delay:calc(var(--d) * 45ms)}
 @media (hover:hover){
-  .piece:hover .slice.in i{transition:transform .5s var(--ease);transition-delay:calc(var(--d) * 22ms)}
-  .piece:hover .slice.in i:nth-child(odd){transform:translateY(-4.5%)}
-  .piece:hover .slice.in i:nth-child(even){transform:translateY(4.5%)}
+  .piece:hover .slice.in i{transition:transform .6s var(--ease);transition-delay:calc(var(--d) * 18ms)}
+  .piece:hover .slice.in i:nth-child(odd){transform:translateY(-2.2%) scaleY(1.045)}
+  .piece:hover .slice.in i:nth-child(even){transform:translateY(2.2%) scaleY(1.045)}
 }
 
-.see{display:inline-block;margin-top:clamp(4rem,10vh,7rem);background:var(--fg);color:var(--bg);padding:.3rem .5rem;transition:background var(--flip),color var(--flip)}
+.see{display:inline-block;margin-top:clamp(4rem,10vh,7rem);background:var(--fg);color:var(--paper);padding:.3rem .5rem;transition:background .5s,color .5s}
+body.dark .see{color:var(--ink)}
 
-/* ─── about: dark from here ─── */
+/* ─── about ─── */
 .about{padding-block:clamp(8rem,22vh,16rem) clamp(6rem,14vh,10rem)}
-.about__line{
-  grid-column:1 / 11;margin:0;
-  font-size:clamp(2.6rem,6.6vw,7.4rem);font-weight:500;line-height:1;letter-spacing:-.04em;
-  transform-origin:0 100%;
-}
+.about__line{grid-column:1 / 11;margin:0;font-size:clamp(2.6rem,6.6vw,7.4rem);font-weight:500;line-height:1;letter-spacing:-.04em;transform-origin:0 100%}
 .about__copy{grid-column:7 / 11;margin-top:clamp(2.5rem,7vh,5rem);max-width:34rem}
 .about__copy p{margin:0 0 1.1rem}
-.about__pic{grid-column:1 / 7;margin-top:clamp(4rem,12vh,9rem);position:relative;aspect-ratio:4/5;overflow:hidden;background:#111}
-.about__pic img{width:100%;height:120%;object-fit:cover;object-position:top;will-change:transform}
+.about__pic{grid-column:1 / 7;margin:clamp(4rem,12vh,9rem) 0 0;position:relative;aspect-ratio:16/11;overflow:hidden;background:#111}
+.about__pic img{width:100%;height:124%;object-fit:cover;object-position:top;will-change:transform}
 .about__pic .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);color:var(--ink);padding:.3rem .5rem}
 @media (max-width:760px){.about__line,.about__copy,.about__pic{grid-column:1 / -1}.about__copy{margin-top:2rem}}
 
-/* ─── touch ─── */
+/* ─── touch: the big line is drawn in horizontal bands that ripple ─── */
 .touch{padding-block:clamp(6rem,16vh,12rem) clamp(3rem,6vh,4rem);overflow:hidden}
-.touch__big{
-  display:block;margin:0 calc(var(--gutter) * -1);padding-inline:var(--gutter);
-  font-size:clamp(4rem,17vw,21rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap;
-  transform-origin:0 100%;
-}
-.touch__big:hover{opacity:.6}
+.touch__ask{margin:0 0 clamp(1.5rem,4vh,3rem);max-width:40ch;font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:500;letter-spacing:-.015em;line-height:1.25}
+.rip{position:relative;display:block;margin:0 calc(var(--gutter) * -1);padding-inline:var(--gutter);font-size:clamp(4rem,17vw,21rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap;cursor:pointer}
+.rip__base{display:block;transition:opacity .2s}
+.rip.on .rip__base{opacity:0}
+.rip__band{position:absolute;inset:0;padding-inline:inherit;display:none;will-change:transform;pointer-events:none}
+.rip.on .rip__band{display:block}
+.rip__tag{position:fixed;left:0;top:0;z-index:60;pointer-events:none;background:var(--paper);color:var(--ink);padding:.3rem .5rem;opacity:0;transform:translate(-50%,-50%)}
 .foot{margin-top:clamp(5rem,14vh,9rem)}
 .foot .mono{line-height:1.7}
 .foot .mono a:hover{opacity:.5}
@@ -168,7 +155,6 @@ main{position:relative;z-index:1}
 .foot .copy{grid-column:7 / 13;margin-top:2.2rem}
 @media (max-width:760px){.foot .l1,.foot .l2,.foot .cred,.foot .copy{grid-column:1 / -1}.foot .l2{margin-top:.6rem}}
 
-/* decode effect: letters are wrapped by script, so there is nothing to hide if it never runs */
 .ch{display:inline-block;white-space:pre}
 .hush{visibility:hidden}
 
@@ -180,10 +166,11 @@ main{position:relative;z-index:1}
 </style>
 </head>
 <body>
+<div class="veil" aria-hidden="true"></div>
 <div class="grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
 <header class="hdr mono">
-  <a href="#top" class="clock" data-decode><span data-clock>OMAR_DXB --:--</span></a>
+  <a href="#top" class="dim" data-decode><span data-clock>--:--</span></a>
   <nav>
     <a href="#work" data-decode>Index</a>
     <a href="#about" data-decode>About</a>
@@ -196,15 +183,12 @@ main{position:relative;z-index:1}
   <section class="hero wrap">
     <div class="cols">
       <h1 class="hero__name" data-decode data-warp>Omar</h1>
-      <p class="hero__sub" data-decode>Designs and builds websites<br>Everything here is live</p>
-      <p class="mono dim" data-decode>Portfolio_26</p>
+      <p class="hero__sub" data-rise>This is what I do in my free time:<br><span class="dim">explore ideas and build them into websites</span></p>
+      <p class="hero__meta mono dim"><span data-decode>Portfolio_26</span><span data-decode>Eight sites_All live</span></p>
     </div>
     <div class="hero__foot mono">
       <span class="dim" data-decode>[Scroll to explore]</span>
-      <span class="links">
-        <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode>Instagram ↗</a>
-        <a href="https://github.com/omarjnbz" target="_blank" rel="noopener" data-decode>GitHub ↗</a>
-      </span>
+      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode>Instagram ↗</a>
     </div>
   </section>
 
@@ -216,28 +200,25 @@ main{position:relative;z-index:1}
 
   <section class="about wrap" id="about">
     <div class="cols">
-      <h2 class="about__line" data-decode-once data-warp>Web designer,<br>also the developer</h2>
+      <h2 class="about__line" data-decode-once data-warp>Explore my ideas,<br>built with AI</h2>
       <div class="about__copy mono">
-        <p data-decode-once>Eight websites, each one built end to end: design, code and launch. Commodity trading, real estate, a festival, DJs and a voice agent. Every link on this page opens the real, running site.</p>
-        <p class="dim" data-decode-once>Dubai_Working anywhere</p>
+        <p data-decode-once>This is what I do in my free time: I explore ideas and build them into websites with AI. Every one is finished properly, at the highest level, and every link on this page opens the real, running site.</p>
+        <p class="dim" data-decode-once>Eight sites_Commodity trading, real estate, a festival, DJs and a voice agent</p>
       </div>
       <figure class="about__pic">
-        <img src="img/hero_kash.jpg" alt="" data-parallax>
-        <a class="tag mono" href="https://kas-5-h.vercel.app/" target="_blank" rel="noopener" data-decode-once>Open site</a>
+        <img src="img/hero_kash.jpg" alt="KAS5H — the first screen of the live site" data-parallax>
+        <a class="tag mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-decode-once>Open site</a>
       </figure>
     </div>
   </section>
 
   <section class="touch wrap" id="contact">
-    <a class="touch__big" href="mailto:Omarjnbz@gmail.com" data-decode-once data-warp>Get in touch</a>
+    <p class="touch__ask" data-rise-once>Get in touch with me<br><span class="dim">I'm ready to build anything</span></p>
+    <a class="rip" href="mailto:Omarjnbz@gmail.com" data-rip><span class="rip__base" data-decode-once>Get in touch</span></a>
+    <span class="rip__tag mono" data-rip-tag aria-hidden="true">Let's talk</span>
     <div class="foot cols mono">
-      <div class="l1">
-        <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode-once>Instagram ↗</a><br>
-        <a href="https://github.com/omarjnbz" target="_blank" rel="noopener" data-decode-once>GitHub ↗</a>
-      </div>
-      <div class="l2">
-        <a href="mailto:Omarjnbz@gmail.com" data-decode-once>Email ↗</a>
-      </div>
+      <div class="l1"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode-once>Instagram ↗</a></div>
+      <div class="l2"><a href="mailto:Omarjnbz@gmail.com" data-decode-once>Email ↗</a></div>
       <p class="cred dim" data-decode-once>Designed by_<b>Omar</b><br>Developed by_<b>Omar</b></p>
       <p class="copy dim" data-decode-once>©2026_All rights reserved</p>
     </div>
@@ -256,42 +237,39 @@ main{position:relative;z-index:1}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "https://arminakcaravantrading.com/"],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "https://www.arianaintegrity.com/"],
-    ["hero_nurelite", "Nur Elite Properties", "Real estate", "https://nurelite.properties/"],
-    ["hero_unheard", "UNHEARD 2.0", "Festival", "https://unheard-f.vercel.app/"],
-    ["hero_jinie", "Jinie Bhatnagar", "Artist portfolio", "https://omarjnbz.github.io/Jinie-Portfolio/"],
-    ["hero_djjinie", "DJ Jinie", "Artist site", "https://jinie.vercel.app/"],
-    ["hero_kash", "KAS5H", "Press kit", "https://kas-5-h.vercel.app/"],
-    ["hero_bngeva", "EVA", "Voice AI", "https://bng-eva.vercel.app"]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "Product catalogue with spec sheets, a trade-corridor map and a quotation desk, in English and Russian", "https://arminakcaravantrading.com/"],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "A site the client runs on their own: an admin panel to change every word, image and logo without code", "https://www.arianaintegrity.com/"],
+    ["hero_nurelite", "Nur Elite Properties", "Real estate", "Global investment advisory, led by image and video, with a large off-market collection", "https://nurelite.properties/"],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh: illustrated hills and pass booking always in reach", "https://unheard-f.vercel.app/"],
+    ["hero_jinie", "Jinie Bhatnagar", "Artist portfolio", "Portfolio for a DJ and producer, Delhi to the world, with a full-screen studio portrait", "https://omarjnbz.github.io/Jinie-Portfolio/"],
+    ["hero_djjinie", "DJ Jinie", "Artist site", "The newer site: a live set behind the hero, a playable music library and booking on one page", "https://jinie.vercel.app/"],
+    ["hero_kash", "KAS5H", "Press kit", "Press kit for a Delhi selector and producer: UK garage, house and techno, with SoundCloud up front", "https://kas5h.vercel.app/"],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser. Press Start, speak, and it answers in 95+ languages", "https://bng-eva.vercel.app"]
   ];
   var STRIPS = touch ? 8 : 14;
   var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
     var a = document.createElement("a");
-    a.className = "piece"; a.href = p[3]; a.target = "_blank"; a.rel = "noopener";
+    a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", opens the live site in a new tab");
     var s = '<div class="slice" aria-hidden="true">';
     for (var k = 0; k < STRIPS; k++) {
       s += '<i style="--d:' + k + ';background-image:url(img/' + (touch ? "sm/" : "") + p[0] + '.jpg);background-position:' + (k / (STRIPS - 1) * 100) + '% 0"></i>';
     }
     s += "</div>";
-    s += '<p class="mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></p>";
+    s += '<div class="cap mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + '</span><span class="line dim">' + p[3] + "</span></div>";
     a.innerHTML = s;
     pieces.appendChild(a);
   });
 
-  /* ── Dubai clock ── */
+  /* ── clock, Dubai time ── */
   var clockEl = document.querySelector("[data-clock]");
   function clock() {
-    var t = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Dubai" }).format(new Date());
-    clockEl.textContent = "OMAR_DXB " + t;
+    clockEl.textContent = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Dubai" }).format(new Date());
   }
   clock(); setInterval(clock, 20000);
 
-  /* ── decode: every letter cycles through symbols before it settles ──
-     Letters are wrapped in spans, then each one shows random characters for a
-     short, staggered window and snaps to its real value. Spaces stay spaces. */
+  /* ── decode: letters cycle through symbols, then settle ── */
   var GLYPHS = "##·$%&/=€|()@+09*+]}{[";
   function wrap(el) {
     if (el.dataset.wrapped) return;
@@ -327,14 +305,12 @@ main{position:relative;z-index:1}
       if (live) requestAnimationFrame(tick);
     })(t0);
   }
-  /* on load: header and hero, in order */
   var onLoad = [].slice.call(document.querySelectorAll("[data-decode]"));
   onLoad.forEach(function (el) { wrap(el); el.classList.add("hush"); });
   onLoad.forEach(function (el, i) {
     var big = el.classList.contains("hero__name");
-    setTimeout(function () { decode(el, big ? { per: 90, hold: 700 } : { per: 22, hold: 380 }); }, 120 + i * 90);
+    setTimeout(function () { decode(el, big ? { per: 110, hold: 760 } : { per: 22, hold: 380 }); }, 160 + i * 90);
   });
-  /* further down: the first time each block comes into view */
   var later = [].slice.call(document.querySelectorAll("[data-decode-once]"));
   later.forEach(function (el) { wrap(el); el.classList.add("hush"); });
   if ("IntersectionObserver" in window) {
@@ -342,12 +318,10 @@ main{position:relative;z-index:1}
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
-        decode(e.target, e.target.matches(".about__line, .touch__big") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
+        decode(e.target, e.target.matches(".about__line, .rip__base") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
       });
     }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
     later.forEach(function (el) { io.observe(el); });
-    /* a fast fling can carry a block through the viewport between two observer
-       checks; this sweep decodes anything already above the fold so nothing stays blank */
     var sweeping = false;
     function sweep() {
       sweeping = false;
@@ -371,7 +345,6 @@ main{position:relative;z-index:1}
     slices.forEach(function (s) { sio.observe(s); });
   } else slices.forEach(function (s) { s.classList.add("in"); });
 
-  /* in-page links, native smooth scroll */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
       var id = a.getAttribute("href"), el = id === "#top" ? document.body : document.querySelector(id);
@@ -382,15 +355,27 @@ main{position:relative;z-index:1}
 
   if (reduced || !hasGsap) {
     document.body.classList.add("dark");
+    document.documentElement.style.setProperty("--p", "-30%");
     document.querySelectorAll("[data-fill]").forEach(function (w) { w.classList.add("in"); });
     return;
   }
 
-  /* ── light → dark when About arrives, back to paper never: the page ends dark ── */
+  /* ── intro: the name rises letter by letter while it decodes; the lines follow ── */
+  gsap.from(".hero__name .ch", { yPercent: 70, opacity: 0, duration: 1.3, stagger: .07, ease: "expo.out", delay: .15 });
+  gsap.from("[data-rise]", { y: 28, opacity: 0, duration: 1.1, ease: "power3.out", delay: .75 });
+  gsap.from(".hero__meta, .hero__foot", { opacity: 0, duration: .9, delay: 1.1, stagger: .15 });
+  gsap.utils.toArray("[data-rise-once]").forEach(function (el) {
+    gsap.from(el, { y: 24, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } });
+  });
+
+  /* ── paper → dark: a soft edge that sweeps down the screen as About approaches ── */
+  var root = document.documentElement;
   ScrollTrigger.create({
-    trigger: "#about", start: "top 70%",
-    onEnter: function () { document.body.classList.add("dark"); },
-    onLeaveBack: function () { document.body.classList.remove("dark"); }
+    trigger: "#about", start: "top bottom", end: "top 25%", scrub: .35,
+    onUpdate: function (self) {
+      root.style.setProperty("--p", (125 - self.progress * 155) + "%");
+      document.body.classList.toggle("dark", self.progress > .5);
+    }
   });
 
   /* ── section titles fill in as they rise ── */
@@ -398,13 +383,9 @@ main{position:relative;z-index:1}
     ScrollTrigger.create({ trigger: w, start: "top 80%", onEnter: function () { w.classList.add("in"); }, onLeaveBack: function () { w.classList.remove("in"); } });
   });
 
-  /* ── the warp: big type stretches with scroll speed and springs back ──
-     Scroll velocity (px/s) becomes a vertical stretch and a slight lean. Fast
-     scrolling pulls the letters tall; stopping lets them settle. Skipped on
-     touch screens, where fling scrolling would keep it jittering. */
+  /* ── the warp: big type stretches with scroll speed and springs back (desktop) ── */
   if (!touch) {
-    var warps = [].slice.call(document.querySelectorAll("[data-warp]"));
-    var setters = warps.map(function (el) {
+    var setters = [].slice.call(document.querySelectorAll("[data-warp]")).map(function (el) {
       return { sy: gsap.quickTo(el, "scaleY", { duration: .55, ease: "power3.out" }),
                sk: gsap.quickTo(el, "skewY", { duration: .55, ease: "power3.out" }) };
     });
@@ -412,8 +393,7 @@ main{position:relative;z-index:1}
     ScrollTrigger.create({
       onUpdate: function (self) {
         var v = self.getVelocity();
-        var s = 1 + Math.min(Math.abs(v) / 3200, .85);
-        var k = Math.max(-6, Math.min(6, -v / 900));
+        var s = 1 + Math.min(Math.abs(v) / 3200, .85), k = Math.max(-6, Math.min(6, -v / 900));
         setters.forEach(function (q) { q.sy(s); q.sk(k); });
         clearTimeout(calm);
         calm = setTimeout(function () { setters.forEach(function (q) { q.sy(1); q.sk(0); }); }, 90);
@@ -421,13 +401,54 @@ main{position:relative;z-index:1}
     });
   }
 
-  /* ── the About image slides inside its frame as you scroll past ── */
-  gsap.fromTo("[data-parallax]", { yPercent: -16 }, { yPercent: 0, ease: "none",
+  /* ── About image slides inside its frame ── */
+  gsap.fromTo("[data-parallax]", { yPercent: -19 }, { yPercent: 0, ease: "none",
     scrollTrigger: { trigger: ".about__pic", start: "top bottom", end: "bottom top", scrub: .4 } });
 
-  /* ── hero name drifts up and fades as the page leaves it ── */
   gsap.to(".hero__name", { yPercent: -18, opacity: 0, ease: "none",
     scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom 30%", scrub: .5 } });
+
+  /* ── "Get in touch": the ripple ──
+     The line is drawn again in N horizontal bands, each a copy clipped to its
+     own slice. Every band is pushed sideways by a wave that runs down the text
+     and dies away: it plays once as the line arrives, and again whenever the
+     pointer moves over it. Same idea as a displacement shader, done in DOM. */
+  var rip = document.querySelector("[data-rip]"), base = rip.querySelector(".rip__base");
+  var N = touch ? 14 : 30, bands = [], energy = 0, t = 0, running = false;
+  for (var i = 0; i < N; i++) {
+    var b = document.createElement("span");
+    b.className = "rip__band"; b.setAttribute("aria-hidden", "true");
+    b.textContent = "Get in touch";
+    var top = i / N * 100, bottom = 100 - (i + 1) / N * 100;
+    b.style.clipPath = "inset(" + top + "% 0 " + bottom + "% 0)";
+    rip.appendChild(b); bands.push({ el: b, y: (i + .5) / N });
+  }
+  function frame() {
+    t += .016;
+    energy *= .962;
+    var w = rip.clientWidth;
+    bands.forEach(function (b) {
+      var wave = Math.sin(b.y * 9 - t * 7) * Math.sin(b.y * 2.3 + t * 1.7);
+      b.el.style.transform = "translateX(" + (wave * energy * w * .06).toFixed(2) + "px)";
+    });
+    if (energy < .004) { running = false; rip.classList.remove("on"); bands.forEach(function (b) { b.el.style.transform = ""; }); return; }
+    requestAnimationFrame(frame);
+  }
+  function kick(amount) {
+    energy = Math.min(1, energy + amount);
+    if (!running) { running = true; rip.classList.add("on"); requestAnimationFrame(frame); }
+  }
+  ScrollTrigger.create({ trigger: rip, start: "top 85%", onEnter: function () { setTimeout(function () { kick(1); }, 350); } });
+  var tag = document.querySelector("[data-rip-tag]"), lastX = null;
+  if (!touch) {
+    rip.addEventListener("pointermove", function (e) {
+      if (lastX !== null) kick(Math.min(.25, Math.abs(e.clientX - lastX) / 400));
+      lastX = e.clientX;
+      tag.style.transform = "translate(" + (e.clientX - tag.offsetWidth / 2) + "px," + (e.clientY - tag.offsetHeight / 2) + "px)";
+      tag.style.opacity = 1;
+    });
+    rip.addEventListener("pointerleave", function () { tag.style.opacity = 0; lastX = null; });
+  }
 })();
 </script>
 </body>
