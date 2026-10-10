@@ -3,572 +3,401 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#080807">
-<meta name="description" content="Eight websites built with AI in my free time — commodity trading, real estate, a festival, DJs and voice AI. Every one opens the real, running site">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f8f6f2">
+<meta name="description" content="Omar — a library of eight live websites, built in my free time with AI. Every one opens the real, running site">
 <link rel="canonical" href="https://omarjnbz.github.io/portfolio/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Omar">
-<meta property="og:title" content="Omar — Explore my ideas">
-<meta property="og:description" content="Eight websites built with AI in my free time — commodity trading, real estate, a festival, DJs and voice AI. Every one opens the real, running site">
+<meta property="og:title" content="Omar — Portfolio">
+<meta property="og:description" content="A library of eight live websites, built in my free time with AI">
 <meta property="og:url" content="https://omarjnbz.github.io/portfolio/">
 <meta property="og:image" content="https://omarjnbz.github.io/portfolio/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="OMAR — I build ideas in my free time, with AI">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Omar — Explore my ideas">
-<meta name="twitter:description" content="Eight websites built with AI in my free time — commodity trading, real estate, a festival, DJs and voice AI. Every one opens the real, running site">
-<meta name="twitter:image" content="https://omarjnbz.github.io/portfolio/og.png">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Omar — Explore my ideas</title>
+<title>Omar — Portfolio</title>
 <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
-
+<link rel="preload" href="fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
-/* Self-hosted: no request ever leaves this site for fonts. Variable fonts, Latin subset. */
-@font-face{font-family:"Archivo";font-style:normal;font-weight:400 900;font-display:swap;
-  src:url(fonts/archivo-latin.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:"Martian Mono";font-style:normal;font-weight:300 500;font-display:swap;
-  src:url(fonts/martian-mono-latin.woff2) format("woff2");
-  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:400 900;font-display:swap;src:url(fonts/archivo-latin.woff2) format("woff2")}
+@font-face{font-family:"Martian Mono";font-style:normal;font-weight:300 500;font-display:swap;src:url(fonts/martian-mono-latin.woff2) format("woff2")}
+
 :root{
-  --ink:#080807;
-  --ink-raise:#12110f;
-  --ink-line:#2a2723;
-  --sand:#e8e8e3;
-  --sand-bright:#fafaf9;
-  --sand-dim:#8b857c;
-  --sand-ghost:#393632;
-  --olive:#8c8c73;
-  --olive-bright:#aaaa8e;
-  --live:#9bbf7a;
-
-  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --f-mono:"Martian Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-
-  --gutter:clamp(1rem,4vw,3.5rem);
-  --rule:1px solid var(--ink-line);
-  --ease:cubic-bezier(.22,1,.36,1);
+  --paper:#f8f6f2;
+  --ink:#050505;
+  --grey:#8a8a8a;
+  --line:rgba(5,5,5,.12);
+  --f-sans:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-mono:"Martian Mono",ui-monospace,Menlo,monospace;
+  --gutter:clamp(1rem,2vw,2rem);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --p:125%;
 }
+body{--fg:var(--ink)}
+body.dark{--fg:var(--paper);--line:rgba(248,246,242,.14)}
 
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--fg);font-family:var(--f-sans);font-size:1rem;line-height:1.4;-webkit-font-smoothing:antialiased;transition:color .5s}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-variant-numeric:slashed-zero;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;text-transform:uppercase;line-height:1.55}
+.dim{color:var(--grey)}
 
-body{
-  margin:0;
-  background:var(--ink);
-  color:var(--sand);
-  font-family:var(--f-display);
-  font-size:clamp(1rem,.95rem + .2vw,1.0625rem);
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-  /* Deliberately no overflow on body — it propagates to the viewport and has
-     already broken scrolling once. Sections that bleed crop themselves. */
-}
-a{color:inherit}
-.mono{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase}
-@media (max-width:640px){.mono{font-size:.7rem;letter-spacing:.14em}}
-.wrap{padding-inline:var(--gutter)}
+/* ─── start: black, a centred counter, then paper rises as a soft curve ─── */
+.pre{position:fixed;inset:0;z-index:200;background:var(--ink);color:var(--paper);overflow:hidden;display:grid;place-items:center}
+.pre__c{text-align:center}
+.pre__n{display:block;font-size:clamp(3rem,7vw,6.5rem);font-weight:500;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums slashed-zero}
+.pre__l{display:block;margin-top:1rem;color:var(--grey)}
+.pre__wipe{position:absolute;left:-25vw;right:-25vw;top:100%;height:220vh;background:var(--paper);border-radius:50% 50% 0 0 / 24vh 24vh 0 0;box-shadow:0 -60px 120px 50px var(--paper);will-change:transform}
+.pre.done{display:none}
+body.loading .hdr{opacity:0}
 
-.grain{
-  position:fixed; inset:-60%;
-  pointer-events:none; z-index:90; opacity:.13;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-@media (prefers-reduced-motion:no-preference){
-  .grain{animation:drift 680ms steps(3,end) infinite}
-}
-@keyframes drift{
-  0%{transform:translate(0,0)}33%{transform:translate(-2%,1%)}
-  66%{transform:translate(1%,-2%)}100%{transform:translate(0,0)}
-}
+/* the dark comes in as a soft edge you scroll through */
+.veil{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,var(--paper) calc(var(--p) - 30%),var(--ink) calc(var(--p) + 22%))}
+.grid{position:fixed;inset:0;z-index:0;pointer-events:none;padding-inline:var(--gutter);display:grid;grid-template-columns:repeat(12,1fr);opacity:.55}
+.grid i{border-left:1px dashed var(--line);transition:border-color .5s}
+.grid i:last-child{border-right:1px dashed var(--line)}
+@media (max-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.grid i:nth-child(n+5){display:none}}
 
 /* ─── header ─── */
-.hdr{
-  position:fixed; left:0; right:0;
-  top:env(safe-area-inset-top,0px);
-  z-index:100;
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-  padding:1.15rem var(--gutter);
-  mix-blend-mode:difference; color:var(--sand-bright);
-}
-.hdr__mark{font-weight:900;font-size:.95rem;letter-spacing:-.02em;text-decoration:none}
-.hdr__social{display:flex;align-items:center;gap:1.75rem}
-.hdr__social a{display:block;width:20px;height:20px;color:inherit;opacity:.8;transition:opacity .3s,transform .45s var(--ease)}
-.hdr__social a:hover,.hdr__social a:focus-visible{opacity:1;transform:translateY(-2px)}
-.hdr__social svg{width:100%;height:100%;fill:currentColor;display:block}
-/* invisible hit areas: the icons stay 20px, the tappable area is 48px */
-.hdr__mark,.hdr__social a,.stream__go,.end__mail{position:relative}
-.hdr__mark::after,.hdr__social a::after{content:"";position:absolute;inset:-14px}
-.stream__go::before,.end__mail::before{content:"";position:absolute;inset:-12px -6px}
+.hdr{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:.9rem var(--gutter);font-size:.6rem;transition:opacity .6s}
+.hdr nav{display:flex;gap:clamp(1rem,2.2vw,2.2rem);align-items:center}
+.hdr nav a{position:relative;padding:.15rem 0}
+.hdr nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.hdr nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.hdr .talk{background:var(--fg);color:var(--paper);padding:.25rem .45rem;transition:background .5s,color .5s}
+body.dark .hdr .talk{color:var(--ink)}
+.hdr .talk::after{display:none}
+@media (max-width:560px){.hdr nav{gap:.9rem}}
 
-/* ─── hero ─── */
-/* overflow-x:clip trims the oversized wordmark sideways only. No hidden box
-   below it, so the name is never cut by a visible edge as it rises. */
-.hero{
-  position:relative; min-height:100svh; overflow-x:clip;
-  display:flex; flex-direction:column;
-  padding-top:clamp(7rem,22vh,12rem);
-}
-.hero__line{
-  margin:0;
-  font-size:clamp(2rem,1.2rem + 3.6vw,4.6rem);
-  font-weight:700;line-height:1.02;letter-spacing:-.04em;max-width:22ch;
-}
-.hero__line .dim{color:var(--sand-dim)}
-.flip{display:inline-block;color:var(--olive-bright);white-space:nowrap}
-.flip span{display:inline-block}
-.hero__name{position:relative;margin-top:auto;line-height:.74;z-index:2}
-.hero__name h1{
-  margin:0;font-size:25vw;font-weight:900;letter-spacing:-.055em;
-  white-space:nowrap;text-align:center;color:#b6b4ab;
-  padding-bottom:calc(env(safe-area-inset-bottom,0px) + .03em);
-}
-.hero__name h1 span{display:inline-block}
+/* ─── every section is one screen, centred ─── */
+main{position:relative;z-index:1}
+.screen{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5.5rem var(--gutter) 3rem;position:relative}
+.label{margin:0 0 clamp(.9rem,2vh,1.4rem)}
+.big{margin:0;font-size:clamp(2.6rem,6.2vw,6.8rem);font-weight:500;line-height:.95;letter-spacing:-.045em}
 
-/* ─── statement: words brighten as they scroll past ─── */
-.say{padding-block:clamp(6rem,16vw,12rem) clamp(4rem,10vw,8rem)}
-.say__label{color:var(--olive);margin:0 0 2rem}
-.say__text{
-  margin:0;max-width:24ch;
-  font-size:clamp(1.8rem,1rem + 3.2vw,4rem);
-  font-weight:600;line-height:1.08;letter-spacing:-.035em;
-}
-.say__text .w{color:var(--sand-ghost);transition:color .2s}
-.reduced .say__text .w{color:var(--sand)}
+/* water: text is drawn through a moving noise field that calms to nothing */
+.wv{opacity:0}
+[data-w]{display:inline-block}
+/* caption-style highlight: each word of a statement lights up in turn as you scroll */
+.cw{transition:color .25s}
 
-/* ─── gallery: image stream corridor ───
-   Two rails of site screenshots ride out of the vanishing point toward the
-   viewer. Ported from the ImageStreamHero React component: the same path
-   maths, sampled once into CSS keyframes, so the browser runs the motion
-   and no JavaScript touches it per frame. Every length is cqw (a share of
-   the section's width), so the corridor keeps its shape at any size. */
-.stream{
-  position:relative;overflow:hidden;container-type:inline-size;
-  height:max(560px,100svh);isolation:isolate;
-}
-.stream__rails{
-  position:absolute;inset:0;pointer-events:none;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%);
-  mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%);
-}
-.stream__world{position:absolute;inset:0;transform-style:preserve-3d}
-.stream__card{
-  position:absolute;left:50%;overflow:hidden;
-  backface-visibility:hidden;background:var(--ink-raise);
-  box-shadow:0 0 0 1px rgba(232,232,227,.08);
-}
-.stream__card img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
-/* keeps the type readable where the corridor is densest */
-.stream::after{
-  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(38% 30% at 50% 55%,rgba(8,8,7,.7),transparent 70%);
-}
-.stream__copy{
-  position:relative;z-index:2;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  text-align:center;padding:clamp(4rem,9vh,6rem) var(--gutter) clamp(2.5rem,6vh,4rem);
-}
-.stream__copy h2{
-  margin:0;font-size:clamp(2.4rem,1.2rem + 5vw,6rem);
-  font-weight:800;line-height:.92;letter-spacing:-.05em;text-wrap:balance;
-}
-.stream__copy p{margin:.9rem 0 0;color:var(--olive)}
-.stream__go{
-  color:var(--sand);text-decoration:none;padding-bottom:.35rem;
-  border-bottom:1px solid var(--ink-line);transition:border-color .3s,color .3s;
-}
-.stream__go:hover,.stream__go:focus-visible{color:var(--olive-bright);border-color:var(--olive)}
-/* the corridor is sized by width, so on a tall phone a full-height section is mostly empty */
-@media (max-aspect-ratio:3/4){.stream{height:max(520px,140vw)}}
-.stream.is-paused .stream__card{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){.stream__card{animation-play-state:paused}}
+/* hero */
+.hero__name{margin:0;font-size:clamp(6rem,24vw,27rem);font-weight:500;line-height:.82;letter-spacing:-.055em;cursor:default}
+.hero__sub{margin:clamp(1.6rem,4vh,2.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
+.hero__meta{margin:1.2rem 0 0;display:flex;gap:2rem;justify-content:center}
+.hero__foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;justify-content:space-between;align-items:flex-end}
+.hero__foot a:hover{opacity:.5}
+@media (max-width:760px){.hero__meta{flex-direction:column;gap:.2rem}}
 
-/* ─── work index ─── */
-.work{padding-block:clamp(5rem,12vw,9rem) clamp(3rem,8vw,6rem)}
-.work__head{
-  display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;
-  padding-bottom:1rem;border-bottom:var(--rule);
-}
-.work__head h2{
-  margin:0;font-size:clamp(1.5rem,1.1rem + 1.2vw,2.2rem);
-  font-weight:700;line-height:1;letter-spacing:-.035em;
-}
-.work__head p{margin:0;color:var(--sand-dim);text-align:right}
+/* work: all eight on one screen, 4 by 2 */
+.works{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,1.8vw,1.8rem);width:min(100%,1320px);margin-top:clamp(1.6rem,4vh,2.8rem);text-align:left}
+.piece{position:relative;display:block}
+.piece .cap{margin-top:.55rem;display:flex;justify-content:space-between;gap:.8rem}
+.piece .cap b{font-weight:400}
+.piece .info{position:absolute;inset:0;display:flex;align-items:flex-end;padding:.8rem;background:linear-gradient(180deg,rgba(5,5,5,0) 30%,rgba(5,5,5,.86));color:var(--paper);opacity:0;transition:opacity .45s var(--ease);pointer-events:none}
+@media (hover:hover){.piece:hover .info{opacity:1}}
+@media (max-width:980px){.works{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+.slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
+.slice i{flex:1 0 0;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
+.slice.in i{transform:none;transition:transform .9s var(--ease)}
+.slice.in i:nth-child(n){transition-delay:calc(var(--d) * 45ms)}
 
-.group{
-  padding:1.8rem 0 .4rem;color:var(--olive);
-  display:flex;justify-content:space-between;
-}
-.row{
-  display:grid;grid-template-columns:3.2rem minmax(0,1fr) auto;gap:.2rem 1rem;align-items:start;
-  padding-block:clamp(.8rem,1.6vw,1.1rem);border-bottom:var(--rule);
-  text-decoration:none;
-}
-.row{grid-template-columns:3.2rem minmax(0,1fr) auto;align-items:center}
-@media (max-width:640px){.row{grid-template-columns:2.2rem minmax(0,1fr) auto}}
-.row__n{color:var(--sand-dim)}
-.row__name{
-  margin:0;font-size:clamp(1.05rem,.95rem + .45vw,1.35rem);
-  font-weight:600;line-height:1.15;letter-spacing:-.02em;
-  color:var(--sand-ghost);transition:color .45s var(--ease);
-}
-.row__sector{margin:.35rem 0 0;color:var(--olive)}
-.row__go{
-  padding-top:.55em;font-size:1.4rem;color:var(--sand-ghost);
-  transition:transform .45s var(--ease),color .45s var(--ease);
-}
-.row__name{color:var(--sand)}
-.row:focus-visible .row__name{color:var(--olive-bright)}
-/* the pop-out: hover or focus a row and a card rises from it with what the site
-   is and a way to open it. It floats over the rows below, so nothing shifts. */
-.row{position:relative}
-.row__pop{
-  position:absolute;left:3.2rem;right:0;top:calc(100% - .35rem);z-index:6;
-  padding:1.1rem 1.25rem 1.2rem;border-radius:14px;
-  background:var(--ink-raise);border:1px solid var(--ink-line);
-  box-shadow:0 28px 60px -22px rgba(0,0,0,.95);
-  opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);transform-origin:top left;
-  transition:opacity .35s var(--ease),transform .5s var(--ease),visibility 0s linear .5s;
-  pointer-events:none;
-}
-.row:focus-visible .row__pop{
-  opacity:1;visibility:visible;transform:none;pointer-events:auto;
-  transition:opacity .35s var(--ease),transform .5s var(--ease),visibility 0s;
-}
-.row__line{margin:0;color:var(--sand);font-size:.95rem;line-height:1.45;max-width:52ch}
-.row__points{list-style:none;margin:.8rem 0 0;padding:0;display:grid;gap:.4rem}
-.row__points li{position:relative;padding-left:1.1rem;color:var(--sand-dim);font-size:.85rem;line-height:1.4}
-.row__points li::before{content:"";position:absolute;left:0;top:.7em;width:.6rem;height:1px;background:var(--olive)}
-.row__open{display:flex;justify-content:space-between;gap:1rem;margin-top:1rem;padding-top:.8rem;border-top:var(--rule);color:var(--sand-dim)}
-.row__open b{font-weight:400;color:var(--olive-bright);white-space:nowrap}
-.row__open i{font-style:normal;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.row:focus-visible .row__go{color:var(--sand);transform:translate(4px,-4px)}
-.row:focus-visible{outline:2px solid var(--olive);outline-offset:4px}
-@media (hover:hover){
-  .row:hover .row__name{color:var(--olive-bright)}
-  .row:hover .row__pop{
-    opacity:1;visibility:visible;transform:none;pointer-events:auto;
-    transition:opacity .35s var(--ease),transform .5s var(--ease),visibility 0s;
-  }
-  .row:hover{background:linear-gradient(90deg,rgba(232,232,227,.03),transparent)}
-  .row:hover .row__go{color:var(--sand);transform:translate(4px,-4px)}
-}
-/* touch screens have no hover: the first tap on a row opens its card in place
-   (a + becomes an arrow), the second tap opens the site */
-@media (hover:none){
-  .row{grid-template-columns:2.2rem minmax(0,1fr) auto}
-  .row__pop{
-    display:none;position:static;grid-column:2 / -1;margin-top:.7rem;padding:.9rem 1rem 1rem;
-    opacity:1;visibility:visible;transform:none;pointer-events:none;box-shadow:none;
-  }
-  .row.is-open .row__pop{display:block;animation:popIn .45s var(--ease)}
-  .row.is-open{background:linear-gradient(90deg,rgba(232,232,227,.04),transparent)}
-  .row.is-open .row__name{color:var(--olive-bright)}
-  .row__go{font-size:0;padding-top:0}
-  .row__go::after{content:"+";display:block;font-size:1.6rem;line-height:1;color:var(--sand-dim)}
-  .row.is-open .row__go::after{content:"↗";color:var(--sand)}
-}
-@keyframes popIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-@media (max-width:959px){.row__name{color:var(--sand)}}
+/* about: one screen, small, centred */
+.about__pic{width:clamp(9rem,17vw,15rem);aspect-ratio:1;margin:0 0 clamp(1.4rem,3.5vh,2.2rem);overflow:hidden;background:#111}
+.about__pic img{width:100%;height:100%;object-fit:cover}
+.about .big{max-width:20ch}
+.about__copy{margin:clamp(1.4rem,3.5vh,2.2rem) auto 0;max-width:46ch}
+.about__copy p{margin:0 0 .9rem}
 
+/* latest work: one screen, 2 by 2 on its own panel */
+.latest .big{font-size:clamp(2rem,4.2vw,4.6rem)}
+.panel{margin-top:clamp(1.2rem,3vh,2rem);width:min(100%,760px,96vh);padding:clamp(.9rem,1.6vw,1.4rem);background:#1b1916;border:1px solid rgba(248,246,242,.1);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.9rem,1.6vw,1.4rem);text-align:left}
+.frame{display:block}
+.frame .cap{margin-top:.5rem;display:flex;justify-content:space-between;gap:.8rem}
+.frame .cap b{font-weight:400}
+.frame .line{margin:.15rem 0 0}
+.latest__open{margin-top:clamp(1rem,2.4vh,1.6rem)}
+.latest__open:hover{opacity:.5}
+@media (max-width:760px){.panel{grid-template-columns:1fr}}
 
+/* get in touch */
+.touch__sub{margin:clamp(1rem,2.5vh,1.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;letter-spacing:-.015em}
+.rip{position:relative;display:inline-block;font-size:clamp(4rem,16vw,19rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap;cursor:pointer}
+.rip__base{display:block}
+.rip.on .rip__base{opacity:0}
+.rip__band{position:absolute;inset:0;display:none;will-change:transform;pointer-events:none}
+.rip.on .rip__band{display:block}
+.foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 2rem}
+.foot a:hover{opacity:.5}
+.foot b{font-weight:400;color:var(--fg)}
 
-/* ─── contact ─── */
-.end{padding-block:clamp(6rem,14vw,11rem) clamp(5rem,12vw,9rem);overflow:hidden}
-.end__label{color:var(--olive);margin:0 0 1.6rem}
-.end__ask{
-  margin:0;font-size:clamp(2.4rem,1.2rem + 5.4vw,7rem);
-  font-weight:800;line-height:.92;letter-spacing:-.05em;max-width:12ch;
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .slice i{transform:none!important}
+  .wv{opacity:1}
 }
-.end__mail{
-  display:inline-flex;align-items:baseline;gap:.6em;margin-top:clamp(2rem,5vw,3.4rem);
-  font-size:clamp(1.1rem,.8rem + 1.6vw,2.2rem);font-weight:600;letter-spacing:-.02em;
-  text-decoration:none;position:relative;padding-bottom:.3em;
-}
-.end__mail::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--sand);
-  transform-origin:right;transition:transform .6s var(--ease);
-}
-.end__mail:hover::after,.end__mail:focus-visible::after{transform:scaleX(0)}
-.end__mail span{color:var(--olive-bright);transition:transform .45s var(--ease)}
-.end__mail:hover span{transform:translate(4px,-4px)}
-
 </style>
 </head>
-<body>
-<div class="grain" aria-hidden="true"></div>
+<body class="loading">
+<div class="pre" aria-hidden="true" data-pre>
+  <div class="pre__c"><span class="pre__n" data-counter>000</span><span class="pre__l mono">Omar_Portfolio</span></div>
+  <div class="pre__wipe"></div>
+</div>
+<div class="veil" aria-hidden="true"></div>
+<div class="grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-<header class="hdr">
-  <a class="hdr__mark" href="#top" aria-label="Back to top">O.</a>
-  <nav class="hdr__social">
-    <a href="https://github.com/omarjnbz" target="_blank" rel="noopener" aria-label="GitHub">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-    </a>
-    <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85C2.42 3.92 3.94 2.37 7.15 2.27 8.42 2.21 8.8 2.2 12 2.2zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95C23.73 2.7 21.31.27 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
-    </a>
+<header class="hdr mono">
+  <a href="#top" class="dim"><span data-clock>--:--</span></a>
+  <nav>
+    <a href="#work">Portfolio</a>
+    <a href="#about">About</a>
+    <a class="talk" href="#contact">Lets talk</a>
   </nav>
 </header>
 
 <main id="top">
-  <section class="hero wrap">
-    <p class="hero__line" data-hero-line>
-      I build <span class="flip" data-flip>websites</span><br>
-      <span class="dim">in my free time, with AI</span>
-    </p>
 
-
-    <div class="hero__name" data-hero-name><h1 aria-label="Omar"><span>O</span><span>M</span><span>A</span><span>R</span></h1></div>
-  </section>
-
-  <section class="say wrap" aria-label="About">
-    <p class="say__label mono">(About)</p>
-    <p class="say__text" data-say>This is what I do in my free time: explore ideas and build them into websites with AI. Eight are live, and every one opens the real, running site</p>
-  </section>
-
-
-  <section class="stream" id="gallery" aria-label="Gallery of live sites">
-    <div class="stream__rails" aria-hidden="true" data-stream></div>
-    <div class="stream__copy">
-      <div data-sc>
-        <h2>Explore<br>my ideas</h2>
-        <p class="mono">Eight sites — all live</p>
-      </div>
-      <a class="stream__go mono" href="#work" data-sc>Open any of them ↓</a>
+  <section class="screen hero">
+    <h1 class="hero__name" data-w data-hero>Omar</h1>
+    <p class="hero__sub" data-w data-hero>A library of websites, built in my free time<br><span class="dim">Explore ideas and build them</span></p>
+    <p class="hero__meta mono dim" data-w data-hero><span>Portfolio_26</span><span>Eight sites_All live</span></p>
+    <div class="hero__foot mono">
+      <span class="dim" data-w data-hero>[Scroll to explore]</span>
+      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Instagram ↗</a>
     </div>
   </section>
 
-  <section class="work wrap" id="work">
-    <div class="work__head" data-sc>
-      <h2>The sites</h2>
-      <p class="mono">08 — all live</p>
+  <section class="screen" id="work">
+    <p class="label mono dim" data-w>Portfolio_008</p>
+    <h2 class="big" data-w>Featured works</h2>
+    <div class="works" id="pieces"></div>
+  </section>
+
+  <section class="screen about" id="about">
+    <figure class="about__pic" data-w><img src="img/omar.jpg" alt="Omar"></figure>
+    <p class="label mono dim" data-w>About_Omar</p>
+    <h2 class="big" data-w data-caption>I explore ideas and build them into websites</h2>
+    <div class="about__copy mono">
+      <p data-w>Web designer in Dubai. In my free time I take an idea and turn it into a live site, designed, built and launched with AI, finished properly at the highest level.</p>
+      <p class="dim" data-w>Commodity trading_Real estate_A festival_Two DJs_A voice agent</p>
     </div>
-
-    <div class="work__list" id="list"></div>
   </section>
 
-  <section class="end wrap" id="contact">
-    <p class="end__label mono" data-sc>(Contact)</p>
-    <h2 class="end__ask" data-sc>Have something to build?</h2>
-    <a class="end__mail" data-sc href="mailto:Omarjnbz@gmail.com">Omarjnbz@gmail.com <span>↗</span></a>
-
+  <section class="screen latest" id="latest">
+    <p class="label mono dim" data-w>Latest work_KAS5H</p>
+    <h2 class="big" data-w data-caption>This is my latest work</h2>
+    <div class="panel" id="frames"></div>
+    <a class="latest__open mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-w>Open the site ↗</a>
   </section>
+
+  <section class="screen touch" id="contact">
+    <p class="label mono dim" data-w>Contact</p>
+    <a class="rip" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-rip><span class="rip__base" data-w>Get in touch</span></a>
+    <p class="touch__sub" data-w>I'm ready to build anything<br><span class="dim">Message me on Instagram</span></p>
+    <div class="foot mono">
+      <span><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram ↗</a>&nbsp;&nbsp;&nbsp;<a href="mailto:Omarjnbz@gmail.com" data-w>Email ↗</a></span>
+      <span class="dim" data-w>Coming_SoundCloud player, follow and more</span>
+      <span class="dim" data-w>©2026_Designed by <b>Omar</b></span>
+    </div>
+  </section>
+
 </main>
-
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script>
 (function () {
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var touch = matchMedia("(hover:none)").matches;
   var hasGsap = !!(window.gsap && window.ScrollTrigger);
   if (hasGsap) gsap.registerPlugin(ScrollTrigger);
-  if (reduced || !hasGsap) document.documentElement.classList.add("reduced");
+  var animate = hasGsap && !reduced;
 
-  /* ── projects ── */
+  /* ── the sites ── */
   var P = [
-    ["Client sites", "hero_arminak", "Arminak Caravan", "Commodity trading", "Agricultural commodity trading, presented as a working catalogue.", "arminakcaravantrading.com", "https://arminakcaravantrading.com/", ["Product catalogue with technical spec sheets", "Trade-corridor map and a client-qualification form", "Quotation desk, in English and Russian"]],
-    ["Client sites", "hero_ariana", "Ariana Integrity", "Real estate", "A real estate site the client runs entirely on their own.", "arianaintegrity.com", "https://www.arianaintegrity.com/", ["Admin panel to edit every word, image and the logo", "Updates need no code", "Live in production"]],
-    ["Client sites", "hero_nurelite", "Nur Elite Properties", "Real estate · Global", "Global real estate investment advisory, led by image and video.", "nurelite.properties", "https://nurelite.properties/", ["Image and video on every page", "A large off-market collection", "English and Russian"]],
-    ["Site designs", "hero_unheard", "UNHEARD 2.0", "Festival · Rishikesh", "A music and wellness gathering in Rishikesh, April 2026.", "unheard-f.vercel.app", "https://unheard-f.vercel.app/", ["Illustrated hills hero, The Modern Mela", "Pass booking always in reach", "Mohan Chatti, Rishikesh"]],
-    ["Site designs", "hero_jinie", "Jinie Bhatnagar", "Artist portfolio · Music", "Portfolio for a DJ and producer, Delhi to the world.", "omarjnbz.github.io/Jinie-Portfolio", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait hero", "Editorial serif type", "Behind the decks story"]],
-    ["Site designs", "hero_djjinie", "DJ Jinie", "Artist site · Booking", "A newer site for the Delhi DJ and producer, built around the sets and booking.", "jinie.vercel.app", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library called The Vault", "Genres, mixes and booking on one page"]],
-    ["Site designs", "hero_kash", "KAS5H", "Artist press kit · Music", "Press kit for a Delhi selector and producer.", "kas-5-h.vercel.app", "https://kas-5-h.vercel.app/", ["UK garage, house and techno", "SoundCloud and Instagram up front", "Orange and black system look"]],
-    ["Voice AI", "hero_bngeva", "EVA", "Voice AI · Live demo", "A voice agent you can talk to in the browser.", "bng-eva.vercel.app", "https://bng-eva.vercel.app", ["Press Start and speak", "Answers in 95+ languages", "Live, not a recording"]]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/"],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/"],
+    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/"],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/"],
+    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/"],
+    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/"],
+    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/"],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app"]
   ];
+  var K = [
+    ["kash_deck", "The record crate", "Sets", "His sets as records, each one plays on the page"],
+    ["kash_press", "Press kit", "Press", "Photos and bio, ready for promoters in one go"],
+    ["kash_signals", "Two characters", "Aliases", "KAS5H the groove side, MØRF the pressure side"],
+    ["kash_footer", "Bookings", "Footer", "Every link a promoter needs, in one block"]
+  ];
+  var STRIPS = touch ? 6 : 10;
+  var sio = ("IntersectionObserver" in window && animate) ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); sio.unobserve(e.target); } });
+  }, { threshold: .2 }) : null;
+  function sliced(file) {
+    var s = '<div class="slice" aria-hidden="true">';
+    for (var k = 0; k < STRIPS; k++) s += '<i style="--d:' + k + ';background-image:url(img/' + (touch ? "sm/" : "") + file + '.jpg);background-position:' + (k / (STRIPS - 1) * 100) + '% 0"></i>';
+    return s + "</div>";
+  }
+  function watchSlice(root) { var el = root.querySelector(".slice"); if (sio) sio.observe(el); else el.classList.add("in"); }
 
-  var list = document.getElementById("list");
-  var lastGroup = null, groupCount = {};
-  P.forEach(function (p) { groupCount[p[0]] = (groupCount[p[0]] || 0) + 1; });
-
+  var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
-    if (p[0] !== lastGroup) {
-      var g = document.createElement("p");
-      g.className = "group mono";
-      g.innerHTML = "<span>" + p[0] + "</span><span>" + String(groupCount[p[0]]).padStart(2, "0") + "</span>";
-      list.appendChild(g);
-      lastGroup = p[0];
-    }
-    var num = String(i + 1).padStart(2, "0");
     var a = document.createElement("a");
-    a.className = "row";
-    a.href = p[6]; a.target = "_blank"; a.rel = "noopener";
-    a.setAttribute("aria-label", p[2] + ", " + p[3] + ". Opens the live site in a new tab");
-    a.innerHTML =
-      '<span class="row__n mono">' + num + "</span>" +
-      "<div class=\"row__main\"><h3 class=\"row__name\">" + p[2] + "</h3>" +
-      '<p class="row__sector mono">' + p[3] + "</p></div>" +
-      '<span class="row__go" aria-hidden="true">↗</span>' +
-      '<div class="row__pop">' +
-        '<p class="row__line">' + p[4] + "</p>" +
-        '<ul class="row__points">' + p[7].map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul>" +
-        '<span class="row__open mono"><i>' + p[5] + "</i><b>Open site ↗</b></span>" +
-      "</div>";
-    list.appendChild(a);
+    a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
+    a.setAttribute("aria-label", p[1] + ", " + p[3] + ". Opens the live site in a new tab");
+    a.innerHTML = '<div style="position:relative">' + sliced(p[0]) + '<span class="info mono">' + p[3] + "</span></div>" +
+      '<div class="cap mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>";
+    pieces.appendChild(a); watchSlice(a);
+  });
+  var frames = document.getElementById("frames");
+  K.forEach(function (k, i) {
+    var a = document.createElement("a");
+    a.className = "frame"; a.href = "https://kas5h.vercel.app/"; a.target = "_blank"; a.rel = "noopener";
+    a.setAttribute("aria-label", "KAS5H, " + k[1] + ". Opens the live site in a new tab");
+    a.innerHTML = sliced(k[0]) + '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span></div><p class="line mono dim">' + k[3] + "</p>";
+    frames.appendChild(a); watchSlice(a);
   });
 
-  if (window.matchMedia("(hover:none)").matches) {
-    [].forEach.call(list.querySelectorAll(".row"), function (r) { r.setAttribute("aria-expanded", "false"); });
-    list.addEventListener("click", function (e) {
-      var row = e.target.closest(".row");
-      if (!row || row.classList.contains("is-open")) return;
-      e.preventDefault();
-      [].forEach.call(list.querySelectorAll(".row.is-open"), function (r) {
-        r.classList.remove("is-open"); r.setAttribute("aria-expanded", "false");
-      });
-      row.classList.add("is-open"); row.setAttribute("aria-expanded", "true");
-    });
-  }
+  /* ── clock ── */
+  var clockEl = document.querySelector("[data-clock]");
+  function clock() { clockEl.textContent = new Intl.DateTimeFormat("en-US", { hour: "2-digit", minute: "2-digit", hour12: true, timeZone: "Asia/Dubai" }).format(new Date()); }
+  clock(); setInterval(clock, 20000);
 
-  /* ── statement split into words (motion below brightens them) ── */
-  var say = document.querySelector("[data-say]");
-  say.innerHTML = say.textContent.trim().split(/\s+/).map(function (w) {
-    return '<span class="w">' + w + "</span>";
-  }).join(" ");
-
-  /* in-page anchors, native smooth scroll. No Lenis: it froze the page once. */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
-      var id = a.getAttribute("href");
-      var el = id === "#top" ? document.body : document.querySelector(id);
-      if (!el) return;
-      e.preventDefault();
-      var y = id === "#top" ? 0 : el.getBoundingClientRect().top + window.scrollY - 40;
-      window.scrollTo({ top: y, behavior: reduced ? "auto" : "smooth" });
+      var id = a.getAttribute("href"), el = id === "#top" ? document.body : document.querySelector(id);
+      if (!el) return; e.preventDefault();
+      scrollTo({ top: id === "#top" ? 0 : el.getBoundingClientRect().top + scrollY, behavior: reduced ? "auto" : "smooth" });
     });
   });
 
-  /* ── flip words ── */
-  var flip = document.querySelector("[data-flip]");
-  var words = ["websites", "ideas", "experiments", "side projects"], wi = 0;
-  if (!reduced && hasGsap) {
-    setInterval(function () {
-      gsap.to(flip, { opacity: 0, y: -14, filter: "blur(8px)", duration: .35, ease: "power2.in", onComplete: function () {
-        wi = (wi + 1) % words.length;
-        flip.innerHTML = words[wi].split("").map(function (c) { return "<span>" + (c === " " ? "&nbsp;" : c) + "</span>"; }).join("");
-        gsap.set(flip, { opacity: 1, y: 0, filter: "none" });
-        gsap.from(flip.children, { opacity: 0, y: 12, filter: "blur(6px)", duration: .5, stagger: .03, ease: "power3.out" });
-      } });
-    }, 2800);
+  var pre = document.querySelector("[data-pre]");
+  if (!animate) {
+    pre.classList.add("done"); document.body.classList.remove("loading"); document.body.classList.add("dark");
+    document.documentElement.style.setProperty("--p", "-30%");
+    return;
   }
 
-  /* ── gallery corridor ──
-     Same geometry as ImageStreamHero's defaults. Depth is authored as
-     apparent size (geometric), the rails open early then hold (fan > 1),
-     and each card is born across the axis so the centre never opens up. */
-  (function stream() {
-    var host = document.querySelector("[data-stream]");
-    if (!host) return;
-    var sec = host.parentNode;
-    /* landscape cards (16:9) for first-screen shots; the component's portrait
-       defaults were 18 x 25. Exit height is lower so a card is ~40cqw wide
-       as it leaves, instead of filling the frame. */
-    var G = { perspective: 30, cardWidth: 28, cardHeight: 15.75, cardRadius: .5,
-      birthHeight: 2.6, exitHeight: 17, railBirth: -11, railExit: 40,
-      fan: 3.3, turnBirth: 6, turnExit: 28, stops: 24 };
-    if (window.matchMedia("(max-width:640px)").matches) { G.birthHeight = 3.4; G.exitHeight = 34; G.railExit = 38; }
-    var CARDS = P.length, SPEED = 26, AXIS = 55;
+  /* ── water ──
+     Each block of text is drawn through an SVG noise field (feTurbulence) that
+     displaces it like a surface of water. On arrival the field starts strong and
+     calms to nothing while the text fades up; on hover a ripple runs through it
+     and settles. One filter per element, removed once the text is still. */
+  var NS = "http://www.w3.org/2000/svg", defs = document.createElementNS(NS, "svg"), fid = 0;
+  defs.setAttribute("width", "0"); defs.setAttribute("height", "0"); defs.setAttribute("aria-hidden", "true");
+  defs.style.position = "absolute"; document.body.appendChild(defs);
+  function field(el) {
+    var fs = parseFloat(getComputedStyle(el).fontSize) || 16;
+    if (el.tagName === "FIGURE") fs = el.offsetWidth / 4;
+    var id = "w" + (fid++), f = document.createElementNS(NS, "filter");
+    f.setAttribute("id", id); f.setAttribute("x", "-10%"); f.setAttribute("y", "-30%"); f.setAttribute("width", "120%"); f.setAttribute("height", "160%");
+    var t = document.createElementNS(NS, "feTurbulence");
+    t.setAttribute("type", "fractalNoise"); t.setAttribute("numOctaves", "2"); t.setAttribute("seed", String(Math.random() * 90 | 0));
+    var d = document.createElementNS(NS, "feDisplacementMap");
+    d.setAttribute("in", "SourceGraphic"); d.setAttribute("xChannelSelector", "R"); d.setAttribute("yChannelSelector", "G"); d.setAttribute("scale", "0");
+    f.appendChild(t); f.appendChild(d); defs.appendChild(f);
+    el.style.filter = "url(#" + id + ")";
+    var fx = Math.min(.06, 1.1 / fs), fy = Math.min(.24, 4.4 / fs);
+    return {
+      fs: fs,
+      set: function (s, k) { d.setAttribute("scale", s.toFixed(2)); t.setAttribute("baseFrequency", (fx * (1 + k * .5)).toFixed(4) + " " + (fy * (1 - k * .35)).toFixed(4)); },
+      end: function () { el.style.filter = ""; f.remove(); }
+    };
+  }
+  function waterIn(el, delay) {
+    if (el._w) return; el._w = 1;
+    var w = field(el), st = { s: Math.min(140, w.fs * .9), k: 0 };
+    w.set(st.s, 0);
+    gsap.timeline({ delay: delay || 0, onComplete: function () { w.end(); el._w = 0; } })
+      .fromTo(el, { opacity: 0, y: Math.min(28, w.fs * .25) }, { opacity: 1, y: 0, duration: 1.1, ease: "power2.out" }, 0)
+      .to(st, { s: 0, k: 1, duration: 1.6, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } }, 0);
+    el.classList.remove("wv");
+  }
+  function ripple(el) {
+    if (el._w || el.classList.contains("wv")) return; el._w = 1;
+    var w = field(el), st = { s: 0, k: 0 }, peak = Math.min(48, w.fs * .32);
+    gsap.timeline({ onComplete: function () { w.end(); el._w = 0; } })
+      .to(st, { s: peak, k: .5, duration: .22, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } })
+      .to(st, { s: 0, k: 1, duration: 1.2, ease: "power3.out", onUpdate: function () { w.set(st.s, st.k); } });
+  }
 
-    function frames(dir, name) {
-      var out = [];
-      for (var s = 0; s <= G.stops; s++) {
-        var u = s / G.stops;
-        var scale = (G.birthHeight / G.cardHeight) * Math.pow(G.exitHeight / G.birthHeight, u);
-        var z = G.perspective * (1 - 1 / scale);
-        var rail = G.railExit - (G.railExit - G.railBirth) * Math.pow(1 - u, G.fan);
-        var turn = G.turnBirth + (G.turnExit - G.turnBirth) * u;
-        out.push((u * 100).toFixed(2) + "%{transform:translate3d(" + (dir * rail).toFixed(2) +
-          "cqw,0," + z.toFixed(2) + "cqw) rotateY(" + (-dir * turn).toFixed(2) + "deg)}");
-      }
-      return "@keyframes " + name + "{" + out.join("") + "}";
-    }
+  var waters = [].slice.call(document.querySelectorAll("[data-w]"));
+  waters.forEach(function (el) { el.classList.add("wv"); });
+  var heroW = waters.filter(function (el) { return el.hasAttribute("data-hero"); });
+  var restW = waters.filter(function (el) { return !el.hasAttribute("data-hero"); });
+  var wio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { wio.unobserve(e.target); waterIn(e.target); } });
+  }, { threshold: 0 });
+  if (!touch) waters.forEach(function (el) { el.addEventListener("pointerenter", function () { ripple(el); }); });
 
-    var style = document.createElement("style");
-    style.textContent = frames(1, "stream-r") + frames(-1, "stream-l");
-    document.head.appendChild(style);
+  /* ── caption highlight (from the captions skill: word-by-word, TikTok-style) ──
+     The big statements are split into words; each word turns from grey to full
+     colour in order as the statement moves up the screen. */
+  document.querySelectorAll("[data-caption]").forEach(function (el) {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map(function (w) { return '<span class="cw">' + w + "</span>"; }).join(" ");
+    var words = el.querySelectorAll(".cw");
+    gsap.fromTo(words, { color: "#5c5a56" }, { color: "inherit", ease: "none", stagger: .3,
+      scrollTrigger: { trigger: el, start: "top 78%", end: "bottom 45%", scrub: .4 } });
+  });
 
-    host.style.perspective = G.perspective + "cqw";
-    host.style.perspectiveOrigin = "50% " + AXIS + "%";
-    var world = document.createElement("div");
-    world.className = "stream__world";
-    ["stream-r", "stream-l"].forEach(function (name, side) {
-      for (var i = 0; i < CARDS; i++) {
-        /* the left rail runs the list from the other end, so the two sides
-           show different sites at the same depth */
-        var p = P[(side ? CARDS - 1 - i : i) % P.length];
-        var c = document.createElement("div");
-        c.className = "stream__card";
-        c.style.cssText =
-          "top:" + AXIS + "%;width:" + G.cardWidth + "cqw;height:" + G.cardHeight + "cqw;" +
-          "margin-left:" + (-G.cardWidth / 2) + "cqw;margin-top:" + (-G.cardHeight / 2) + "cqw;" +
-          "border-radius:" + G.cardRadius + "cqw;" +
-          "animation:" + name + " " + SPEED + "s linear infinite;" +
-          /* negative delay drops each card mid-flight, so the corridor is full on the first frame */
-          "animation-delay:" + (-(i * SPEED) / CARDS) + "s";
-        c.innerHTML = '<img src="img/' + p[1] + '.jpg" alt="" decoding="async" draggable="false">';
-        world.appendChild(c);
-      }
-    });
-    host.appendChild(world);
-
-    /* stop compositing eighteen moving layers while the section is off screen */
-    new IntersectionObserver(function (e) {
-      sec.classList.toggle("is-paused", !e[0].isIntersecting);
-    }).observe(sec);
+  /* ── the start: count to 100, paper sweeps the black away, the hero surfaces ── */
+  (function start() {
+    var n = pre.querySelector("[data-counter]"), lab = pre.querySelector(".pre__l"), wipe = pre.querySelector(".pre__wipe"), c = { v: 0 };
+    gsap.set(wipe, { y: "30vh" });
+    gsap.timeline()
+      .from(lab, { opacity: 0, duration: .5 })
+      .to(c, { v: 100, duration: 1.4, ease: "power2.inOut", onUpdate: function () { n.textContent = String(Math.round(c.v)).padStart(3, "0"); } }, 0)
+      .to([n, lab], { opacity: 0, y: -14, duration: .3, ease: "power2.in" }, "-=.1")
+      .to(wipe, { y: "-140vh", duration: 1.15, ease: "power3.inOut" }, "-=.15")
+      .add(function () {
+        document.body.classList.remove("loading");
+        heroW.forEach(function (el, i) { waterIn(el, i * .14); });
+        restW.forEach(function (el) { wio.observe(el); });
+      }, "-=.5")
+      .to(pre, { opacity: 0, duration: .35, onComplete: function () { pre.classList.add("done"); } }, "-=.2");
   })();
 
-  if (reduced || !hasGsap) return;
-
-  /* ── hero: name rises in, then waves and rides up as you scroll ── */
-  gsap.timeline({ delay: .1 })
-    .from("[data-hero-line]", { opacity: 0, y: 28, duration: 1, ease: "power3.out" })
-    .from("[data-hero-name] span", { yPercent: 45, opacity: 0, duration: 1.4, stagger: .08, ease: "expo.out" }, "-=.8");
-
-  /* fromTo, not to: a plain .to would record the intro's opacity:0 as its
-     start value and hold the line invisible */
-  gsap.fromTo("[data-hero-line]", { y: 0, opacity: 1 }, { y: -80, opacity: 0, ease: "none", immediateRender: false,
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "55% top", scrub: .4 } });
-  /* each letter leaves on its own curve, so the word rolls like a wave and
-     comes apart as it rises; it dissolves into the page rather than being
-     cut by an edge */
-  var nameTrigger = { trigger: ".hero", start: "top top", end: "bottom 15%", scrub: .4 };
-  gsap.fromTo("[data-hero-name] span",
-    { yPercent: 0, rotate: 0 },
-    { yPercent: function (i) { return -(30 + Math.sin(i * 1.6) * 16 + i * 8); },
-      rotate: function (i) { return Math.sin(i * 1.6 + .8) * 6; },
-      ease: "none", immediateRender: false, scrollTrigger: nameTrigger });
-  gsap.fromTo("[data-hero-name] span", { opacity: 1 }, { opacity: 0, ease: "power2.in", immediateRender: false,
-    scrollTrigger: nameTrigger });
-
-  /* ── statement brightens word by word ── */
-  gsap.to(".say__text .w", { color: "#e8e8e3", stagger: .1, ease: "none",
-    scrollTrigger: { trigger: ".say__text", start: "top 78%", end: "bottom 42%", scrub: .3 } });
-
-  /* ── scroll-driven appearance ──
-     Nothing here is timed. Each block fades up out of a blur in direct
-     proportion to how far it has travelled up the screen, so scrolling slowly
-     builds it slowly, and scrolling back takes it away again. Rows animate
-     their contents rather than themselves, which keeps the pop-out card free
-     of any stacking context a transform would create. */
-  function appear(targets, trigger, start, end) {
-    gsap.fromTo(targets,
-      { opacity: 0, y: 46, filter: "blur(10px)" },
-      { opacity: 1, y: 0, filter: "blur(0px)", ease: "none", immediateRender: true,
-        /* clamp(): a block near the foot of the page may never get as high as the
-           "end" line, however far you scroll. Clamping pulls both lines inside
-           the scrollable range, so it always finishes appearing. */
-        scrollTrigger: { trigger: trigger, start: "clamp(" + (start || "top 94%") + ")", end: "clamp(" + (end || "top 64%") + ")", scrub: .6 } });
-  }
-  gsap.utils.toArray("[data-sc]").forEach(function (el) { appear(el, el); });
-  gsap.utils.toArray(".group").forEach(function (el) { appear(el, el); });
-  gsap.utils.toArray(".row").forEach(function (row) {
-    appear(row.querySelectorAll(".row__n, .row__main, .row__go"), row);
+  /* ── paper → dark as About arrives ── */
+  var root = document.documentElement;
+  ScrollTrigger.create({
+    trigger: "#about", start: "top bottom", end: "top 25%", scrub: .35,
+    onUpdate: function (self) {
+      root.style.setProperty("--p", (125 - self.progress * 155) + "%");
+      document.body.classList.toggle("dark", self.progress > .5);
+    }
   });
 
+  /* ── "Get in touch": horizontal bands that ripple once on arrival and under the pointer ── */
+  var rip = document.querySelector("[data-rip]");
+  var N = touch ? 14 : 30, bands = [], energy = 0, t = 0, running = false;
+  for (var i = 0; i < N; i++) {
+    var b = document.createElement("span");
+    b.className = "rip__band"; b.setAttribute("aria-hidden", "true"); b.textContent = "Get in touch";
+    b.style.clipPath = "inset(" + (i / N * 100) + "% 0 " + (100 - (i + 1) / N * 100) + "% 0)";
+    rip.appendChild(b); bands.push({ el: b, y: (i + .5) / N });
+  }
+  function frame() {
+    t += .016; energy *= .962;
+    var w = rip.clientWidth;
+    bands.forEach(function (b) { b.el.style.transform = "translateX(" + (Math.sin(b.y * 9 - t * 7) * Math.sin(b.y * 2.3 + t * 1.7) * energy * w * .05).toFixed(2) + "px)"; });
+    if (energy < .004) { running = false; rip.classList.remove("on"); bands.forEach(function (b) { b.el.style.transform = ""; }); return; }
+    requestAnimationFrame(frame);
+  }
+  function kick(a) { energy = Math.min(1, energy + a); if (!running) { running = true; rip.classList.add("on"); requestAnimationFrame(frame); } }
+  ScrollTrigger.create({ trigger: rip, start: "top 80%", onEnter: function () { setTimeout(function () { kick(1); }, 900); } });
+  var lastX = null;
+  if (!touch) {
+    rip.addEventListener("pointermove", function (e) { if (lastX !== null) kick(Math.min(.25, Math.abs(e.clientX - lastX) / 400)); lastX = e.clientX; });
+    rip.addEventListener("pointerleave", function () { lastX = null; });
+  }
 })();
 </script>
 </body>
