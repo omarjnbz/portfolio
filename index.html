@@ -90,10 +90,11 @@ main{position:relative;z-index:1}
 /* hero */
 .hero__name{margin:0;font-size:clamp(6rem,24vw,27rem);font-weight:500;line-height:.82;letter-spacing:-.055em;cursor:default}
 .hero__sub{margin:clamp(1.6rem,4vh,2.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
-.hero__meta{margin:1.2rem 0 0;display:flex;gap:2rem;justify-content:center}
+.hero__hey{margin:0 0 clamp(.4rem,1.2vh,1rem);font-size:clamp(1.3rem,2.4vw,2.2rem);font-weight:500;letter-spacing:-.02em}
+.hero__meta{margin:1.2rem 0 0;line-height:1.6}
 .hero__foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;justify-content:space-between;align-items:flex-end}
 .hero__foot a:hover{opacity:.5}
-@media (max-width:760px){.hero__meta{flex-direction:column;gap:.2rem}}
+@media (max-width:760px){.hero__name{font-size:34vw}.hero__foot{justify-content:center;text-align:center}.hero__foot>span{display:none}}
 
 /* work: all eight on one screen, 4 by 2 */
 .works{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,1.8vw,1.8rem);width:min(100%,1320px);margin-top:clamp(1.6rem,4vh,2.8rem);text-align:left}
@@ -165,12 +166,13 @@ main{position:relative;z-index:1}
 <main id="top">
 
   <section class="screen hero">
+    <p class="hero__hey" data-w data-hero>Hey, I'm</p>
     <h1 class="hero__name" data-w data-hero>Omar</h1>
-    <p class="hero__sub" data-w data-hero>A library of websites, built in my free time<br><span class="dim">Explore ideas and build them</span></p>
-    <p class="hero__meta mono dim" data-w data-hero><span>Portfolio_26</span><span>Eight sites_All live</span></p>
+    <p class="hero__sub" data-w data-hero>This is what I do: I build websites, applications<br>and a lot of other things</p>
+    <p class="hero__meta mono dim" data-w data-hero>Below you'll find my work, live websites and UI<br>and a simple way to message me on Instagram</p>
     <div class="hero__foot mono">
       <span class="dim" data-w data-hero>[Scroll to explore]</span>
-      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Let's build_Get in touch ↗</a>
+      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Let's get in touch and build things<span style="white-space:nowrap">_Let's talk ↗</span></a>
     </div>
   </section>
 
