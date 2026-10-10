@@ -96,28 +96,30 @@ main{position:relative;z-index:1}
 .hero__foot a:hover{opacity:.5}
 @media (max-width:760px){.hero__name{font-size:34vw}.hero__foot{justify-content:center;text-align:center}.hero__foot>span{display:none}}
 
-/* work: a 3D slide of the sites. It never moves on its own and never ends:
-   drag, swipe, the arrows or the keyboard step it one site at a time, round and round */
-.work{overflow:hidden}
-.work .big{font-size:clamp(2rem,4.2vw,4.6rem)}
-.deck{--cw:min(56vw,760px,(100svh - 23rem) * 1.6);position:relative;width:100%;height:calc(var(--cw) * .625);margin-top:clamp(1.2rem,3vh,2rem);perspective:1700px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
-.deck.drag{cursor:grabbing}
-.card{position:absolute;left:50%;top:0;width:var(--cw);margin-left:calc(var(--cw) / -2);display:block;will-change:transform}
-.card .slice{box-shadow:0 34px 70px -34px rgba(5,5,5,.5)}
-.card::after{content:"";position:absolute;inset:0;background:var(--paper);opacity:var(--fade,0);pointer-events:none}
-.card img,.card i{-webkit-user-drag:none}
-.deck__bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1.2rem;width:min(100%,760px);margin-top:clamp(1rem,2.4vh,1.6rem)}
-.deck__btn{font:inherit;color:inherit;text-transform:inherit;letter-spacing:inherit;background:none;border:0;padding:.7rem 0;cursor:pointer;justify-self:start}
-.deck__btn[data-next]{justify-self:end}
-.deck__btn:hover{opacity:.5}
-.deck__info{display:block;text-align:center;min-width:0}
-.deck__info span{display:block}
-.deck__info:hover b{opacity:.5}
-.deck__info b{font-weight:400}
-@media (max-width:760px){.deck{--cw:min(78vw,(100svh - 22rem) * 1.6)}.deck__bar{grid-template-columns:auto 1fr auto}.deck__btn{min-width:44px;min-height:44px;font-size:.9rem}.deck__btn span{display:none}}
+/* work: the first version, as on Eva's page: a big title on the left, then
+   the sites large and staggered in two columns, each with its caption */
+.work{padding:clamp(7rem,16vh,11rem) var(--gutter) clamp(5rem,12vh,9rem)}
+.work__title{margin:0;display:flex;align-items:flex-end;gap:.8rem;font-size:clamp(3.2rem,8.4vw,9.5rem);font-weight:500;line-height:.9;letter-spacing:-.05em}
+.work__title .n{margin-bottom:.9em;font-size:.66rem;letter-spacing:.02em;font-weight:400}
+.cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;row-gap:clamp(5rem,14vh,10rem);margin-top:clamp(3rem,9vh,6rem)}
+.piece{position:relative;display:block}
+.piece:nth-child(odd){grid-column:1 / 7}
+.piece:nth-child(even){grid-column:8 / 13;margin-top:clamp(6rem,18vh,14rem)}
+.piece:nth-child(4n+3){grid-column:2 / 7}
+.piece:nth-child(4n){grid-column:7 / 12}
+.piece .cap{margin-top:.7rem;display:flex;gap:1.2rem}
+.piece .cap b{font-weight:400}
+.piece .cap .dim{margin-left:auto}
+.piece .line{margin:.25rem 0 0;max-width:52ch}
+@media (hover:hover){
+  .piece:hover .slice.in i{transition:transform .5s var(--ease);transition-delay:calc(var(--d) * 22ms)}
+  .piece:hover .slice.in i:nth-child(odd){transform:translateY(-4.5%)}
+  .piece:hover .slice.in i:nth-child(even){transform:translateY(4.5%)}
+}
+@media (max-width:760px){.piece,.piece:nth-child(n){grid-column:1 / -1;margin-top:0}.cols{row-gap:4rem}}
 
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
-.slice i{flex:1 0 0;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
+.slice i{flex:1 0 0;margin-right:-1px;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
 .slice.in i{transform:none;transition:transform .9s var(--ease)}
 .slice.in i:nth-child(n){transition-delay:calc(var(--d) * 45ms)}
 
@@ -187,15 +189,9 @@ main{position:relative;z-index:1}
     </div>
   </section>
 
-  <section class="screen work" id="work">
-    <p class="label mono dim" data-w>Portfolio_008</p>
-    <h2 class="big" data-w>Featured works</h2>
-    <div class="deck" data-deck role="region" aria-roledescription="carousel" aria-label="Featured works, one site at a time"></div>
-    <div class="deck__bar mono">
-      <button class="deck__btn" type="button" data-prev aria-label="Previous site" data-w>←<span>_Prev</span></button>
-      <a class="deck__info" data-info target="_blank" rel="noopener" aria-live="polite"><span data-i1></span><span class="dim" data-i2></span></a>
-      <button class="deck__btn" type="button" data-next aria-label="Next site" data-w><span>Next_</span>→</button>
-    </div>
+  <section class="work" id="work">
+    <h2 class="work__title"><span data-w>Featured works</span><span class="n mono dim" data-w>[008]</span></h2>
+    <div class="cols" id="pieces"></div>
   </section>
 
   <section class="screen about" id="about">
@@ -266,99 +262,16 @@ main{position:relative;z-index:1}
   }
   function watchSlice(root) { var el = root.querySelector(".slice"); if (sio) sio.observe(el); else el.classList.add("in"); }
 
-  /* ── the slide: every card sits at a wrapped distance from the current one,
-     so stepping past the last site lands on the first and it never ends ── */
-  var deck = document.querySelector("[data-deck]"), cards = [], NP = P.length, cur = { v: 0 }, target = 0, dragged = false;
-  var info = document.querySelector("[data-info]"), i1 = info.querySelector("[data-i1]"), i2 = info.querySelector("[data-i2]");
-  function wrap(d) { d = ((d % NP) + NP) % NP; return d > NP / 2 ? d - NP : d; }
-  function layout() {
-    var sp = innerWidth < 760 ? .8 : .64;
-    cards.forEach(function (c, i) {
-      var d = wrap(i - cur.v), ad = Math.abs(d);
-      c.style.transform = "translateX(" + (d * sp * 100).toFixed(2) + "%) translateZ(" + (-ad * 280).toFixed(1) + "px) rotateY(" + (-Math.max(-1.4, Math.min(1.4, d)) * 24).toFixed(2) + "deg)";
-      c.style.opacity = ad > 2.7 ? 0 : 1;
-      c.style.setProperty("--fade", Math.min(.8, ad * .34).toFixed(3));
-      c.style.zIndex = 100 - Math.round(ad * 10);
-      c.style.pointerEvents = ad > 2.4 ? "none" : "";
-      c.tabIndex = ad < .5 ? 0 : -1;
-      c.setAttribute("aria-hidden", ad < .5 ? "false" : "true");
-    });
-  }
-  function show(i, quick) {
-    var p = P[i];
-    function fill() {
-      i1.innerHTML = String(i + 1).padStart(3, "0") + "/" + String(NP).padStart(3, "0") + "_<b>" + p[1] + "</b>_" + p[2] + " ↗";
-      i2.textContent = p[3]; info.href = p[4];
-      info.setAttribute("aria-label", p[1] + ", " + p[3] + ". Opens the live site in a new tab");
-    }
-    if (quick || !window.gsap) return fill();
-    gsap.to(info, { opacity: 0, y: -6, duration: .18, ease: "power2.in", overwrite: true, onComplete: function () {
-      fill(); gsap.fromTo(info, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .35, ease: "power2.out" });
-    } });
-  }
-  function go(n) {
-    if (n === target && Math.abs(cur.v - n) < .001) return;
-    target = n; show(((n % NP) + NP) % NP);
-    gsap.to(cur, { v: n, duration: reduced ? 0 : .95, ease: "power3.out", overwrite: true, onUpdate: layout });
-  }
+  var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
     var a = document.createElement("a");
-    a.className = "card"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
+    a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", " + p[3] + ". Opens the live site in a new tab");
-    a.innerHTML = sliced(p[0]); a.draggable = false;
-    a.addEventListener("dragstart", function (e) { e.preventDefault(); });
-    a.addEventListener("click", function (e) {
-      if (dragged) { e.preventDefault(); return; }
-      var d = wrap(i - cur.v);
-      if (Math.abs(d) > .5) { e.preventDefault(); go(target + Math.round(d)); }
-    });
-    deck.appendChild(a); cards.push(a); watchSlice(a);
+    a.innerHTML = sliced(p[0]) +
+      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + ' ↗</b></span><span class="dim">' + p[2] + "</span></div>" +
+      '<p class="line mono dim" data-bold>' + p[3] + "</p>";
+    pieces.appendChild(a); watchSlice(a);
   });
-  layout(); show(0, true);
-  document.querySelector("[data-prev]").addEventListener("click", function () { go(target - 1); });
-  document.querySelector("[data-next]").addEventListener("click", function () { go(target + 1); });
-  /* drag or swipe: the slide follows the finger, then settles on the nearest site */
-  var dx0 = null, v0 = 0, lastDx = 0;
-  deck.addEventListener("pointerdown", function (e) {
-    if (e.button) return;
-    dx0 = e.clientX; v0 = cur.v; lastDx = 0; dragged = false; gsap.killTweensOf(cur);
-  });
-  addEventListener("pointermove", function (e) {
-    if (dx0 === null) return;
-    lastDx = e.clientX - dx0;
-    if (Math.abs(lastDx) > 6) { dragged = true; deck.classList.add("drag"); }
-    if (!dragged) return;
-    cur.v = v0 - lastDx / (cards[0].offsetWidth * (innerWidth < 760 ? .8 : .64)); layout();
-  });
-  addEventListener("pointerup", function () {
-    if (dx0 === null) return;
-    dx0 = null; deck.classList.remove("drag");
-    if (dragged) {
-      var n = Math.round(cur.v);
-      if (n === Math.round(v0) && Math.abs(lastDx) > 40) n += lastDx < 0 ? 1 : -1;
-      target = NaN; go(n);
-      setTimeout(function () { dragged = false; }, 0);
-    }
-  });
-  addEventListener("pointercancel", function () { if (dx0 !== null) { dx0 = null; deck.classList.remove("drag"); target = NaN; go(Math.round(cur.v)); setTimeout(function () { dragged = false; }, 0); } });
-  /* a sideways trackpad swipe steps it too; vertical scrolling is left alone */
-  var wheelAcc = 0, wheelLock = 0;
-  deck.addEventListener("wheel", function (e) {
-    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-    e.preventDefault();
-    if (Date.now() < wheelLock) return;
-    wheelAcc += e.deltaX;
-    if (Math.abs(wheelAcc) > 30) { go(target + (wheelAcc > 0 ? 1 : -1)); wheelAcc = 0; wheelLock = Date.now() + 520; }
-  }, { passive: false });
-  /* the arrow keys work while the slide is on screen */
-  addEventListener("keydown", function (e) {
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-    var r = deck.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
-    e.preventDefault(); go(target + (e.key === "ArrowRight" ? 1 : -1));
-  });
-  addEventListener("resize", layout);
-
   var frames = document.getElementById("frames");
   K.forEach(function (k, i) {
     var a = document.createElement("a");
