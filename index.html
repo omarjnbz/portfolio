@@ -321,12 +321,30 @@ main{position:relative;z-index:1}
       .to(st, { s: 0, k: 1, duration: 1.6, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } }, 0);
     el.classList.remove("wv");
   }
-  function ripple(el) {
-    if (el._w || el.classList.contains("wv")) return; el._w = 1;
-    var w = field(el), st = { s: 0, k: 0 }, peak = Math.min(48, w.fs * .32);
-    gsap.timeline({ onComplete: function () { w.end(); el._w = 0; } })
-      .to(st, { s: peak, k: .5, duration: .22, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } })
-      .to(st, { s: 0, k: 1, duration: 1.2, ease: "power3.out", onUpdate: function () { w.set(st.s, st.k); } });
+  /* hover: the water follows the pointer. Entering kicks it at once, every
+     movement adds energy in proportion to speed, and it calms within a moment
+     of the pointer stopping or leaving. */
+  function liquid(el) {
+    var st = { e: 0, w: null, raf: 0, over: false, t: 0, lx: 0, ly: 0 };
+    function loop() {
+      st.t += .016; st.e *= st.over ? .9 : .84;
+      var peak = Math.min(70, st.w.fs * .45);
+      st.w.set(st.e * peak, .5 + .5 * Math.sin(st.t * 9));
+      if (st.e < .01 && !st.over) { st.w.end(); st.w = null; st.raf = 0; el._w = 0; return; }
+      st.raf = requestAnimationFrame(loop);
+    }
+    function kick(a) {
+      if (el.classList.contains("wv")) return;
+      if (!st.w) { if (el._w) return; el._w = 1; st.w = field(el); }
+      st.e = Math.min(1, st.e + a);
+      if (!st.raf) st.raf = requestAnimationFrame(loop);
+    }
+    el.addEventListener("pointerenter", function (e) { st.over = true; st.lx = e.clientX; st.ly = e.clientY; kick(.65); });
+    el.addEventListener("pointermove", function (e) {
+      var d = Math.hypot(e.clientX - st.lx, e.clientY - st.ly); st.lx = e.clientX; st.ly = e.clientY;
+      kick(Math.min(.35, d / 140));
+    });
+    el.addEventListener("pointerleave", function () { st.over = false; });
   }
 
   var waters = [].slice.call(document.querySelectorAll("[data-w]"));
@@ -336,7 +354,7 @@ main{position:relative;z-index:1}
   var wio = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { wio.unobserve(e.target); waterIn(e.target); } });
   }, { threshold: 0 });
-  if (!touch) waters.forEach(function (el) { el.addEventListener("pointerenter", function () { ripple(el); }); });
+  if (!touch) waters.forEach(liquid);
 
   /* ── caption highlight (from the captions skill: word-by-word, TikTok-style) ──
      The big statements are split into words; each word turns from grey to full
