@@ -443,6 +443,15 @@ main{position:relative;z-index:1}
     addEventListener("scroll", function () { if (!raf) cur = target = scrollY; }, { passive: true });
   })();
 
+  /* ── clean address bar: Instagram and others add utm_ and fbclid tags to every
+     link; drop them from the URL once the page has opened ── */
+  if (location.search && history.replaceState) {
+    var qs = new URLSearchParams(location.search), keep = new URLSearchParams();
+    qs.forEach(function (v, k) { if (!/^(utm_|fbclid$|gclid$|igshid$|igsh$|mc_|ref$|si$|v$|reel$|cb$)/.test(k)) keep.append(k, v); });
+    var rest = keep.toString();
+    history.replaceState(null, "", location.pathname + (rest ? "?" + rest : "") + location.hash);
+  }
+
   var pre = document.querySelector("[data-pre]");
   if (!animate) {
     pre.classList.add("done"); document.body.classList.remove("loading"); document.body.classList.add("dark");
