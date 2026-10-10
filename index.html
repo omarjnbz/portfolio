@@ -414,14 +414,14 @@ main{position:relative;z-index:1}
 
   /* ── speed lock ──
      Wheel and trackpad scrolling is taken over and replayed at a capped speed:
-     however hard you flick, the page glides at most ~1300px a second, and it can
+     however hard you flick, the page glides at most ~2500px a second, and it can
      never run more than a short way ahead of where it is, so it settles soon
      after you stop. The page still scrolls natively underneath (scrollTo), so
      ScrollTrigger, anchors, keys and the scrollbar all keep working. Touch
      screens and reduced motion keep normal scrolling. */
   if (!touch && !reduced) (function () {
     var target = scrollY, cur = scrollY, raf = 0;
-    var MAX_STEP = 22, LEAD = 520, EASE = .085;
+    var MAX_STEP = 42, LEAD = 950, EASE = .11;
     function limit() { return document.documentElement.scrollHeight - innerHeight; }
     function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
     function tick() {
@@ -437,7 +437,7 @@ main{position:relative;z-index:1}
       e.preventDefault();
       if (!raf) cur = target = scrollY;
       var d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
-      target = clamp(clamp(target + clamp(d, -90, 90), cur - LEAD, cur + LEAD), 0, limit());
+      target = clamp(clamp(target + clamp(d, -170, 170), cur - LEAD, cur + LEAD), 0, limit());
       if (!raf) raf = requestAnimationFrame(tick);
     }, { passive: false });
     addEventListener("scroll", function () { if (!raf) cur = target = scrollY; }, { passive: true });
