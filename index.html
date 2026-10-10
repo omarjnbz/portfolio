@@ -91,7 +91,14 @@ main{position:relative;z-index:1}
 .hero__name{margin:0;font-size:clamp(6rem,24vw,27rem);font-weight:500;line-height:.82;letter-spacing:-.055em;cursor:default}
 .hero__sub{margin:clamp(1.6rem,4vh,2.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;line-height:1.25;letter-spacing:-.015em}
 .hero__hey{margin:0 0 clamp(.4rem,1.2vh,1rem);font-size:clamp(1.3rem,2.4vw,2.2rem);font-weight:500;letter-spacing:-.02em}
-.hero__meta{margin:1.2rem 0 0;line-height:1.6}
+.hero__meta{margin:1.4rem 0 0;line-height:1.6}
+.hero__go{display:inline-flex;gap:.5em;align-items:center;padding:.55rem .9rem;border:1px solid var(--line);transition:background .5s cubic-bezier(.32,.72,0,1),color .5s cubic-bezier(.32,.72,0,1)}
+.hero__go i{font-style:normal;transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.hero__go:hover{background:var(--fg);color:var(--paper)}
+.hero__go:hover i{transform:translateY(3px)}
+/* roll: on hover each word slides out of its slot and back in, lighting up in reading order */
+.rw{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.rw>span{display:inline-block}
 .hero__foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;justify-content:space-between;align-items:flex-end}
 /* links, as in the reference: grey words, a dark arrow, the word darkens on hover */
 .links{display:flex;flex-wrap:wrap;gap:.5rem clamp(1.4rem,2.6vw,2.6rem)}
@@ -113,29 +120,45 @@ main{position:relative;z-index:1}
 .piece .cap b{font-weight:400}
 .piece .cap .dim{margin-left:auto}
 .piece .line{margin:.25rem 0 0;max-width:52ch}
-/* hover: the site lifts on a soft spring, a dark panel rises over it, the name
-   lifts in, then each feature arrives word by word and lights up like a caption */
-.pic{position:relative;transition:transform .9s cubic-bezier(.32,.72,0,1),box-shadow .9s cubic-bezier(.32,.72,0,1)}
-.feat{position:absolute;left:0;right:0;bottom:0;background:rgba(8,8,7,.98);color:var(--paper);pointer-events:none;clip-path:inset(100% 0 0 0)}
-.feat__in{padding:clamp(1rem,1.8vw,1.5rem) clamp(1rem,2vw,1.6rem) clamp(.8rem,1.4vw,1.1rem)}
-.feat__top{margin:0;display:flex;justify-content:space-between;color:rgba(248,246,242,.5)}
-.feat__name{margin:.35rem 0 .7rem;font-size:clamp(1.5rem,2.4vw,2.4rem);font-weight:500;line-height:1;letter-spacing:-.035em}
-.feat ol{list-style:none;margin:0;padding:0}
-.feat li{display:flex;gap:1rem;align-items:baseline;padding:.45rem 0;border-top:1px solid rgba(248,246,242,.14);overflow:hidden;font-size:clamp(.9rem,1.05vw,1.05rem);font-weight:500;letter-spacing:-.01em}
-.feat__n{color:rgba(248,246,242,.45)}
-.fw{display:inline-block}
+/* hover: the site tilts toward the pointer and lifts, and its stack rises in as tags */
+.pic{position:relative;transform-style:preserve-3d;will-change:transform}
+.pic .slice{transition:box-shadow .9s cubic-bezier(.32,.72,0,1)}
+.tags{position:absolute;left:clamp(.7rem,1.4vw,1.1rem);bottom:clamp(.7rem,1.4vw,1.1rem);right:clamp(.7rem,1.4vw,1.1rem);display:flex;flex-wrap:wrap;gap:.35rem;pointer-events:none}
+.tags span{padding:.38rem .6rem;background:rgba(248,246,242,.94);color:var(--ink);border:1px solid rgba(5,5,5,.08);opacity:0;transform:translateY(14px) scale(.96)}
+.tags .tags__go{margin-left:auto;background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tagline{margin:.3rem 0 0}
 @media (hover:hover){
   .piece:hover{z-index:2}
-  .piece:hover .pic{transform:scale(1.04);box-shadow:0 50px 100px -50px rgba(5,5,5,.4),0 18px 40px -26px rgba(5,5,5,.25)}
+  .piece:hover .slice{box-shadow:0 50px 100px -50px rgba(40,30,20,.38),0 18px 40px -26px rgba(40,30,20,.22)}
 }
-/* touch screens have no hover, so the features sit under each site */
-@media (hover:none){
-  .feat{position:static;clip-path:none;background:none;color:inherit}
-  .feat__in{padding:.6rem 0 0}
-  .feat__top,.feat__name{display:none}
-  .feat li{border-top-color:var(--line);font-size:.95rem}
-  .feat__n{color:var(--grey)}
-}
+
+/* the detail sheet: the picture flies from its card to the sheet, then the text sets itself */
+.sheet{position:fixed;inset:0;z-index:100;color:var(--ink);--fg:var(--ink);--line:rgba(5,5,5,.12)}
+.sheet[hidden]{display:none}
+.sheet__bg{position:absolute;inset:0;background:var(--paper)}
+.sheet__scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain}
+.sheet__grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(1.6rem,4vw,4.5rem);width:min(100%,1380px);margin:0 auto;padding:clamp(4.5rem,10vh,6.5rem) var(--gutter) clamp(3rem,8vh,5rem);min-height:100%}
+.sheet__media{position:sticky;top:clamp(4.5rem,10vh,6.5rem);align-self:start}
+.sheet__media img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;visibility:hidden}
+.sheet__media .mono{margin-top:.7rem;display:flex;justify-content:space-between}
+.sheet__top{margin:0;display:flex;justify-content:space-between}
+.sheet__name{margin:.6rem 0 0;font-size:clamp(2.6rem,5.6vw,6rem);font-weight:500;line-height:.92;letter-spacing:-.05em}
+.sheet__sum{margin:1.2rem 0 0;font-size:clamp(1.05rem,1.35vw,1.3rem);font-weight:500;line-height:1.35;letter-spacing:-.015em;max-width:38ch}
+.sheet__rows{margin-top:clamp(1.6rem,4vh,2.6rem)}
+.row{position:relative;display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:1rem;padding:1rem 0}
+.row::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transform-origin:left;transform:scaleX(var(--ln,1))}
+.row ul{list-style:none;margin:0;padding:0}
+.row li{padding:.18rem 0;font-size:1rem;font-weight:500;letter-spacing:-.01em;line-height:1.35}
+.mk{display:block;overflow:hidden}
+.mk>span{display:block}
+.sheet__open{display:inline-flex;gap:.6em;align-items:center;margin-top:1.6rem;padding:.85rem 1.1rem;background:var(--ink);color:var(--paper);transition:transform .4s cubic-bezier(.32,.72,0,1)}
+.sheet__open:active{transform:scale(.98)}
+.sheet__open i{font-style:normal;transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.sheet__open:hover i{transform:translate(3px,-3px)}
+.sheet__close{position:fixed;top:.75rem;right:var(--gutter);z-index:3;font:inherit;text-transform:uppercase;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;color:var(--paper);background:var(--ink);border:0;padding:.55rem .8rem;cursor:pointer}
+.sheet__close:hover{opacity:.8}
+.fly{position:fixed;z-index:101;background-size:cover;background-position:top;pointer-events:none;will-change:transform}
+@media (max-width:860px){.sheet__grid{grid-template-columns:1fr;padding-top:4rem}.sheet__media{position:relative;top:0}.row{grid-template-columns:1fr;gap:.4rem}}
 @media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
 
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
@@ -196,8 +219,8 @@ main{position:relative;z-index:1}
   <section class="screen hero">
     <p class="hero__hey" data-w data-hero>Hey, I'm</p>
     <h1 class="hero__name" data-w data-hero>Omar</h1>
-    <p class="hero__sub" data-w data-hero>This is what I do: in my free time I build websites,<br>applications and a lot of other things</p>
-    <p class="hero__meta mono dim" data-w data-hero data-bold>Below you'll find my work, live websites and UI<br>and a simple way to message me on Instagram</p>
+    <p class="hero__sub" data-w data-hero data-roll>I build websites, applications<br>and much more with AI</p>
+    <p class="hero__meta mono" data-w data-hero><a class="hero__go" href="#work">Explore my work<i>↓</i></a></p>
     <div class="hero__foot mono" data-hfoot>
       <span class="dim" data-w data-hero>[Scroll to explore]</span>
       <span class="links"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Instagram<i>↗</i></a><a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w data-hero>LinkedIn<i>↗</i></a><a href="mailto:Omarjnbz@gmail.com" data-w data-hero>Email<i>↗</i></a></span>
@@ -239,6 +262,23 @@ main{position:relative;z-index:1}
 
 </main>
 
+<div class="sheet" data-sheet hidden role="dialog" aria-modal="true" aria-labelledby="sheetName">
+  <div class="sheet__bg"></div>
+  <div class="sheet__scroll">
+    <div class="sheet__grid">
+      <div class="sheet__media"><img data-s-img alt=""><p class="mono dim"><span data-s-url></span><span>Live</span></p></div>
+      <div class="sheet__body">
+        <p class="sheet__top mono dim"><span class="mk"><span data-s-n></span></span><span class="mk"><span data-s-sector></span></span></p>
+        <h3 class="sheet__name mk" id="sheetName"><span data-s-name></span></h3>
+        <p class="sheet__sum" data-s-sum></p>
+        <div class="sheet__rows" data-s-rows></div>
+        <a class="sheet__open mono" data-s-open target="_blank" rel="noopener">Open the live site<i>↗</i></a>
+      </div>
+    </div>
+  </div>
+  <button class="sheet__close" type="button" data-s-close>Close_Esc</button>
+</div>
+
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script>
@@ -251,14 +291,14 @@ main{position:relative;z-index:1}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "Full admin panel CMS", "Trade map and quotation desk"]],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Built entirely on Zoho CRM", "A full video in the hero", "Every word edited without code"]],
-    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"]],
-    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Pass booking always in reach", "Music and wellness in Rishikesh"]],
-    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait hero", "Editorial serif type", "The story behind the decks"]],
-    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"]],
-    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records that play on the page", "Two characters, KAS5H and MØRF", "Press kit and bookings"]],
-    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live, not a recording"]]
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "Full admin panel CMS", "Trade map and quotation desk"], "A trading house site that works like a catalogue. Buyers browse products with full spec sheets, follow the trade routes on a 3D globe and request a quotation, in English or Russian", ["Hand-coded HTML, CSS and JavaScript, no framework", "3D trade-route globe in Three.js, loaded only when needed", "English and Russian on every page"], ["Product catalogue driven from one data file", "Quotation and qualification forms through Web3Forms and Formspree", "Password-protected admin sign-in"], ["Hostinger, on arminakcaravantrading.com"], [], ["Three.js", "EN / RU", "Web3Forms", "Admin"]],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Built entirely on Zoho CRM", "A full video in the hero", "Every word edited without code"], "A Dubai brokerage site with a live property feed from Zoho CRM, leads going straight into the CRM, automatic listing on Bayut and its own blog CMS. Built solo, from design to deployment", ["Hand-coded HTML, CSS and JavaScript, no framework", "GSAP, ScrollTrigger and Lenis for motion", "Sale and rent listings with filters, property pages and two calculators"], ["Node.js and Express API on Zoho Catalyst", "Zoho CRM, Desk and Recruit connected through OAuth", "Listings published to Bayut, Bayut leads pulled back every 15 minutes", "PHP blog CMS with login and static page generation"], ["Hostinger, on arianaintegrity.com", "Images served from Supabase Storage"], ["~13,300 lines of code", "12 API routes", "6 platforms connected"], ["Zoho CRM", "Node.js", "Bayut", "GSAP"]],
+    ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"], "My first web project. An investment advisory site led by image and video, in English and Russian", ["Image and video on every page", "An off-market collection", "English and Russian"], ["Media served from Supabase Storage"], ["Hostinger, on nurelite.properties"], [], ["Supabase", "EN / RU", "Video"]],
+    ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Pass booking always in reach", "Music and wellness in Rishikesh"], "A music and wellness gathering in Rishikesh, with an illustrated hills hero and passes and stays always one tap away", ["Tailwind CSS", "Illustrated hills hero", "Iconify icons"], ["Passes and stay options", "Assets on Supabase Storage"], ["Vercel, on unheard-f.vercel.app"], [], ["Tailwind", "Supabase", "Vercel"]],
+    ["hero_jinie", "Jinie Bhatnagar", "Artist", "Portfolio for a Delhi DJ and producer", "https://omarjnbz.github.io/Jinie-Portfolio/", ["Full-screen studio portrait hero", "Editorial serif type", "The story behind the decks"], "A portfolio for a Delhi DJ and producer, built around a full-screen studio portrait and editorial type", ["WebGL canvas effects", "Editorial serif type", "Full-screen portrait hero"], ["Static site, no server needed"], ["GitHub Pages"], [], ["WebGL", "GitHub Pages"]],
+    ["hero_djjinie", "DJ Jinie", "Artist", "Live set in the hero, a playable music library and booking", "https://jinie.vercel.app/", ["Live set video behind the hero", "A playable music library, The Vault", "Mixes and booking on one page"], "A newer site for the same artist, built around the live sets: video behind the hero, a playable library and booking", ["Three.js visuals", "GSAP and ScrollTrigger", "Web Audio for playback"], ["SoundCloud and YouTube embeds for the music", "Mixes and booking on one page"], ["Vercel, on jinie.vercel.app"], [], ["Three.js", "GSAP", "Web Audio", "SoundCloud"]],
+    ["hero_kash", "KAS5H", "Press kit", "A DJ press kit with records, two characters and bookings", "https://kas5h.vercel.app/", ["Sets as records that play on the page", "Two characters, KAS5H and MØRF", "Press kit and bookings"], "A press kit for a Delhi selector with two aliases. His sets are records you can play right on the page", ["React with Vite", "GSAP, ScrollTrigger and Lenis", "A Web Audio record player"], ["SoundCloud widget for the sets", "All copy for both aliases in one content file"], ["Vercel, on kas5h.vercel.app, every push goes live"], [], ["React", "Vite", "GSAP", "SoundCloud"]],
+    ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser, in 95+ languages", "https://bng-eva.vercel.app", ["Press start and speak", "Answers in 95+ languages", "Live, not a recording"], "A voice agent you talk to in the browser. Press start, speak, and EVA answers live in more than 95 languages", ["React with Vite", "Three.js voice visual", "Microphone access in the browser"], ["ElevenLabs conversational voice over WebSocket", "Live, not a recording"], ["Vercel, on bng-eva.vercel.app"], [], ["React", "ElevenLabs", "WebSocket", "Three.js"]]
   ];
   var K = [
     ["kash_deck", "The record crate", "Sets", "His sets as records, each one plays on the page"],
@@ -281,18 +321,81 @@ main{position:relative;z-index:1}
   P.forEach(function (p, i) {
     var a = document.createElement("a");
     a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
-    a.setAttribute("aria-label", p[1] + ", " + p[3] + ". " + p[5].join(", ") + ". Opens the live site in a new tab");
-    a.innerHTML = '<div class="pic">' + sliced(p[0]) + '<div class="feat" aria-hidden="true"><div class="feat__in">' +
-      '<p class="feat__top mono"><span>' + String(i + 1).padStart(3, "0") + "</span><span>" + p[2] + "</span></p>" +
-      '<p class="feat__name">' + p[1] + "</p><ol>" +
-      p[5].map(function (f, k) {
-        return '<li><span class="feat__n mono">0' + (k + 1) + "</span><span>" + f.split(" ").map(function (w) { return '<span class="fw">' + w + "</span>"; }).join(" ") + "</span></li>";
-      }).join("") + "</ol></div></div></div>" +
-      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + ' ↗</b></span><span class="dim">' + p[2] + "</span></div>";
-    /* on touch screens the features follow the caption */
-    if (touch) a.appendChild(a.querySelector(".feat"));
+    a.setAttribute("aria-label", p[1] + ", " + p[2] + ". Show the details");
+    a.innerHTML = '<div class="pic">' + sliced(p[0]) +
+      '<div class="tags mono" aria-hidden="true">' + p[11].map(function (t) { return "<span>" + t + "</span>"; }).join("") + '<span class="tags__go">Details +</span></div></div>' +
+      '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>" +
+      (touch ? '<p class="tagline mono dim">' + p[11].join("_") + "_Tap for details</p>" : "");
+    a.addEventListener("click", function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      e.preventDefault(); openSheet(i, a);
+    });
     pieces.appendChild(a); watchSlice(a);
   });
+  /* ── the detail sheet ──
+     Opening: the card's picture is lifted out as a flying copy, the paper fades
+     in behind it, the copy lands in the sheet, then the name, the summary (word
+     by word, caption style) and each row of the stack set themselves in turn.
+     Closing runs it back into the card. */
+  var sheet = document.querySelector("[data-sheet]"), sImg = sheet.querySelector("[data-s-img]"), sScroll = sheet.querySelector(".sheet__scroll");
+  var sOpen = false, sCard = null, sBusy = false;
+  function q(sel) { return sheet.querySelector(sel); }
+  function li(arr) { return "<ul>" + arr.map(function (t) { return '<li><span class="mk"><span>' + t + "</span></span></li>"; }).join("") + "</ul>"; }
+  function openSheet(i, card) {
+    if (sBusy || sOpen) return;
+    var p = P[i], src = "img/" + (touch ? "sm/" : "") + p[0] + ".jpg";
+    sCard = card; sBusy = true;
+    q("[data-s-n]").textContent = String(i + 1).padStart(3, "0") + "/" + String(P.length).padStart(3, "0");
+    q("[data-s-sector]").textContent = p[2];
+    q("[data-s-name]").textContent = p[1];
+    q("[data-s-sum]").innerHTML = p[6].split(" ").map(function (w) { return '<span class="sw">' + w + "</span>"; }).join(" ");
+    q("[data-s-url]").textContent = p[4].replace(/^https?:\/\//, "").replace(/\/$/, "");
+    q("[data-s-rows]").innerHTML =
+      '<div class="row"><p class="mono dim mk"><span>Frontend</span></p>' + li(p[7]) + "</div>" +
+      '<div class="row"><p class="mono dim mk"><span>Backend</span></p>' + li(p[8]) + "</div>" +
+      '<div class="row"><p class="mono dim mk"><span>Hosting_Domain</span></p>' + li(p[9]) + "</div>" +
+      (p[10].length ? '<div class="row"><p class="mono dim mk"><span>In numbers</span></p>' + li(p[10]) + "</div>" : "");
+    var go = q("[data-s-open]"); go.href = p[4];
+    sImg.src = src; sImg.alt = p[1];
+    sheet.hidden = false; sScroll.scrollTop = 0;
+    document.documentElement.style.overflow = "hidden";
+    var from = card.querySelector(".slice").getBoundingClientRect(), to = sImg.getBoundingClientRect();
+    var texts = sheet.querySelectorAll(".mk>span"), words = sheet.querySelectorAll(".sw"), rows = sheet.querySelectorAll(".row");
+    var fly = document.createElement("div"); fly.className = "fly"; fly.style.backgroundImage = "url(" + src + ")";
+    fly.style.left = to.left + "px"; fly.style.top = to.top + "px"; fly.style.width = to.width + "px"; fly.style.height = to.height + "px";
+    document.body.appendChild(fly);
+    var d = reduced ? 0 : 1;
+    gsap.timeline({ onComplete: function () { sImg.style.visibility = "visible"; fly.remove(); sBusy = false; sOpen = true; q("[data-s-close]").focus(); } })
+      .fromTo(".sheet__bg", { opacity: 0 }, { opacity: 1, duration: .5 * d, ease: "power2.out" }, 0)
+      .fromTo(fly, { x: from.left - to.left, y: from.top - to.top, scaleX: from.width / to.width, scaleY: from.height / to.height, transformOrigin: "0 0" },
+        { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: .95 * d, ease: "expo.inOut" }, 0)
+      .fromTo([".sheet__close", ".sheet__media .mono"], { opacity: 0 }, { opacity: 1, duration: .4 * d }, .6 * d)
+      .fromTo(texts, { yPercent: 110 }, { yPercent: 0, duration: .8 * d, ease: "expo.out", stagger: .03 * d }, .55 * d)
+      .fromTo(words, { opacity: 0, y: 10, color: "#a7a39c" }, { opacity: 1, y: 0, duration: .5 * d, ease: "expo.out", stagger: .012 * d }, .6 * d)
+      .to(words, { color: "#050505", duration: .14 * d, stagger: .03 * d }, .8 * d)
+      .fromTo(rows, { "--ln": 0 }, { "--ln": 1, duration: .9 * d, ease: "expo.out", stagger: .1 * d }, .7 * d)
+      .fromTo(go, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, 1.1 * d);
+  }
+  function closeSheet() {
+    if (!sOpen || sBusy) return;
+    sBusy = true;
+    var from = sImg.getBoundingClientRect(), to = sCard.querySelector(".slice").getBoundingClientRect();
+    var fly = document.createElement("div"); fly.className = "fly"; fly.style.backgroundImage = "url(" + sImg.src + ")";
+    fly.style.left = from.left + "px"; fly.style.top = from.top + "px"; fly.style.width = from.width + "px"; fly.style.height = from.height + "px";
+    document.body.appendChild(fly); sImg.style.visibility = "hidden";
+    var d = reduced ? 0 : 1;
+    gsap.timeline({ onComplete: function () {
+        fly.remove(); sheet.hidden = true; document.documentElement.style.overflow = "";
+        sBusy = false; sOpen = false; sCard.focus({ preventScroll: true });
+      } })
+      .to(sheet.querySelectorAll(".sheet__body, .sheet__close, .sheet__media .mono"), { opacity: 0, duration: .25 * d }, 0)
+      .to(fly, { x: to.left - from.left, y: to.top - from.top, scaleX: to.width / from.width, scaleY: to.height / from.height, transformOrigin: "0 0", duration: .8 * d, ease: "expo.inOut" }, .1 * d)
+      .to(".sheet__bg", { opacity: 0, duration: .45 * d, ease: "power2.in" }, .35 * d)
+      .set(sheet.querySelectorAll(".sheet__body, .sheet__close, .sheet__media .mono"), { opacity: 1 });
+  }
+  q("[data-s-close]").addEventListener("click", closeSheet);
+  addEventListener("keydown", function (e) { if (e.key === "Escape") closeSheet(); });
+
   var frames = document.getElementById("frames");
   K.forEach(function (k, i) {
     var a = document.createElement("a");
@@ -390,7 +493,7 @@ main{position:relative;z-index:1}
   var wio = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { wio.unobserve(e.target); waterIn(e.target); } });
   }, { threshold: 0 });
-  if (!touch) waters.forEach(liquid);
+  if (!touch) waters.forEach(function (el) { if (!el.hasAttribute("data-roll")) liquid(el); });
 
   /* ── caption highlight (from the captions skill: word-by-word, TikTok-style) ──
      The big statements are split into words; each word turns from grey to full
@@ -450,20 +553,50 @@ main{position:relative;z-index:1}
 
   /* ── the hero's bottom row belongs to the first screen: it fades as you scroll away ── */
   gsap.to("[data-hfoot]", { opacity: 0, y: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "top -22%", scrub: .3 } });
-  /* ── work: hover choreography for each site ── */
+  /* ── work: each card tilts toward the pointer and its stack rises in as tags ── */
   if (!touch) gsap.utils.toArray(".piece").forEach(function (a) {
-    var f = a.querySelector(".feat"), words = f.querySelectorAll(".fw");
-    var tl = gsap.timeline({ paused: true })
-      .fromTo(f, { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: .8, ease: "expo.out" })
-      .fromTo(f.querySelectorAll(".feat__top, .feat__name, .feat__n"), { yPercent: 70, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .7, ease: "expo.out", stagger: .05 }, .1)
-      .fromTo(words, { yPercent: 105, opacity: 0, color: "rgba(248,246,242,.3)" }, { yPercent: 0, opacity: 1, duration: .55, ease: "expo.out", stagger: .022 }, .22)
-      /* the caption pass: each word lights up in reading order */
-      .to(words, { color: "#f8f6f2", duration: .16, ease: "power1.out", stagger: .045 }, .42);
-    a.addEventListener("pointerenter", function () { tl.timeScale(1).play(); });
-    a.addEventListener("pointerleave", function () { tl.timeScale(2.2).reverse(); });
+    var pic = a.querySelector(".pic"), tags = a.querySelectorAll(".tags span");
+    gsap.set(pic, { transformPerspective: 1100 });
+    var rx = gsap.quickTo(pic, "rotationX", { duration: .7, ease: "power3.out" }), ry = gsap.quickTo(pic, "rotationY", { duration: .7, ease: "power3.out" });
+    var sc = gsap.quickTo(pic, "scale", { duration: .9, ease: "expo.out" });
+    var tl = gsap.timeline({ paused: true }).to(tags, { opacity: 1, y: 0, scale: 1, duration: .55, ease: "back.out(1.7)", stagger: .05 });
+    a.addEventListener("pointerenter", function () { sc(1.035); tl.timeScale(1).play(); });
+    a.addEventListener("pointermove", function (e) {
+      var r = pic.getBoundingClientRect();
+      ry(((e.clientX - r.left) / r.width - .5) * 7); rx(-((e.clientY - r.top) / r.height - .5) * 6);
+    });
+    a.addEventListener("pointerleave", function () { sc(1); rx(0); ry(0); tl.timeScale(2).reverse(); });
   });
 
-  /* ── work: the right column drifts a little against the left ── */
+  /* ── hero line: each word rolls out of its slot and back, lighting up in turn ── */
+  document.querySelectorAll("[data-roll]").forEach(function (el) {
+    (function wrapWords(node) {
+      [].slice.call(node.childNodes).forEach(function (c) {
+        if (c.nodeType === 1) return wrapWords(c);
+        if (c.nodeType !== 3 || !c.textContent.trim()) return;
+        var frag = document.createDocumentFragment();
+        c.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) return frag.appendChild(document.createTextNode(part));
+          var o = document.createElement("span"), w = document.createElement("span");
+          o.className = "rw"; w.textContent = part; o.appendChild(w); frag.appendChild(o);
+        });
+        c.parentNode.replaceChild(frag, c);
+      });
+    })(el);
+    var ws = el.querySelectorAll(".rw>span"), busy = false;
+    function roll() {
+      if (busy || el.classList.contains("wv")) return; busy = true;
+      gsap.timeline({ onComplete: function () { busy = false; } })
+        .to(ws, { yPercent: -110, duration: .32, ease: "power3.in", stagger: .035 })
+        .set(ws, { yPercent: 110, color: "#9a968f" }, ">-.0")
+        .to(ws, { yPercent: 0, duration: .6, ease: "expo.out", stagger: .035 })
+        .to(ws, { color: "inherit", duration: .2, stagger: .05 }, "-=.45");
+    }
+    if (!touch) el.addEventListener("pointerenter", roll);
+  });
+
+  /* ── work: the right column drifts  /* ── work: the right column drifts a little against the left ── */
   if (innerWidth > 760) gsap.utils.toArray(".piece:nth-child(even)").forEach(function (el) {
     gsap.fromTo(el, { y: 60 }, { y: -60, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: .5 } });
   });
