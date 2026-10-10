@@ -5,20 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#f8f6f2">
-<meta name="description" content="Omar — a library of eight live websites, built in my free time with AI. Every one opens the real, running site">
+<meta name="description" content="Hey, I'm Omar. Websites, applications and a lot of other things, built in my free time. Every piece of work opens the real, live site">
 <link rel="canonical" href="https://omarjnbz.vercel.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Omar">
-<meta property="og:title" content="Omar — Portfolio">
-<meta property="og:description" content="A library of eight live websites, built in my free time with AI">
+<meta property="og:title" content="Hey, I'm Omar">
+<meta property="og:description" content="Websites, applications and a lot of other things, built in my free time">
 <meta property="og:url" content="https://omarjnbz.vercel.app/">
-<meta property="og:image" content="https://omarjnbz.vercel.app/og.png">
+<meta property="og:image" content="https://omarjnbz.vercel.app/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Omar — Portfolio</title>
+<title>Omar — Work</title>
 <link rel="preload" href="fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/martian-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -113,25 +113,28 @@ main{position:relative;z-index:1}
 .piece .cap b{font-weight:400}
 .piece .cap .dim{margin-left:auto}
 .piece .line{margin:.25rem 0 0;max-width:52ch}
-/* hover: the site lifts and grows on a soft spring, then its features rise in one by one */
+/* hover: the site lifts on a soft spring, a dark panel rises over it, the name
+   lifts in, then each feature arrives word by word and lights up like a caption */
 .pic{position:relative;transition:transform .9s cubic-bezier(.32,.72,0,1),box-shadow .9s cubic-bezier(.32,.72,0,1)}
-.feat{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(.9rem,1.8vw,1.5rem);background:linear-gradient(180deg,rgba(5,5,5,0) 22%,rgba(5,5,5,.84));color:var(--paper);opacity:0;transition:opacity .55s cubic-bezier(.32,.72,0,1);pointer-events:none}
-.feat ol{list-style:none;margin:0;padding:0;width:100%;font-size:.72rem}
-.feat li{overflow:hidden;border-top:1px solid rgba(248,246,242,.2)}
-.feat em{display:flex;gap:1rem;padding:.55rem 0;font-style:normal;transform:translateY(105%);transition:transform .8s cubic-bezier(.32,.72,0,1)}
-.feat .dim{color:rgba(248,246,242,.55)}
+.feat{position:absolute;left:0;right:0;bottom:0;background:rgba(8,8,7,.98);color:var(--paper);pointer-events:none;clip-path:inset(100% 0 0 0)}
+.feat__in{padding:clamp(1rem,1.8vw,1.5rem) clamp(1rem,2vw,1.6rem) clamp(.8rem,1.4vw,1.1rem)}
+.feat__top{margin:0;display:flex;justify-content:space-between;color:rgba(248,246,242,.5)}
+.feat__name{margin:.35rem 0 .7rem;font-size:clamp(1.5rem,2.4vw,2.4rem);font-weight:500;line-height:1;letter-spacing:-.035em}
+.feat ol{list-style:none;margin:0;padding:0}
+.feat li{display:flex;gap:1rem;align-items:baseline;padding:.45rem 0;border-top:1px solid rgba(248,246,242,.14);overflow:hidden;font-size:clamp(.9rem,1.05vw,1.05rem);font-weight:500;letter-spacing:-.01em}
+.feat__n{color:rgba(248,246,242,.45)}
+.fw{display:inline-block}
 @media (hover:hover){
   .piece:hover{z-index:2}
-  .piece:hover .pic{transform:scale(1.045);box-shadow:0 50px 100px -50px rgba(5,5,5,.4),0 18px 40px -26px rgba(5,5,5,.25)}
-  .piece:hover .feat{opacity:1}
-  .piece:hover .feat em{transform:none;transition-delay:calc(.18s + var(--i) * 80ms)}
+  .piece:hover .pic{transform:scale(1.04);box-shadow:0 50px 100px -50px rgba(5,5,5,.4),0 18px 40px -26px rgba(5,5,5,.25)}
 }
 /* touch screens have no hover, so the features sit under each site */
 @media (hover:none){
-  .feat{position:static;opacity:1;background:none;color:inherit;padding:.7rem 0 0}
-  .feat em{transform:none}
-  .feat li{border-top-color:var(--line)}
-  .feat .dim{color:var(--grey)}
+  .feat{position:static;clip-path:none;background:none;color:inherit}
+  .feat__in{padding:.6rem 0 0}
+  .feat__top,.feat__name{display:none}
+  .feat li{border-top-color:var(--line);font-size:.95rem}
+  .feat__n{color:var(--grey)}
 }
 @media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
 
@@ -182,7 +185,7 @@ main{position:relative;z-index:1}
 <header class="hdr mono">
   <a href="#top" class="dim"><span data-clock>--:--</span></a>
   <nav>
-    <a href="#work">Websites</a>
+    <a href="#work">Work</a>
     <a href="#about">About</a>
     <a class="talk" href="#contact">Get in touch</a>
   </nav>
@@ -203,7 +206,7 @@ main{position:relative;z-index:1}
 
   <section class="work" id="work">
     <p class="label mono dim" data-w>Eight sites_All live</p>
-    <h2 class="big work__title"><span data-w>Websites</span><span class="n mono dim" data-w>[008]</span></h2>
+    <h2 class="big work__title"><span data-w>Work</span><span class="n mono dim" data-w>[008]</span></h2>
     <div class="cols" id="pieces"></div>
   </section>
 
@@ -279,8 +282,12 @@ main{position:relative;z-index:1}
     var a = document.createElement("a");
     a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", " + p[3] + ". " + p[5].join(", ") + ". Opens the live site in a new tab");
-    a.innerHTML = '<div class="pic">' + sliced(p[0]) + '<div class="feat mono" aria-hidden="true"><ol>' +
-      p[5].map(function (f, k) { return '<li style="--i:' + k + '"><em><span class="dim">0' + (k + 1) + "</span>" + f + "</em></li>"; }).join("") + "</ol></div></div>" +
+    a.innerHTML = '<div class="pic">' + sliced(p[0]) + '<div class="feat" aria-hidden="true"><div class="feat__in">' +
+      '<p class="feat__top mono"><span>' + String(i + 1).padStart(3, "0") + "</span><span>" + p[2] + "</span></p>" +
+      '<p class="feat__name">' + p[1] + "</p><ol>" +
+      p[5].map(function (f, k) {
+        return '<li><span class="feat__n mono">0' + (k + 1) + "</span><span>" + f.split(" ").map(function (w) { return '<span class="fw">' + w + "</span>"; }).join(" ") + "</span></li>";
+      }).join("") + "</ol></div></div></div>" +
       '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + ' ↗</b></span><span class="dim">' + p[2] + "</span></div>";
     /* on touch screens the features follow the caption */
     if (touch) a.appendChild(a.querySelector(".feat"));
@@ -443,7 +450,20 @@ main{position:relative;z-index:1}
 
   /* ── the hero's bottom row belongs to the first screen: it fades as you scroll away ── */
   gsap.to("[data-hfoot]", { opacity: 0, y: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "top -22%", scrub: .3 } });
-  /* ── portfolio: the right column drifts a little against the left ── */
+  /* ── work: hover choreography for each site ── */
+  if (!touch) gsap.utils.toArray(".piece").forEach(function (a) {
+    var f = a.querySelector(".feat"), words = f.querySelectorAll(".fw");
+    var tl = gsap.timeline({ paused: true })
+      .fromTo(f, { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: .8, ease: "expo.out" })
+      .fromTo(f.querySelectorAll(".feat__top, .feat__name, .feat__n"), { yPercent: 70, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .7, ease: "expo.out", stagger: .05 }, .1)
+      .fromTo(words, { yPercent: 105, opacity: 0, color: "rgba(248,246,242,.3)" }, { yPercent: 0, opacity: 1, duration: .55, ease: "expo.out", stagger: .022 }, .22)
+      /* the caption pass: each word lights up in reading order */
+      .to(words, { color: "#f8f6f2", duration: .16, ease: "power1.out", stagger: .045 }, .42);
+    a.addEventListener("pointerenter", function () { tl.timeScale(1).play(); });
+    a.addEventListener("pointerleave", function () { tl.timeScale(2.2).reverse(); });
+  });
+
+  /* ── work: the right column drifts a little against the left ── */
   if (innerWidth > 760) gsap.utils.toArray(".piece:nth-child(even)").forEach(function (el) {
     gsap.fromTo(el, { y: 60 }, { y: -60, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: .5 } });
   });
