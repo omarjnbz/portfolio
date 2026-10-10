@@ -127,15 +127,46 @@ main{position:relative;z-index:1}
 .see{display:inline-block;margin-top:clamp(4rem,10vh,7rem);background:var(--fg);color:var(--paper);padding:.3rem .5rem;transition:background .5s,color .5s}
 body.dark .see{color:var(--ink)}
 
-/* ─── about ─── */
+/* ─── about: one huge statement, then the photo holds while the story scrolls past ─── */
 .about{padding-block:clamp(8rem,22vh,16rem) clamp(6rem,14vh,10rem)}
-.about__line{grid-column:1 / 11;margin:0;font-size:clamp(2.6rem,6.6vw,7.4rem);font-weight:500;line-height:1;letter-spacing:-.04em;transform-origin:0 100%}
-.about__copy{grid-column:7 / 11;margin-top:clamp(2.5rem,7vh,5rem);max-width:34rem}
-.about__copy p{margin:0 0 1.1rem}
-.about__pic{grid-column:1 / 7;margin:clamp(4rem,12vh,9rem) 0 0;position:relative;aspect-ratio:16/11;overflow:hidden;background:#111}
+.about__eye{text-align:center;margin:0 0 clamp(2rem,5vh,3.5rem)}
+.about__big{
+  margin:0 auto;max-width:22ch;text-align:center;
+  font-size:clamp(2.2rem,5.6vw,6.2rem);font-weight:500;line-height:1.02;letter-spacing:-.04em;
+  transform-origin:50% 100%;
+}
+.about__dual{margin-top:clamp(7rem,18vh,13rem);align-items:start}
+.about__pic{grid-column:1 / 7;margin:0;position:sticky;top:5.5rem;aspect-ratio:4/5;overflow:hidden;background:#111}
 .about__pic img{width:100%;height:124%;object-fit:cover;object-position:top;will-change:transform}
 .about__pic .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--paper);color:var(--ink);padding:.3rem .5rem}
-@media (max-width:760px){.about__line,.about__copy,.about__pic{grid-column:1 / -1}.about__copy{margin-top:2rem}}
+.about__text{grid-column:8 / 13;padding-top:clamp(2rem,10vh,8rem)}
+.about__text p{margin:0 0 clamp(1.6rem,4vh,2.6rem);font-size:clamp(1.1rem,1.5vw,1.45rem);font-weight:500;line-height:1.3;letter-spacing:-.015em}
+.about__text p.mono{font-size:.68rem;font-weight:400;letter-spacing:.02em;line-height:1.5;margin-top:clamp(3rem,8vh,5rem)}
+.about__text a{border-bottom:1px solid currentColor}
+.about__text a:hover{opacity:.5}
+@media (max-width:760px){
+  .about__big{max-width:none}
+  .about__pic,.about__text{grid-column:1 / -1}
+  .about__pic{position:static;aspect-ratio:4/5}
+  .about__text{padding-top:2.5rem}
+}
+
+/* ─── latest work: one site, walked through top to bottom ─── */
+.case{padding-block:clamp(6rem,16vh,12rem) clamp(4rem,10vh,8rem)}
+.case__eye{margin:clamp(1.2rem,3vh,2rem) 0 0;max-width:52ch}
+.case__frames{row-gap:clamp(4rem,10vh,7rem);margin-top:clamp(3rem,8vh,5rem)}
+.frame{position:relative;display:block}
+.frame:nth-child(1){grid-column:1 / 13}
+.frame:nth-child(2){grid-column:1 / 8}
+.frame:nth-child(3){grid-column:8 / 13;margin-top:clamp(5rem,14vh,10rem)}
+.frame:nth-child(4){grid-column:3 / 13}
+.frame:nth-child(5){grid-column:1 / 8}
+.frame:nth-child(6){grid-column:8 / 13;margin-top:clamp(5rem,14vh,10rem)}
+.frame:nth-child(7){grid-column:1 / 13}
+.frame .cap{margin-top:.7rem;display:grid;grid-template-columns:1fr auto;gap:.25rem 1.2rem}
+.frame .cap b{font-weight:400}
+.frame .cap .line{grid-column:1 / -1;max-width:46ch}
+@media (max-width:760px){.frame,.frame:nth-child(n){grid-column:1 / -1;margin-top:0}}
 
 /* ─── touch: the big line is drawn in horizontal bands that ripple ─── */
 .touch{padding-block:clamp(6rem,16vh,12rem) clamp(3rem,6vh,4rem);overflow:hidden}
@@ -145,7 +176,6 @@ body.dark .see{color:var(--ink)}
 .rip.on .rip__base{opacity:0}
 .rip__band{position:absolute;inset:0;padding-inline:inherit;display:none;will-change:transform;pointer-events:none}
 .rip.on .rip__band{display:block}
-.rip__tag{position:fixed;left:0;top:0;z-index:60;pointer-events:none;background:var(--paper);color:var(--ink);padding:.3rem .5rem;opacity:0;transform:translate(-50%,-50%)}
 .foot{margin-top:clamp(5rem,14vh,9rem)}
 .foot .mono{line-height:1.7}
 .foot .mono a:hover{opacity:.5}
@@ -172,7 +202,7 @@ body.dark .see{color:var(--ink)}
 <header class="hdr mono">
   <a href="#top" class="dim" data-decode><span data-clock>--:--</span></a>
   <nav>
-    <a href="#work" data-decode>Index</a>
+    <a href="#work" data-decode>Portfolio</a>
     <a href="#about" data-decode>About</a>
     <a class="talk" href="mailto:Omarjnbz@gmail.com" data-decode>Lets talk</a>
   </nav>
@@ -183,7 +213,7 @@ body.dark .see{color:var(--ink)}
   <section class="hero wrap">
     <div class="cols">
       <h1 class="hero__name" data-decode data-warp>Omar</h1>
-      <p class="hero__sub" data-rise>This is what I do in my free time:<br><span class="dim">explore ideas and build them into websites</span></p>
+      <p class="hero__sub" data-rise>A library of websites, built in my free time<br><span class="dim">Explore ideas and build them</span></p>
       <p class="hero__meta mono dim"><span data-decode>Portfolio_26</span><span data-decode>Eight sites_All live</span></p>
     </div>
     <div class="hero__foot mono">
@@ -199,24 +229,33 @@ body.dark .see{color:var(--ink)}
   </section>
 
   <section class="about wrap" id="about">
-    <div class="cols">
-      <h2 class="about__line" data-decode-once data-warp>Explore my ideas,<br>built with AI</h2>
-      <div class="about__copy mono">
-        <p data-decode-once>This is what I do in my free time: I explore ideas and build them into websites with AI. Every one is finished properly, at the highest level, and every link on this page opens the real, running site.</p>
-        <p class="dim" data-decode-once>Eight sites_Commodity trading, real estate, a festival, DJs and a voice agent</p>
-      </div>
+    <p class="about__eye mono dim" data-decode-once>Web designer from Dubai,<br>building in my free time with AI</p>
+    <h2 class="about__big" data-decode-once data-warp>Explore my ideas, built with AI. Every site here is finished properly, at the highest level, and opens the real, running thing.</h2>
+    <div class="cols about__dual">
       <figure class="about__pic">
-        <img src="img/hero_kash.jpg" alt="KAS5H — the first screen of the live site" data-parallax>
-        <a class="tag mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-decode-once>Open site</a>
+        <img src="img/kash_booth.jpg" alt="" data-parallax>
+        <span class="tag mono" data-decode-once>Photo_Coming soon</span>
       </figure>
+      <div class="about__text">
+        <p data-rise-once>I design and build websites in my free time. Each one starts as an idea I want to see working, and ends as a live site: designed, coded and launched, with the admin tools behind it when a client needs them.</p>
+        <p data-rise-once>The work so far covers <span class="dim">commodity trading, real estate, a festival, two DJs and a voice agent</span>. Some run on a full CMS, one on Zoho CRM, all of them in production.</p>
+        <p data-rise-once>Everything is done properly, at the highest level, and every link on this page opens the real site. If you have an idea, I'm ready to build it. <a href="mailto:Omarjnbz@gmail.com">Get in touch ↗</a></p>
+        <p class="mono dim" data-decode-once>Eight sites_All live_2024–26</p>
+      </div>
     </div>
+  </section>
+
+  <section class="case wrap" id="latest">
+    <h2 class="title" data-warp><span class="w" data-fill>Latest work</span><span class="n">[KAS5H]</span></h2>
+    <p class="case__eye mono dim" data-decode-once>The newest build, shown section by section_Press kit for a Delhi DJ and producer</p>
+    <div class="cols case__frames" id="frames"></div>
+    <a class="see mono" href="https://kas5h.vercel.app/" target="_blank" rel="noopener" data-decode-once>Open the site ↗</a>
   </section>
 
   <section class="touch wrap" id="contact">
     <p class="touch__ask" data-rise-once>Get in touch with me<br><span class="dim">I'm ready to build anything</span></p>
     <a class="rip" href="mailto:Omarjnbz@gmail.com" data-rip><span class="rip__base" data-decode-once>Get in touch</span></a>
-    <span class="rip__tag mono" data-rip-tag aria-hidden="true">Let's talk</span>
-    <div class="foot cols mono">
+      <div class="foot cols mono">
       <div class="l1"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-decode-once>Instagram ↗</a></div>
       <div class="l2"><a href="mailto:Omarjnbz@gmail.com" data-decode-once>Email ↗</a></div>
       <p class="cred dim" data-decode-once>Designed by_<b>Omar</b><br>Developed by_<b>Omar</b></p>
@@ -237,9 +276,9 @@ body.dark .see{color:var(--ink)}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "Product catalogue with spec sheets, a trade-corridor map and a quotation desk, in English and Russian", "https://arminakcaravantrading.com/"],
-    ["hero_ariana", "Ariana Integrity", "Real estate", "A site the client runs on their own: an admin panel to change every word, image and logo without code", "https://www.arianaintegrity.com/"],
-    ["hero_nurelite", "Nur Elite Properties", "Real estate", "Global investment advisory, led by image and video, with a large off-market collection", "https://nurelite.properties/"],
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce for agricultural commodities with a full admin panel CMS behind it: catalogue, spec sheets, trade-corridor map and quotation desk, in English and Russian", "https://arminakcaravantrading.com/"],
+    ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and running in production, with strong assets and a full video playing in the hero", "https://www.arianaintegrity.com/"],
+    ["hero_nurelite", "Nur Elite Properties", "Real estate", "My first web project. Global investment advisory, led by image and video, with a large off-market collection", "https://nurelite.properties/"],
     ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh: illustrated hills and pass booking always in reach", "https://unheard-f.vercel.app/"],
     ["hero_jinie", "Jinie Bhatnagar", "Artist portfolio", "Portfolio for a DJ and producer, Delhi to the world, with a full-screen studio portrait", "https://omarjnbz.github.io/Jinie-Portfolio/"],
     ["hero_djjinie", "DJ Jinie", "Artist site", "The newer site: a live set behind the hero, a playable music library and booking on one page", "https://jinie.vercel.app/"],
@@ -247,19 +286,41 @@ body.dark .see{color:var(--ink)}
     ["hero_bngeva", "EVA", "Voice AI", "A voice agent you talk to in the browser. Press Start, speak, and it answers in 95+ languages", "https://bng-eva.vercel.app"]
   ];
   var STRIPS = touch ? 8 : 14;
+  function sliced(file) {
+    var s = '<div class="slice" aria-hidden="true">';
+    for (var k = 0; k < STRIPS; k++) {
+      s += '<i style="--d:' + k + ';background-image:url(img/' + (touch ? "sm/" : "") + file + '.jpg);background-position:' + (k / (STRIPS - 1) * 100) + '% 0"></i>';
+    }
+    return s + "</div>";
+  }
   var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
     var a = document.createElement("a");
     a.className = "piece"; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", opens the live site in a new tab");
-    var s = '<div class="slice" aria-hidden="true">';
-    for (var k = 0; k < STRIPS; k++) {
-      s += '<i style="--d:' + k + ';background-image:url(img/' + (touch ? "sm/" : "") + p[0] + '.jpg);background-position:' + (k / (STRIPS - 1) * 100) + '% 0"></i>';
-    }
-    s += "</div>";
-    s += '<div class="cap mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + '</span><span class="line dim">' + p[3] + "</span></div>";
-    a.innerHTML = s;
+    a.innerHTML = sliced(p[0]) +
+      '<div class="cap mono"><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + '</span><span class="line dim">' + p[3] + "</span></div>";
     pieces.appendChild(a);
+  });
+
+  /* ── the latest build, section by section ── */
+  var K = [
+    ["kash_hero", "The opening", "Hero", "Name, sound and a vinyl that spins. One line on the music, and the latest set a tap away"],
+    ["kash_deck", "The record crate", "Sets", "His sets as records: each one plays here, with the tracklist, before you ever leave the page"],
+    ["kash_press", "Press & promo kit", "Press", "Photos, posters and the bio, packaged for promoters to download in one go"],
+    ["kash_booth", "In the booth", "About", "The bio, with him playing live beside it"],
+    ["kash_signals", "Two signals", "Aliases", "The two characters he plays as: KAS5H, the groove side, and MØRF, the pressure side"],
+    ["kash_book", "What he's for", "Booking", "DJ sets, mixes, curation and sets, with the contacts for each"],
+    ["kash_footer", "The sign-off", "Footer", "Bookings in one block, in the orange, with every link a promoter needs"]
+  ];
+  var frames = document.getElementById("frames");
+  K.forEach(function (k, i) {
+    var a = document.createElement("a");
+    a.className = "frame"; a.href = "https://kas5h.vercel.app/"; a.target = "_blank"; a.rel = "noopener";
+    a.setAttribute("aria-label", "KAS5H, " + k[1] + ". Opens the live site in a new tab");
+    a.innerHTML = sliced(k[0]) +
+      '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span><span class="line dim">' + k[3] + "</span></div>";
+    frames.appendChild(a);
   });
 
   /* ── clock, Dubai time ── */
@@ -318,7 +379,7 @@ body.dark .see{color:var(--ink)}
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
         io.unobserve(e.target);
-        decode(e.target, e.target.matches(".about__line, .rip__base") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
+        decode(e.target, e.target.matches(".about__big") ? { per: 14, hold: 520 } : e.target.matches(".rip__base") ? { per: 55, hold: 600 } : { per: 10, hold: 320 });
       });
     }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
     later.forEach(function (el) { io.observe(el); });
@@ -439,15 +500,13 @@ body.dark .see{color:var(--ink)}
     if (!running) { running = true; rip.classList.add("on"); requestAnimationFrame(frame); }
   }
   ScrollTrigger.create({ trigger: rip, start: "top 85%", onEnter: function () { setTimeout(function () { kick(1); }, 350); } });
-  var tag = document.querySelector("[data-rip-tag]"), lastX = null;
+  var lastX = null;
   if (!touch) {
     rip.addEventListener("pointermove", function (e) {
       if (lastX !== null) kick(Math.min(.25, Math.abs(e.clientX - lastX) / 400));
       lastX = e.clientX;
-      tag.style.transform = "translate(" + (e.clientX - tag.offsetWidth / 2) + "px," + (e.clientY - tag.offsetHeight / 2) + "px)";
-      tag.style.opacity = 1;
     });
-    rip.addEventListener("pointerleave", function () { tag.style.opacity = 0; lastX = null; });
+    rip.addEventListener("pointerleave", function () { lastX = null; });
   }
 })();
 </script>
