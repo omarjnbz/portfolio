@@ -93,20 +93,22 @@ main{position:relative;z-index:1}
 .hero__hey{margin:0 0 clamp(.4rem,1.2vh,1rem);font-size:clamp(1.3rem,2.4vw,2.2rem);font-weight:500;letter-spacing:-.02em}
 .hero__meta{margin:1.2rem 0 0;line-height:1.6}
 .hero__foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;justify-content:space-between;align-items:flex-end}
-.hero__foot a:hover{opacity:.5}
-@media (max-width:760px){.hero__name{font-size:34vw}.hero__foot{justify-content:center;text-align:center}.hero__foot>span{display:none}}
+/* links, as in the reference: grey words, a dark arrow, the word darkens on hover */
+.links{display:flex;flex-wrap:wrap;gap:.5rem clamp(1.4rem,2.6vw,2.6rem)}
+.links a{color:var(--grey);transition:color .35s}
+.links a i{font-style:normal;font-family:var(--f-sans);color:var(--fg);margin-left:.3em;font-size:1.35em;font-weight:700;line-height:0;vertical-align:-.05em;transition:color .5s}
+.links a:hover{color:var(--fg)}
+@media (max-width:760px){.hero__name{font-size:34vw}.hero__foot{justify-content:center;text-align:center}.hero__foot .links{justify-content:center}.hero__foot>span.dim{display:none}}
 
 /* work: the first version, as on Eva's page: a big title on the left, then
    the sites large and staggered in two columns, each with its caption */
-.work{padding:clamp(7rem,16vh,11rem) var(--gutter) clamp(5rem,12vh,9rem)}
-.work__title{margin:0;display:flex;align-items:flex-end;gap:.8rem;font-size:clamp(3.2rem,8.4vw,9.5rem);font-weight:500;line-height:.9;letter-spacing:-.05em}
-.work__title .n{margin-bottom:.9em;font-size:.66rem;letter-spacing:.02em;font-weight:400}
-.cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;row-gap:clamp(5rem,14vh,10rem);margin-top:clamp(3rem,9vh,6rem)}
+.work{padding:clamp(7rem,16vh,11rem) var(--gutter) clamp(6rem,14vh,10rem);text-align:center}
+.work>.label{display:table;margin-inline:auto}
+.work__title{display:inline-flex;align-items:flex-start;gap:.5rem}
+.work__title .n{margin-top:.6em;font-size:.66rem;letter-spacing:.02em;font-weight:400}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(1.2rem,3vw,3.5rem);row-gap:clamp(4rem,11vh,8rem);width:min(100%,1240px);margin:clamp(3rem,9vh,6rem) auto 0;text-align:left}
 .piece{position:relative;display:block}
-.piece:nth-child(odd){grid-column:1 / 7}
-.piece:nth-child(even){grid-column:8 / 13;margin-top:clamp(6rem,18vh,14rem)}
-.piece:nth-child(4n+3){grid-column:2 / 7}
-.piece:nth-child(4n){grid-column:7 / 12}
+.piece:nth-child(even){margin-top:clamp(5rem,16vh,12rem)}
 .piece .cap{margin-top:.7rem;display:flex;gap:1.2rem}
 .piece .cap b{font-weight:400}
 .piece .cap .dim{margin-left:auto}
@@ -116,7 +118,7 @@ main{position:relative;z-index:1}
   .piece:hover .slice.in i:nth-child(odd){transform:translateY(-4.5%)}
   .piece:hover .slice.in i:nth-child(even){transform:translateY(4.5%)}
 }
-@media (max-width:760px){.piece,.piece:nth-child(n){grid-column:1 / -1;margin-top:0}.cols{row-gap:4rem}}
+@media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
 
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
 .slice i{flex:1 0 0;margin-right:-1px;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
@@ -143,13 +145,8 @@ main{position:relative;z-index:1}
 
 /* get in touch */
 .touch__sub{margin:clamp(1rem,2.5vh,1.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;letter-spacing:-.015em}
-.rip{position:relative;display:inline-block;font-size:clamp(4rem,16vw,19rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap;cursor:pointer}
-.rip__base{display:block}
-.rip.on .rip__base{opacity:0}
-.rip__band{position:absolute;inset:0;display:none;will-change:transform;pointer-events:none}
-.rip.on .rip__band{display:block}
+.touch__big{font-size:clamp(4rem,16vw,19rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap}
 .foot{position:absolute;left:var(--gutter);right:var(--gutter);bottom:1.4rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 2rem}
-.foot a:hover{opacity:.5}
 .foot b{font-weight:400;color:var(--fg)}
 
 @media (prefers-reduced-motion:reduce){
@@ -172,7 +169,7 @@ main{position:relative;z-index:1}
   <nav>
     <a href="#work">Portfolio</a>
     <a href="#about">About</a>
-    <a class="talk" href="#contact">Lets talk</a>
+    <a class="talk" href="#contact">Get in touch</a>
   </nav>
 </header>
 
@@ -183,14 +180,15 @@ main{position:relative;z-index:1}
     <h1 class="hero__name" data-w data-hero>Omar</h1>
     <p class="hero__sub" data-w data-hero>This is what I do: in my free time I build websites,<br>applications and a lot of other things</p>
     <p class="hero__meta mono dim" data-w data-hero data-bold>Below you'll find my work, live websites and UI<br>and a simple way to message me on Instagram</p>
-    <div class="hero__foot mono">
+    <div class="hero__foot mono" data-hfoot>
       <span class="dim" data-w data-hero>[Scroll to explore]</span>
-      <a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Let's get in touch and build things<span style="white-space:nowrap">_Let's talk ↗</span></a>
+      <span class="links"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-hero>Instagram<i>↗</i></a><a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w data-hero>LinkedIn<i>↗</i></a><a href="mailto:Omarjnbz@gmail.com" data-w data-hero>Email<i>↗</i></a></span>
     </div>
   </section>
 
   <section class="work" id="work">
-    <h2 class="work__title"><span data-w>Featured works</span><span class="n mono dim" data-w>[008]</span></h2>
+    <p class="label mono dim" data-w>Eight sites_All live</p>
+    <h2 class="big work__title"><span data-w>Portfolio</span><span class="n mono dim" data-w>[008]</span></h2>
     <div class="cols" id="pieces"></div>
   </section>
 
@@ -213,10 +211,10 @@ main{position:relative;z-index:1}
 
   <section class="screen touch" id="contact">
     <p class="label mono dim" data-w>Contact</p>
-    <a class="rip" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-rip><span class="rip__base" data-w>Get in touch</span></a>
+    <a class="touch__big" href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w data-slow>Get in touch</a>
     <p class="touch__sub" data-w data-bold>I'm ready to build anything<br><span class="dim">Message me on Instagram</span></p>
     <div class="foot mono">
-      <span><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram ↗</a>&nbsp;&nbsp;&nbsp;<a href="mailto:Omarjnbz@gmail.com" data-w>Email ↗</a>&nbsp;&nbsp;&nbsp;<a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w>LinkedIn ↗</a></span>
+      <span class="links"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener" data-w>Instagram<i>↗</i></a><a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener" data-w>LinkedIn<i>↗</i></a><a href="mailto:Omarjnbz@gmail.com" data-w>Email<i>↗</i></a></span>
       <span class="dim" data-w>Coming_SoundCloud player, follow and more</span>
       <span class="dim" data-w>©2026_Designed by <b>Omar</b></span>
     </div>
@@ -329,20 +327,20 @@ main{position:relative;z-index:1}
   }
   function waterIn(el, delay) {
     if (el._w) return; el._w = 1;
-    var w = field(el), st = { s: Math.min(140, w.fs * .9), k: 0 };
+    var w = field(el), st = { s: Math.min(140, w.fs * .9), k: 0 }, slow = el.hasAttribute("data-slow") ? 1.7 : 1;
     w.set(st.s, 0);
     gsap.timeline({ delay: delay || 0, onComplete: function () { w.end(); el._w = 0; } })
-      .fromTo(el, { opacity: 0, y: Math.min(28, w.fs * .25) }, { opacity: 1, y: 0, duration: 1.1, ease: "power2.out" }, 0)
-      .to(st, { s: 0, k: 1, duration: 1.6, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } }, 0);
+      .fromTo(el, { opacity: 0, y: Math.min(28, w.fs * .25) }, { opacity: 1, y: 0, duration: 1.1 * slow, ease: "power2.out" }, 0)
+      .to(st, { s: 0, k: 1, duration: 1.6 * slow, ease: "power2.out", onUpdate: function () { w.set(st.s, st.k); } }, 0);
     el.classList.remove("wv");
   }
   /* hover: the water follows the pointer. Entering kicks it at once, every
      movement adds energy in proportion to speed, and it calms within a moment
      of the pointer stopping or leaving. */
   function liquid(el) {
-    var st = { e: 0, w: null, raf: 0, over: false, t: 0, lx: 0, ly: 0 };
+    var st = { e: 0, w: null, raf: 0, over: false, t: 0, lx: 0, ly: 0 }, slow = el.hasAttribute("data-slow");
     function loop() {
-      st.t += .016; st.e *= st.over ? .9 : .84;
+      st.t += slow ? .009 : .016; st.e *= slow ? (st.over ? .95 : .92) : (st.over ? .9 : .84);
       var peak = Math.min(70, st.w.fs * .45);
       st.w.set(st.e * peak, .5 + .5 * Math.sin(st.t * 9));
       if (st.e < .01 && !st.over) { st.w.end(); st.w = null; st.raf = 0; el._w = 0; return; }
@@ -400,7 +398,7 @@ main{position:relative;z-index:1}
       });
     })(el);
     var mono = /Martian/.test(getComputedStyle(el).fontFamily);
-    gsap.fromTo(words, { fontWeight: mono ? 300 : 400, opacity: .4 }, { fontWeight: mono ? 500 : 700, opacity: 1, ease: "none", stagger: .2,
+    gsap.fromTo(words, { fontWeight: mono ? 300 : 400, opacity: .6 }, { fontWeight: mono ? 500 : 700, opacity: 1, ease: "none", stagger: .2,
       scrollTrigger: { trigger: el, scrub: .4,
         start: function () { return Math.max(0, el.getBoundingClientRect().top + scrollY - innerHeight * .92); },
         end: function () {
@@ -427,6 +425,13 @@ main{position:relative;z-index:1}
       .to(pre, { opacity: 0, duration: .35, onComplete: function () { pre.classList.add("done"); } }, "-=.2");
   })();
 
+  /* ── the hero's bottom row belongs to the first screen: it fades as you scroll away ── */
+  gsap.to("[data-hfoot]", { opacity: 0, y: -16, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "top -22%", scrub: .3 } });
+  /* ── portfolio: the right column drifts a little against the left ── */
+  if (innerWidth > 760) gsap.utils.toArray(".piece:nth-child(even)").forEach(function (el) {
+    gsap.fromTo(el, { y: 60 }, { y: -60, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: .5 } });
+  });
+
   /* ── paper → dark as About arrives ── */
   var root = document.documentElement;
   ScrollTrigger.create({
@@ -437,29 +442,6 @@ main{position:relative;z-index:1}
     }
   });
 
-  /* ── "Get in touch": horizontal bands that ripple once on arrival and under the pointer ── */
-  var rip = document.querySelector("[data-rip]");
-  var N = touch ? 14 : 30, bands = [], energy = 0, t = 0, running = false;
-  for (var i = 0; i < N; i++) {
-    var b = document.createElement("span");
-    b.className = "rip__band"; b.setAttribute("aria-hidden", "true"); b.textContent = "Get in touch";
-    b.style.clipPath = "inset(" + (i / N * 100) + "% 0 " + (100 - (i + 1) / N * 100) + "% 0)";
-    rip.appendChild(b); bands.push({ el: b, y: (i + .5) / N });
-  }
-  function frame() {
-    t += .016; energy *= .962;
-    var w = rip.clientWidth;
-    bands.forEach(function (b) { b.el.style.transform = "translateX(" + (Math.sin(b.y * 9 - t * 7) * Math.sin(b.y * 2.3 + t * 1.7) * energy * w * .05).toFixed(2) + "px)"; });
-    if (energy < .004) { running = false; rip.classList.remove("on"); bands.forEach(function (b) { b.el.style.transform = ""; }); return; }
-    requestAnimationFrame(frame);
-  }
-  function kick(a) { energy = Math.min(1, energy + a); if (!running) { running = true; rip.classList.add("on"); requestAnimationFrame(frame); } }
-  ScrollTrigger.create({ trigger: rip, start: "top 80%", onEnter: function () { setTimeout(function () { kick(1); }, 900); } });
-  var lastX = null;
-  if (!touch) {
-    rip.addEventListener("pointermove", function (e) { if (lastX !== null) kick(Math.min(.25, Math.abs(e.clientX - lastX) / 400)); lastX = e.clientX; });
-    rip.addEventListener("pointerleave", function () { lastX = null; });
-  }
 })();
 </script>
 </body>
