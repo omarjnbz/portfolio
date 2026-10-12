@@ -1,0 +1,185 @@
+/* ============================================================================
+   ARMINAK CARAVAN — the one design system for everything that is not the
+   public website: /handover/, /admin/, and the chrome around /hero/.
+
+   These three grew separately and ended up carrying the SAME palette under
+   THREE sets of names — --gold vs --accent, --tint vs --tile, --line-s vs
+   --line-soft — while the admin had no serif at all and the hero demos used raw
+   hex literals. Same colours, three vocabularies, so nothing could be changed in
+   one place and nothing looked related.
+
+   This file is that one place. Load it BEFORE the area's own stylesheet:
+
+       <link rel="stylesheet" href="../_ui/tokens.css">
+       <link rel="stylesheet" href="assets/handover.css">
+
+   It is under _ui/ so it sits with _build and _src as something the server
+   never serves as a page — but unlike those it DOES ship, because the browser
+   fetches it. site/.htaccess denies directory access, not this file.
+   ========================================================================= */
+
+:root {
+  /* ---- ground and ink --------------------------------------------------- */
+  --bg:       #F7F4ED;   /* the ivory the whole identity sits on */
+  --tint:     #F1EDE3;   /* one step up: raised bands, hovered rows */
+  --elev:     #FCFAF5;   /* one step up again: form surfaces, cards */
+  --ink:      #1B2A41;   /* deep navy — headings, body */
+  --ink-soft: #3C4A5F;   /* secondary body, icon strokes */
+  --muted:    #6E7889;   /* captions, labels, disabled */
+
+  /* ---- accent ------------------------------------------------------------
+     Three steps, and they are not interchangeable. --gold is the accent on
+     ivory; --gold-hi is the darker one text uses so it passes contrast; and
+     --gold-lit is the lighter one for ink grounds, where --gold reads brown. */
+  --gold:     #B08D57;
+  --gold-hi:  #8F7245;
+  --gold-lit: #C9A24E;
+
+  /* ---- semantic ---------------------------------------------------------
+     Separate from the accent on purpose: a destructive action must not be the
+     same colour as the brand. */
+  --danger:   #A4443A;
+
+  /* ---- rules ------------------------------------------------------------- */
+  --line:     rgba(27, 42, 65, 0.13);
+  --line-s:   rgba(27, 42, 65, 0.07);
+
+  /* ---- ink ground (the hero demos, the choose band) ---------------------- */
+  --on-ink:        #F7F4ED;
+  --on-ink-soft:   rgba(247, 244, 237, 0.70);
+  --on-ink-muted:  rgba(247, 244, 237, 0.44);
+  --on-ink-line:   rgba(247, 244, 237, 0.13);
+  --night:         #0B1220;
+
+  /* ---- type -------------------------------------------------------------
+     Three faces, one job each. The serif is for display only — it is what the
+     wordmark is set in, and using it for body text would make the page a
+     pastiche of the logo rather than a document carrying it. */
+  --serif: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --ui:    "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---- motion and metrics ------------------------------------------------ */
+  --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+  /* ---- one shape ---------------------------------------------------------
+     There were nine different radii across the private areas — 3, 5, 6, 7, 8,
+     9, 10, 11 and 12px — which is not a rounding style, it is nine of them.
+     Three steps, and every corner in the system uses one of them:
+
+       --r-xs   labels, tags, badges — things smaller than a fingertip
+       --r-s    controls: inputs, buttons, glyph tiles
+       --r-m    surfaces: cards, boxes, panels
+
+     50% is separate and stays: the roundel, the radio tick and the step numerals
+     are genuinely circular objects, not rounded rectangles with a large radius.
+     A circle is a different shape, not the fourth step of this scale. */
+  --r-xs:   4px;
+  --r-s:    8px;
+  --r-m:   12px;
+  --r-pill: 999px;
+
+  /* Kept so the admin's existing declarations resolve. */
+  --radius:   var(--r-m);
+  --radius-s: var(--r-s);
+  --gut:      clamp(22px, 5vw, 64px);
+  --measure:  1120px;
+  /* The bar is chrome, not running text, so it does not belong inside the
+     document measure. Constrained to 1120px it had 992px of usable width after
+     gutters to seat a mark, seven tabs, a divider, a chip and RU/EN — about
+     1190px of content. That is why the strip clipped mid-label. */
+  --bar-measure: 1560px;
+  --bar-h:    64px;   /* the bar carries larger tabs now */
+
+  /* ---- the type scale ----------------------------------------------------
+     The same ladder the public site uses, mirrored from assets/css/main.css.
+
+     Mirrored and not shared, deliberately: the two :root blocks conflict on
+     --measure (1560px there, 1120px here), so a page cannot load both. Only
+     these type steps are meant to match — if you change a rung, change it in
+     both files. Nothing else in the two blocks should ever agree. */
+  --fs-display: clamp(40px, 5.4vw, 76px);
+  --fs-h1:      clamp(30px, 3.6vw, 48px);
+  --fs-h2:      clamp(24px, 2.7vw, 33px);
+  --fs-h3:      clamp(18.5px, 1.9vw, 22px);
+  --fs-lede:    clamp(17px, 1.5vw, 19px);
+  --fs-body:    16px;
+  --fs-small:   14px;
+  --fs-micro:   12.5px;
+  --fs-label:   11px;
+
+  --lh-display: 1.02;  --tr-display: -0.035em;
+  --lh-h1:      1.06;  --tr-h1:      -0.028em;
+  --lh-h2:      1.12;  --tr-h2:      -0.022em;
+  --lh-h3:      1.28;  --tr-h3:      -0.014em;
+  --lh-lede:    1.62;  --tr-lede:    -0.004em;
+  --lh-body:    1.7;
+
+  --fw-display: 700;
+  --fw-heading: 600;
+  --fw-body:    400;
+
+}
+
+/* ============================================================================
+   THE LOCKUP
+
+   The roundel and the name, at one size relationship, in every private area.
+   The brand files set the wordmark at 62/128 of the mark; --ac-mark drives both
+   so a placement sets one number and the proportion follows.
+   ========================================================================= */
+
+.ac-lockup {
+  --ac-mark: 34px;
+  flex: none; display: inline-flex; align-items: center; gap: calc(var(--ac-mark) * 0.3);
+  text-decoration: none; color: inherit;
+}
+.ac-lockup img {
+  width: var(--ac-mark); height: var(--ac-mark);
+  border-radius: 50%; display: block; flex: none;
+}
+.ac-lockup b {
+  font: 400 calc(var(--ac-mark) * 0.485)/1 var(--serif);
+  letter-spacing: 0.055em; color: var(--ink); white-space: nowrap;
+}
+/* A word after the name — "Catalogue" in the admin. Set in the UI face and
+   muted, so it reads as a location inside the brand, not as part of it. */
+.ac-lockup i {
+  font: 500 11px/1 var(--ui); font-style: normal;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-hi); padding-left: 2px;
+}
+a.ac-lockup:hover b { color: var(--gold-hi); }
+
+/* ============================================================================
+   THE BAR
+
+   The shell only — height, ground, hairline. What sits inside it differs by
+   area (the handover has expandable tabs, the admin has links and a sign-out)
+   and that difference is correct: they are different tools. What must not
+   differ is how the bar itself reads.
+   ========================================================================= */
+
+.ac-bar {
+  position: sticky; top: 0; z-index: 80;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-s);
+}
+@supports not (backdrop-filter: blur(1px)) { .ac-bar { background: var(--bg); } }
+
+.ac-bar__in {
+  max-width: var(--measure); margin: 0 auto;
+  padding: 0 var(--gut);
+  display: flex; align-items: center; gap: clamp(14px, 2.4vw, 30px);
+  min-height: var(--bar-h);
+}
+/* The hairline between the lockup and whatever follows it. */
+.ac-bar__div {
+  flex: none; width: 1px; align-self: stretch;
+  margin: 11px 0; background: var(--line);
+}
+
+@media (max-width: 620px) {
+  .ac-lockup { --ac-mark: 30px; }
+  .ac-lockup b { display: none; }
+}

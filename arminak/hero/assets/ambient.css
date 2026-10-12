@@ -1,0 +1,200 @@
+/* ============================================================================
+   The ambient hero — options one (night) and two (daylight).
+
+   One engine, two plates. The difference between the options is the film and
+   the ink it is set in; everything about the motion is identical, so the client
+   is comparing the two images rather than two pieces of choreography.
+
+   The behaviour it demonstrates is the one already on the site: the film plays
+   by itself behind the words, and as the page scrolls it contracts into the
+   circular mark — the picture becomes the logo.
+   ========================================================================= */
+
+:root {
+  --ink:    #101A2B;
+  --ivory:  #F7F4ED;
+  --gold:   #C9A24E;
+  --bronze: #8F7245;
+  --sans:  "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+  --runway: 240vh;                 /* how much scroll the contraction is given */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; overflow-x: hidden;
+  background: var(--ivory); color: var(--ink);
+  font-family: var(--sans); -webkit-font-smoothing: antialiased;
+}
+h1, h2, p { margin: 0; }
+img, video { display: block; max-width: 100%; }
+
+/* ------------------------------------------------------------------ STAGE -- */
+
+.hero  { position: relative; height: var(--runway); }
+.stage { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; }
+
+/* The film is masked by a circle rather than scaled down. Scaling the video
+   shrinks the caravan into an unreadable speck; masking keeps the picture at
+   full size and closes the window around it, so the last thing visible inside
+   the mark is the caravan at the scale the logo actually uses. */
+.film {
+  position: absolute; inset: 0; z-index: 1;
+  clip-path: circle(var(--r, 150%) at 50% var(--cy, 50%));
+  will-change: clip-path;
+}
+.plate {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 52%;
+  transform: scale(var(--plate-scale, 1.06));
+  will-change: transform;
+}
+
+/* Grading is an opacity cross-fade, never an animated filter(): filters are not
+   compositable and drop the whole hero off the GPU. */
+.scrim {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(0deg,
+    rgba(6, 11, 22, 0.86) 0%, rgba(6, 11, 22, 0.38) 30%, rgba(6, 11, 22, 0) 62%);
+}
+.vignette {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(128% 94% at 50% 44%, rgba(0,0,0,0) 42%, rgba(6,11,22,.62) 100%);
+}
+
+/* Daylight inverts the wash: the plate is bright sand edge to edge, so the copy
+   goes to deep navy and the scrim lightens from the bottom instead. */
+.is-day .scrim {
+  background: linear-gradient(0deg,
+    rgba(247, 244, 237, 0.92) 0%, rgba(247, 244, 237, 0.46) 28%, rgba(247, 244, 237, 0) 60%);
+}
+.is-day .vignette {
+  background: radial-gradient(128% 94% at 50% 44%, rgba(0,0,0,0) 46%, rgba(120, 100, 70, .26) 100%);
+}
+
+/* The ring that becomes the logo's edge. It is invisible until the mask has
+   closed far enough for an edge to mean anything. */
+.ring {
+  position: absolute; z-index: 3; pointer-events: none;
+  left: 50%; top: var(--cy, 50%);
+  width: calc(var(--r, 150%) * 2); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 78, var(--ring-a, 0));
+  box-shadow: 0 0 0 1px rgba(11, 18, 32, calc(var(--ring-a, 0) * .35)),
+              0 30px 90px -30px rgba(11, 18, 32, calc(var(--ring-a, 0) * .8));
+}
+
+/* ------------------------------------------------------------------- COPY -- */
+
+.copy {
+  position: absolute; z-index: 4;
+  left: clamp(20px, 5vw, 74px); right: clamp(20px, 5vw, 74px);
+  bottom: clamp(46px, 8vh, 88px);
+  color: var(--ivory);
+}
+.is-day .copy { color: var(--ink); }
+
+.eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font: 400 10.5px/1 var(--mono);
+  letter-spacing: 0.19em; text-transform: uppercase;
+  opacity: .78; margin-bottom: 20px;
+}
+.eyebrow i { display: block; width: 26px; height: 1px; background: var(--gold); transform-origin: left; }
+
+.copy h1 {
+  font: 300 clamp(38px, 7.4vw, 92px)/1.02 var(--serif);
+  letter-spacing: -0.012em; max-width: 15ch;
+}
+.copy h1 em { font-style: italic; color: var(--gold); }
+.is-day .copy h1 em { color: var(--bronze); }
+
+.copy p {
+  margin-top: 22px; max-width: 52ch;
+  font-size: clamp(14.5px, 1.35vw, 17px); line-height: 1.6;
+  opacity: .8;
+}
+
+/* Each line rises out of its own overflow window. The mask is what makes it
+   read as type being revealed rather than type being faded in. */
+.mask { display: block; overflow: hidden; }
+.mask > * { display: block; transform: translateY(112%); }
+
+/* --------------------------------------------------------------- THE CUE --- */
+
+.cue {
+  position: absolute; z-index: 4; left: 50%; bottom: 22px;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  font: 400 9.5px/1 var(--mono); letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(247, 244, 237, 0.5);
+  opacity: 0;
+}
+.is-day .cue { color: rgba(27, 42, 65, 0.45); }
+.cue i { display: block; width: 1px; height: 40px; background: currentColor; opacity: .5;
+         transform-origin: top; animation: cueRun 2.8s var(--ease) infinite; }
+@keyframes cueRun {
+  0%   { transform: scaleY(0); opacity: 0; }
+  25%  { opacity: .6; }
+  60%  { transform: scaleY(1); opacity: .6; }
+  100% { transform: scaleY(1); opacity: 0; transform-origin: bottom; }
+}
+
+/* ------------------------------------------------------------ THE WORDMARK -- */
+/* Arrives as the mask closes: what the film is turning into. */
+
+.mark {
+  position: absolute; z-index: 5; left: 0; right: 0;
+  top: calc(var(--cy, 50%) + var(--mark-drop, 190px));
+  text-align: center;
+  opacity: var(--mark-a, 0);
+  transform: translateY(calc((1 - var(--mark-a, 0)) * 14px));
+  pointer-events: none;
+}
+.mark span {
+  font: 400 clamp(15px, 2vw, 22px)/1 var(--serif);
+  letter-spacing: 0.42em; text-indent: 0.42em;
+  color: var(--ink);
+}
+.mark small {
+  display: block; margin-top: 12px;
+  font: 400 9.5px/1 var(--mono); letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(27, 42, 65, 0.44);
+}
+
+/* ------------------------------------------------------------------ AFTER -- */
+
+.after { position: relative; z-index: 6; background: var(--ivory); padding: clamp(80px, 14vh, 150px) 0; }
+.after .in { max-width: 900px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px); }
+.after h2 { font: 300 clamp(28px, 4.4vw, 46px)/1.12 var(--serif); letter-spacing: -0.01em; }
+.after h2 em { font-style: italic; color: var(--bronze); }
+.after p { margin-top: 18px; max-width: 56ch; color: #3C4A5F; font-size: 16.5px; line-height: 1.62; }
+.after .note {
+  margin-top: 34px; padding: 18px 22px; border-left: 2px solid var(--gold);
+  background: #F1EDE3; font-size: 15px; color: #3C4A5F; max-width: 62ch;
+}
+.after .note b { color: var(--ink); font-weight: 600; }
+
+/* ----------------------------------------------------------------- NARROW -- */
+
+@media (max-width: 720px) {
+  :root { --runway: 220vh; }
+  .copy h1 { font-size: clamp(32px, 10vw, 46px); max-width: 100%; }
+  .copy p { font-size: 14px; }
+}
+
+/* --------------------------------------------------------- REDUCED MOTION -- */
+/* No pin and no contraction — the same hero told as a still editorial page,
+   and the film is never downloaded at all. */
+@media (prefers-reduced-motion: reduce) {
+  .hero  { height: auto; }
+  .stage { position: relative; height: 78svh; }
+  .film  { clip-path: none !important; }
+  .plate { transform: none !important; }
+  .ring, .cue, .mark { display: none; }
+  .mask > * { transform: none !important; }
+}

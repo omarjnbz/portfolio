@@ -1,0 +1,76 @@
+/* Tokens come from ../../_ui/tokens.css, linked before this file. These pages
+   used to carry their own hex literals — #0B1220, #C9A24E, #F7F4ED — so the
+   three demos could not be restyled with the rest of the private areas.
+
+   They keep their bare wash bar rather than the shared header on purpose: the
+   client is being asked to judge the hero itself, and a brand bar over the film
+   becomes part of the thing she is judging.
+*/
+/* ============================================================================
+   Shared chrome for the three hero demonstrations.
+
+   Each demo is the real hero, full screen, on its own URL — the client opens it
+   from the handover page and sees the thing itself rather than a description of
+   it. This file is only the frame around that: the way back, and the label
+   saying which of the three she is looking at.
+   ========================================================================= */
+
+.demo-bar {
+  position: fixed; inset: 0 0 auto 0; z-index: 90;
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px clamp(16px, 3vw, 30px);
+  font: 400 12px/1 var(--mono);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--on-ink-soft);
+  /* No solid bar: it would sit on the film and become part of the composition
+     the client is being asked to judge. A wash that only darkens the top edge
+     leaves the hero reading as the hero. */
+  background: linear-gradient(180deg, rgba(8, 14, 26, 0.62), rgba(8, 14, 26, 0));  /* the night wash; no token, it is a gradient stop pair */
+  pointer-events: none;
+  opacity: 0; animation: demoBarIn 900ms cubic-bezier(0.16,1,0.3,1) 700ms forwards;
+}
+.demo-bar > * { pointer-events: auto; }
+@keyframes demoBarIn { to { opacity: 1; } }
+
+.demo-bar--ink {
+  color: rgba(27, 42, 65, 0.72);   /* --ink at 72%: a token cannot carry the alpha */
+  background: linear-gradient(180deg, rgba(247, 244, 237, 0.72), rgba(247, 244, 237, 0));
+}
+
+.demo-back {
+  display: inline-flex; align-items: center; gap: 9px;
+  text-decoration: none; color: inherit;
+  padding: 8px 14px 8px 11px; border-radius: var(--r-pill);
+  border: 1px solid currentColor;
+  transition: background .25s ease, color .25s ease;
+}
+.demo-back i { font-style: normal; transition: transform .25s cubic-bezier(0.16,1,0.3,1); }
+.demo-back:hover { background: currentColor; }
+.demo-back:hover span { color: var(--night); }
+.demo-bar--ink .demo-back:hover span { color: var(--on-ink); }
+.demo-back:hover i { transform: translateX(-3px); }
+
+.demo-which { margin-left: auto; opacity: .72; }
+.demo-which b { font-weight: 400; color: var(--gold-lit); }
+/* Gold on a lit sand plate is barely a colour. The daylight demo takes the
+   darker bronze so the option number still reads as the accent. */
+.demo-bar--ink .demo-which b { color: #7A6033; }
+
+@media (max-width: 620px) {
+  .demo-bar { font-size: 10px; gap: 10px; }
+  .demo-which { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-bar { animation: none; opacity: 1; }
+}
+
+/* ---- the mark, on the demos ----------------------------------------------
+   Small, and only the roundel — no wordmark. These three pages exist so the
+   client can judge a hero, and a full lockup over the film would join the
+   composition she is judging. This is just enough to say whose page it is
+   while she is two clicks away from the document she came from. */
+.demo-mark { flex: none; display: block; opacity: .9; }
+.demo-mark img { width: 26px; height: 26px; border-radius: 50%; display: block; }
+
+@media (max-width: 620px) { .demo-mark { display: none; } }

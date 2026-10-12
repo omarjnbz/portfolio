@@ -116,7 +116,19 @@ main{position:relative;z-index:1}
 .work__title .n{margin-top:.6em;font-size:.66rem;letter-spacing:.02em;font-weight:400}
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(1.2rem,3vw,3.5rem);row-gap:clamp(4rem,11vh,8rem);width:min(100%,1240px);margin:clamp(3rem,9vh,6rem) auto 0;text-align:left}
 .piece{position:relative;display:block}
-.piece:nth-child(even){margin-top:clamp(5rem,16vh,12rem)}
+.piece:nth-child(odd):not(.feat){margin-top:clamp(5rem,16vh,12rem)}
+/* the first piece is one slide: the site very big in its own tray, the way into the system underneath */
+.feat{grid-column:1 / -1}
+.feat__tray{width:min(100%,calc((100svh - 14rem) * 1.6));margin:0 auto;padding:clamp(.6rem,1.2vw,1rem);background:rgba(5,5,5,.035);border:1px solid rgba(5,5,5,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.feat__a{display:block}
+.more{display:flex;justify-content:space-between;align-items:center;gap:1.2rem;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--line)}
+.more__t{font-size:clamp(1.15rem,1.7vw,1.6rem);font-weight:500;letter-spacing:-.025em;line-height:1.1}
+.more__t small{display:block;margin-bottom:.35rem;font-family:var(--f-mono);font-size:.66rem;font-weight:400;letter-spacing:.02em;text-transform:uppercase;color:var(--grey)}
+.more__b{display:inline-flex;align-items:center;gap:1rem;padding:.3rem .3rem .3rem 1rem;background:var(--ink);color:var(--paper);border:0;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:transform .4s cubic-bezier(.32,.72,0,1)}
+.more__b i{display:grid;place-items:center;width:2.2rem;height:2.2rem;background:var(--paper);color:var(--ink);font-style:normal;font-family:var(--f-sans);font-size:1.15rem;transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.more__b:hover i{transform:translateX(3px)}
+.more__b:active{transform:scale(.98)}
+@media (max-width:760px){.more{flex-direction:column;align-items:flex-start}}
 .piece .cap{margin-top:.7rem;display:flex;gap:1.2rem}
 .piece .cap b{font-weight:400}
 .piece .cap .dim{margin-left:auto}
@@ -136,7 +148,46 @@ main{position:relative;z-index:1}
 .sheet__scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain}
 .sheet__grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(1.6rem,4vw,4.5rem);width:min(100%,1380px);margin:0 auto;padding:clamp(4.5rem,10vh,6.5rem) var(--gutter) clamp(3rem,8vh,5rem);min-height:100%}
 .sheet__media{position:sticky;top:clamp(4.5rem,10vh,6.5rem);align-self:start}
+.sheet__pic{position:relative}
 .sheet__media img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;visibility:hidden}
+/* the system: as its chapters pass the middle of the screen, the picture on the left changes with them */
+.sheet__stack{position:absolute;inset:0;pointer-events:none}
+.sheet__stack img,.sheet__stack video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;visibility:visible;opacity:0;transition:opacity .7s cubic-bezier(.32,.72,0,1)}
+.sheet__stack .on{opacity:1}
+.sheet__sysbar{display:flex;justify-content:space-between;align-items:center;gap:1rem;width:100%;margin:1.3rem 0 0;padding:.4rem .4rem .4rem 1.1rem;background:var(--ink);color:var(--paper);border:0;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.02em;text-transform:uppercase;text-align:left;cursor:pointer}
+.sheet__sysbar[hidden]{display:none}
+.sheet__sysbar i{display:inline-flex;align-items:center;gap:.6em;padding:.55rem .75rem;background:var(--paper);color:var(--ink);font-style:normal;white-space:nowrap;transition:transform .4s cubic-bezier(.32,.72,0,1)}
+.sheet__sysbar:hover i{transform:translateY(2px)}
+.sys{margin-top:clamp(3.5rem,8vh,5.5rem);padding-bottom:28vh}
+.sys[hidden]{display:none}
+.sys__head{padding-top:1.4rem;border-top:1px solid var(--ink)}
+.sys__head>.mono{margin:0}
+.sys__h{margin:.7rem 0 0;font-size:clamp(2rem,3.8vw,3.8rem);font-weight:500;line-height:.95;letter-spacing:-.045em}
+.sys__lead{margin:1.1rem 0 0;font-size:clamp(1rem,1.2vw,1.15rem);font-weight:500;line-height:1.4;letter-spacing:-.01em;max-width:44ch;color:#3d3b37}
+.ch{padding:clamp(1.4rem,3vh,2rem) 0;border-top:1px solid var(--line)}
+.ch:first-of-type{border-top:0;margin-top:clamp(1.2rem,2.5vh,1.8rem)}
+.ch__top{margin:0;display:flex;justify-content:space-between}
+.ch__t{margin:.5rem 0 0;font-size:clamp(1.4rem,2.1vw,2rem);font-weight:500;line-height:1.05;letter-spacing:-.035em}
+.ch__p{margin:.7rem 0 0;max-width:46ch;line-height:1.45;color:#3d3b37}
+.ch__fig{display:none;margin:1rem 0 0}
+.ch__fig img,.ch__fig video{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;background:var(--line)}
+.ch__fig .opt{display:block;margin-top:.8rem}
+.ch__fig .opt video{aspect-ratio:16/9}
+.ch__fig .opt .mono{display:block;margin-top:.4rem}
+.sys__head,.ch{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.32,.72,0,1),transform .9s cubic-bezier(.32,.72,0,1)}
+.sys__head.in,.ch.in{opacity:1;transform:none}
+/* the openings: two rows; hovering one plays it on the left, opening one runs it full screen */
+.ops{list-style:none;margin:1rem 0 0;padding:0}
+.ops a{display:grid;grid-template-columns:2.4rem minmax(0,1fr) auto;gap:.8rem;align-items:baseline;padding:.8rem 0;border-top:1px solid var(--line)}
+.ops li:last-child a{border-bottom:1px solid var(--line)}
+.ops b{display:block;font-weight:500;font-size:clamp(1rem,1.2vw,1.15rem);letter-spacing:-.01em}
+.ops b+.mono{display:block;margin-top:.2rem;text-transform:none;letter-spacing:0}
+.ops .go{white-space:nowrap}
+.ops .go i{font-style:normal;margin-left:.35em;display:inline-block;transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.ops a:hover .go i{transform:translate(3px,-3px)}
+.ch__note{margin:1rem 0 0;padding:.85rem 1rem;border:1px solid var(--ink);font-size:.72rem;line-height:1.6;text-transform:none;max-width:52ch}
+.sys .sheet__open{margin-top:clamp(1.6rem,4vh,2.6rem)}
+@media (max-width:860px){.sheet__stack{display:none}.ch__fig{display:block}.ops .go{display:none}.sys{padding-bottom:0}}
 .sheet__media .mono{margin-top:.7rem;display:flex;justify-content:space-between}
 .sheet__top{margin:0;display:flex;justify-content:space-between}
 .sheet__name{margin:.6rem 0 0;font-size:clamp(2.6rem,5.6vw,6rem);font-weight:500;line-height:.92;letter-spacing:-.05em}
@@ -171,7 +222,7 @@ main{position:relative;z-index:1}
 .sheet__close:focus:not(:focus-visible){outline:none}
 .fly{position:fixed;z-index:101;background-size:cover;background-position:top;pointer-events:none;will-change:transform}
 @media (max-width:860px){.sheet__grid{grid-template-columns:1fr;padding-top:4rem}.sheet__media{position:relative;top:0}}
-@media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(even){margin-top:0}}
+@media (max-width:760px){.cols{grid-template-columns:1fr;row-gap:4rem}.piece:nth-child(odd){margin-top:0}}
 
 .slice{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--line);display:flex}
 .slice i{flex:1 0 0;margin-right:-1px;background-size:auto 100%;background-repeat:no-repeat;will-change:transform;transform:translateY(104%)}
@@ -195,7 +246,6 @@ main{position:relative;z-index:1}
 .latest__open{margin-top:clamp(1rem,2.4vh,1.6rem)}
 .latest__open:hover{opacity:.5}
 @media (max-width:760px){.panel{grid-template-columns:1fr}}
-
 /* get in touch */
 .touch__sub{margin:clamp(1rem,2.5vh,1.6rem) 0 0;font-size:clamp(1.05rem,1.6vw,1.45rem);font-weight:500;letter-spacing:-.015em}
 .touch__big{font-size:clamp(4rem,16vw,19rem);font-weight:500;line-height:.9;letter-spacing:-.05em;white-space:nowrap}
@@ -278,14 +328,16 @@ main{position:relative;z-index:1}
   <div class="sheet__bg"></div>
   <div class="sheet__scroll">
     <div class="sheet__grid">
-      <div class="sheet__media"><img data-s-img alt=""><p class="mono dim"><span data-s-url></span><span data-s-state></span></p></div>
+      <div class="sheet__media"><div class="sheet__pic"><img data-s-img alt=""><div class="sheet__stack" data-s-stack aria-hidden="true"></div></div><p class="mono dim"><span data-s-url></span><span data-s-state></span></p></div>
       <div class="sheet__body">
         <p class="sheet__top mono dim"><span class="mk"><span data-s-n></span></span><span class="mk"><span data-s-sector></span></span></p>
         <h3 class="sheet__name mk" id="sheetName"><span data-s-name></span></h3>
         <p class="sheet__sum" data-s-sum></p>
         <p class="sheet__kind mono" data-s-kind></p>
+        <button type="button" class="sheet__sysbar" data-s-sysbar hidden><span>Not just a good-looking website</span><i>See the system ↓</i></button>
         <div class="sheet__rows" data-s-rows></div>
         <a class="sheet__open mono" data-s-open target="_blank" rel="noopener">Open the live site<i>↗</i></a>
+        <div class="sys" data-s-sys hidden></div>
       </div>
     </div>
   </div>
@@ -304,7 +356,7 @@ main{position:relative;z-index:1}
 
   /* ── the sites ── */
   var P = [
-    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "3D trade-route globe", "Quotation request desk", "English and Russian"], "A trading house site that works like a catalogue", "client"],
+    ["hero_arminak", "Arminak Caravan", "Commodity trading", "E-commerce with a full admin panel CMS: catalogue, spec sheets, trade map and quotation desk", "https://arminakcaravantrading.com/", ["Product catalogue with spec sheets", "Her own admin to edit the catalogue", "3D trade-route globe", "Quotation request desk", "English and Russian"], "A trading house site that works like a catalogue", "client"],
     ["hero_ariana", "Ariana Integrity", "Real estate", "Built entirely on Zoho CRM, fully connected and live, with a full video in the hero", "https://www.arianaintegrity.com/", ["Live property listings from the CRM", "Sale and rent search with filters", "Property pages with gallery and enquiry", "Mortgage and investment calculators", "Listings sent to Bayut automatically", "Its own blog"], "A Dubai real estate brokerage, run live from its CRM", "client"],
     ["hero_nurelite", "Nur Elite", "Real estate", "My first web project: investment advisory led by image and video", "https://nurelite.properties/", ["Image and video on every page", "An off-market collection", "English and Russian"], "My first web project, an investment advisory led by image and video", "client"],
     ["hero_unheard", "UNHEARD 2.0", "Festival", "A music and wellness gathering in Rishikesh, with pass booking", "https://unheard-f.vercel.app/", ["Illustrated hills hero", "Passes and stay options", "Everything about the gathering on one page"], "A music and wellness gathering in Rishikesh", "idea"],
@@ -325,6 +377,27 @@ main{position:relative;z-index:1}
     ["kash_signals", "Two characters", "Aliases", "KAS5H the groove side, MØRF the pressure side"],
     ["kash_footer", "Bookings", "Footer", "Every link a promoter needs, in one block"]
   ];
+  /* Arminak Caravan: what the client got besides the pages, told as chapters
+     inside its sheet. Two of the three openings are hosted here; the one she
+     chose runs on her own site and is not served from this one. */
+  var SYS = { hero_arminak: {
+    eyebrow: "Not just a website_What she got",
+    title: "It's not a website. It's a system.",
+    lead: "The pages are the part you can see. Behind them she got an identity, a catalogue she edits herself, two more openings, and a handover that explains how all of it runs",
+    chapters: [
+      ["ac_logo", "The logo, and the nine behind it", "Logo_Fourteen drawn", "Fourteen marks were drawn and ten kept. The one in use is the first on the sheet: a laden caravan under a crescent. The other nine are hers as well, if she ever wants a change", ["The logo", "Fourteen drawn_Ten kept"]],
+      ["op", "The openings", "Opening_Two to see", "Three finished openings were built for one site. The one she chose runs on her site today. These are the other two, hosted right here: " + (touch ? "they play below, tap one to see it run full screen" : "hover to preview, open one to see it run full screen"), ["The openings", "Hover to preview"]],
+      ["ac_cms_list", "The catalogue she runs", "CMS_Hers", "Sign in, add a commodity, press Publish. Nothing a visitor sees moves until she does, and no developer is in the loop", ["The catalogue", "She runs it"]],
+      ["ac_cms_edit", "One product, both languages", "CMS_EN and RU", "One form holds the English and the Russian: the specs a buyer scans, the packing, the terms", ["One product", "EN_RU"]],
+      ["ac_brand", "The brand book", "Brand_Nine pages", "Palette, type and a nine-page manual, delivered as files, so a printer, a packaging supplier or a stand builder follows the same rules", ["The brand book", "Delivered as files"]],
+      ["ac_handover", "The handover", "Handover_Private", "One private page with everything she owns and how to run it: the site, the marks, the catalogue, the hosting and what happens next", ["The handover", "Private page"]]
+    ],
+    openings: [
+      ["night", "The night caravan", "Plays by itself, then the frame closes into the logo as you scroll", "arminak/hero/night/"],
+      ["lineup", "The line-up", "Driven by your scroll: the caravan walks, night turns to day, the page rises over the film", "arminak/hero/"]
+    ],
+    note: "These are the kinds of openings I go for. The line-up is a 3D opening built on her brand, and I can build one on yours"
+  } };
   var STRIPS = touch ? 6 : 10;
   var sio = ("IntersectionObserver" in window && animate) ? new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); sio.unobserve(e.target); } });
@@ -338,8 +411,8 @@ main{position:relative;z-index:1}
 
   var pieces = document.getElementById("pieces");
   P.forEach(function (p, i) {
-    var a = document.createElement("a");
-    a.className = "piece is-" + p[7]; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
+    var a = document.createElement("a"), S = SYS[p[0]];
+    a.className = S ? "feat__a" : "piece is-" + p[7]; a.href = p[4]; a.target = "_blank"; a.rel = "noopener";
     a.setAttribute("aria-label", p[1] + ", " + p[2] + ". Show the details");
     a.innerHTML = '<div class="pic">' + sliced(p[0]) + '<span class="kind mono">' + KIND[p[7]][0] + "</span></div>" +
       '<div class="cap mono" data-w><span>' + String(i + 1).padStart(3, "0") + '_<b>' + p[1] + '</b></span><span class="dim">' + p[2] + "</span></div>" ;
@@ -347,7 +420,15 @@ main{position:relative;z-index:1}
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
       e.preventDefault(); openSheet(i, a);
     });
-    pieces.appendChild(a); watchSlice(a);
+    if (!S) { pieces.appendChild(a); watchSlice(a); return; }
+    /* the feature: one slide, the site very big in a tray, and under it the way into the system */
+    var w = document.createElement("div"); w.className = "piece feat is-" + p[7];
+    var tray = document.createElement("div"); tray.className = "feat__tray"; tray.appendChild(a);
+    var more = document.createElement("div"); more.className = "more";
+    more.innerHTML = '<p class="more__t"><small>Not just a good-looking website</small>It\'s an entire system</p>' +
+      '<button type="button" class="more__b">See the system<i>→</i></button>';
+    more.querySelector("button").addEventListener("click", function () { openSheet(i, a, true); });
+    tray.appendChild(more); w.appendChild(tray); pieces.appendChild(w); watchSlice(w);
   });
   /* ── the detail sheet ──
      Opening: the card's picture is lifted out as a flying copy, the paper fades
@@ -357,8 +438,92 @@ main{position:relative;z-index:1}
   var sheet = document.querySelector("[data-sheet]"), sImg = sheet.querySelector("[data-s-img]"), sScroll = sheet.querySelector(".sheet__scroll");
   var sOpen = false, sCard = null, sBusy = false;
   function q(sel) { return sheet.querySelector(sel); }
+  var sysEl = q("[data-s-sys]"), sysBar = q("[data-s-sysbar]"), stack = q("[data-s-stack]"), capL = q("[data-s-url]"), capR = q("[data-s-state]");
+  var sysObs = [], sysCur = -1;
+  function sysTop() { return sysEl.getBoundingClientRect().top - sScroll.getBoundingClientRect().top + sScroll.scrollTop - 96; }
+  function clearSys() {
+    sysObs.forEach(function (o) { o.disconnect(); }); sysObs = []; sysCur = -1;
+    stack.querySelectorAll("video").forEach(function (v) { v.pause(); });
+    stack.innerHTML = ""; sysEl.innerHTML = ""; sysEl.hidden = true; sysBar.hidden = true;
+  }
+  /* The chapters are written into the sheet, each with a picture in the stack
+     on the left. A line a third of the way down the sheet decides which chapter
+     is current: the last one whose top has passed it. Its picture and caption
+     come up, the others go. */
+  function buildSys(S, p) {
+    var dir = "img/" + (touch ? "sm/" : ""), media = [null, null], caps = [null, null];
+    function slot(key, src, video) {
+      var el = document.createElement(video ? "video" : "img");
+      if (video) { el.muted = true; el.loop = true; el.playsInline = true; el.preload = "none"; el.dataset.src = src; } else { el.src = src; el.alt = ""; }
+      el.dataset.key = key; stack.appendChild(el);
+    }
+    var html = '<div class="sys__head"><p class="mono dim">' + S.eyebrow + '</p><h4 class="sys__h">' + S.title + '</h4><p class="sys__lead">' + S.lead + "</p></div>";
+    S.chapters.forEach(function (c, k) {
+      var isOp = c[0] === "op", fig;
+      if (isOp) {
+        S.openings.forEach(function (o) { slot("op-" + o[0], "arminak/preview/" + o[0] + ".jpg"); slot("opv-" + o[0], "arminak/preview/" + o[0] + ".mp4", true); });
+        media.push("op-" + S.openings[0][0]);
+        fig = '<div class="ch__fig">' + S.openings.map(function (o) {
+          return '<a class="opt" href="' + o[3] + '" target="_blank" rel="noopener"><video muted loop playsinline preload="none" poster="arminak/preview/' + o[0] + '.jpg" data-src="arminak/preview/' + o[0] + '.mp4"></video><span class="mono">' + o[1] + " ↗</span></a>";
+        }).join("") + "</div>";
+      } else {
+        slot(c[0], dir + c[0] + ".jpg"); media.push(c[0]);
+        fig = '<div class="ch__fig"><img src="' + dir + c[0] + '.jpg" alt=""></div>';
+      }
+      caps.push(c[4]);
+      html += '<div class="ch"><p class="ch__top mono dim"><span>0' + (k + 1) + "</span><span>" + c[2] + '</span></p><h5 class="ch__t">' + c[1] + '</h5><p class="ch__p">' + c[3] + "</p>" + fig +
+        (isOp ? '<ul class="ops">' + S.openings.map(function (o, j) {
+          return '<li><a href="' + o[3] + '" target="_blank" rel="noopener" data-op="' + o[0] + '"><span class="mono dim">0' + (j + 1) + "</span><span><b>" + o[1] + '</b><span class="mono dim">' + o[2] + '</span></span><span class="go mono">Full screen<i>↗</i></span></a></li>';
+        }).join("") + '</ul><p class="ch__note mono">' + S.note + "</p>" : "") + "</div>";
+    });
+    html += '<a class="sheet__open mono" href="' + p[4] + '" target="_blank" rel="noopener">Open the live site<i>↗</i></a>';
+    sysEl.innerHTML = html; sysEl.hidden = false; sysBar.hidden = false;
+    var url = capL.textContent, state = capR.textContent;
+    function show(k) {
+      if (k === sysCur) return; sysCur = k;
+      stack.querySelectorAll(".on").forEach(function (el) { el.classList.remove("on"); if (el.tagName === "VIDEO") el.pause(); });
+      var key = media[k], el = key && stack.querySelector('[data-key="' + key + '"]');
+      if (el) el.classList.add("on");
+      capL.textContent = key ? caps[k][0] : url; capR.textContent = key ? caps[k][1] : state;
+      gsap.fromTo([capL, capR], { opacity: 0, y: 4 }, { opacity: 1, y: 0, duration: .45, ease: "expo.out", overwrite: true });
+    }
+    var parts = [q(".sheet__rows")].concat([].slice.call(sysEl.querySelectorAll(".sys__head, .ch")));
+    /* a chapter arriving reveals itself and anything above it that a jump skipped */
+    var reveal = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (!e.isIntersecting) return; var j = parts.indexOf(e.target); parts.slice(1, j + 1).forEach(function (el) { el.classList.add("in"); reveal.unobserve(el); }); });
+    }, { root: sScroll, threshold: .1 });
+    parts.slice(1).forEach(function (el) { reveal.observe(el); });
+    var raf = 0;
+    function pick() {
+      /* layout positions, not rendered ones: a chapter still fading in sits lower than it will */
+      raf = 0; var k = 0, L = sScroll.scrollTop + sScroll.clientHeight * .36;
+      parts.forEach(function (el, j) { if (el.offsetTop <= L) k = j; });
+      show(k);
+    }
+    function onScroll() { if (!raf) raf = requestAnimationFrame(pick); }
+    sScroll.addEventListener("scroll", onScroll, { passive: true });
+    sysObs.push(reveal, { disconnect: function () { sScroll.removeEventListener("scroll", onScroll); } });
+    requestAnimationFrame(pick);
+    /* an opening row: hover plays its preview on the left; on narrow screens the
+       previews sit in the chapter and play as they come into view */
+    sysEl.querySelectorAll(".ops a").forEach(function (a) {
+      var v = stack.querySelector('[data-key="opv-' + a.dataset.op + '"]'), poster = stack.querySelector('[data-key="op-' + a.dataset.op + '"]');
+      a.addEventListener("pointerenter", function () {
+        if (touch) return;
+        stack.querySelectorAll(".on").forEach(function (el) { el.classList.remove("on"); if (el.tagName === "VIDEO") el.pause(); });
+        poster.classList.add("on"); if (!v.src) v.src = v.dataset.src; v.classList.add("on"); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+      });
+      a.addEventListener("pointerleave", function () { if (touch) return; v.pause(); v.classList.remove("on"); });
+    });
+    var inline = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { var v = e.target; if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
+    }, { root: sScroll, threshold: .4 });
+    sysEl.querySelectorAll(".ch__fig video").forEach(function (v) { inline.observe(v); });
+    sysObs.push(inline);
+  }
+  sysBar.addEventListener("click", function () { gsap.to(sScroll, { scrollTop: sysTop(), duration: reduced ? 0 : 1.1, ease: "expo.inOut" }); });
   function li(arr) { return "<ul>" + arr.map(function (t) { return '<li><span class="mk"><span>' + t + "</span></span></li>"; }).join("") + "</ul>"; }
-  function openSheet(i, card) {
+  function openSheet(i, card, atSys) {
     if (sBusy || sOpen) return;
     var p = P[i], src = "img/" + (touch ? "sm/" : "") + p[0] + ".jpg";
     sCard = card; sBusy = true;
@@ -374,7 +539,9 @@ main{position:relative;z-index:1}
       "<ul>" + p[5].map(function (t, k) { return '<li><span class="mk"><span><b class="mono dim">0' + (k + 1) + "</b>" + t + "</span></span></li>"; }).join("") + "</ul></div>";
     var go = q("[data-s-open]"); go.href = p[4];
     sImg.src = src; sImg.alt = p[1];
+    clearSys(); stack.style.opacity = "";
     sheet.hidden = false; sScroll.scrollTop = 0;
+    if (SYS[p[0]]) { buildSys(SYS[p[0]], p); if (atSys) sScroll.scrollTop = sysTop(); }
     document.documentElement.style.overflow = "hidden";
     var from = card.querySelector(".slice").getBoundingClientRect(), to = sImg.getBoundingClientRect();
     var texts = sheet.querySelectorAll(".mk>span"), words = sheet.querySelectorAll(".sw"), rows = sheet.querySelectorAll(".row");
@@ -392,11 +559,13 @@ main{position:relative;z-index:1}
       .to(words, { color: "#050505", duration: .14 * d, stagger: .03 * d }, .8 * d)
       .fromTo(rows, { "--ln": 0 }, { "--ln": 1, duration: .9 * d, ease: "expo.out", stagger: .1 * d }, .7 * d)
       .fromTo(sk, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, .95 * d)
-      .fromTo(go, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, 1.1 * d);
+      .fromTo(go, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, 1.1 * d)
+      .fromTo(sysBar, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .6 * d, ease: "expo.out" }, 1.0 * d);
   }
   function closeSheet() {
     if (!sOpen || sBusy) return;
-    sBusy = true;
+    sBusy = true; stack.style.opacity = "0";
+    stack.querySelectorAll("video").forEach(function (v) { v.pause(); });
     var from = sImg.getBoundingClientRect(), to = sCard.querySelector(".slice").getBoundingClientRect();
     var fly = document.createElement("div"); fly.className = "fly"; fly.style.backgroundImage = "url(" + sImg.src + ")";
     fly.style.left = from.left + "px"; fly.style.top = from.top + "px"; fly.style.width = from.width + "px"; fly.style.height = from.height + "px";
@@ -404,24 +573,31 @@ main{position:relative;z-index:1}
     var d = reduced ? 0 : 1;
     gsap.timeline({ onComplete: function () {
         fly.remove(); sheet.hidden = true; document.documentElement.style.overflow = "";
-        sBusy = false; sOpen = false; sCard.focus({ preventScroll: true });
+        sBusy = false; sOpen = false; sCard.focus({ preventScroll: true }); clearSys();
       } })
       .to(sheet.querySelectorAll(".sheet__body, .sheet__close, .sheet__media .mono"), { opacity: 0, duration: .25 * d }, 0)
       .to(fly, { x: to.left - from.left, y: to.top - from.top, scaleX: to.width / from.width, scaleY: to.height / from.height, transformOrigin: "0 0", duration: .8 * d, ease: "expo.inOut" }, .1 * d)
       .to(".sheet__bg", { opacity: 0, duration: .45 * d, ease: "power2.in" }, .35 * d)
       .set(sheet.querySelectorAll(".sheet__body, .sheet__close, .sheet__media .mono"), { opacity: 1 });
   }
-  q("[data-s-close]").addEventListener("click", closeSheet);
+  q("[data-s-close]").addEventListener("click", function () { closeSheet(); });
   addEventListener("keydown", function (e) { if (e.key === "Escape") closeSheet(); });
 
-  var frames = document.getElementById("frames");
-  K.forEach(function (k, i) {
-    var a = document.createElement("a");
-    a.className = "frame"; a.href = "https://kas5h.vercel.app/"; a.target = "_blank"; a.rel = "noopener";
-    a.setAttribute("aria-label", "KAS5H, " + k[1] + ". Opens the live site in a new tab");
-    a.innerHTML = sliced(k[0]) + '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span></div><p class="line mono dim" data-bold>' + k[3] + "</p>";
-    frames.appendChild(a); watchSlice(a);
-  });
+  function frameSet(container, items, who, siteHref) {
+    items.forEach(function (k, i) {
+      var href = k.length > 4 ? k[4] : siteHref, inPage = !!href && href.charAt(0) === "#";
+      var a = document.createElement(href ? "a" : "div");
+      a.className = "frame"; a.style.setProperty("--i", i);
+      if (href) {
+        a.href = href;
+        if (!inPage) { a.target = "_blank"; a.rel = "noopener"; }
+        a.setAttribute("aria-label", who + ", " + k[1] + (inPage ? ". Shows the three openings" : ". Opens the live site in a new tab"));
+      }
+      a.innerHTML = sliced(k[0]) + '<div class="cap mono"><span>' + String(i + 1).padStart(2, "0") + '_<b>' + k[1] + '</b></span><span class="dim">' + k[2] + '</span></div><p class="line mono dim" data-bold>' + k[3] + "</p>";
+      container.appendChild(a); watchSlice(a);
+    });
+  }
+  frameSet(document.getElementById("frames"), K, "KAS5H", "https://kas5h.vercel.app/");
 
   /* ── clock ── */
   var clockEl = document.querySelector("[data-clock]");
@@ -606,7 +782,12 @@ main{position:relative;z-index:1}
         heroW.forEach(function (el, i) { waterIn(el, i * .14); });
         restW.forEach(function (el) { wio.observe(el); });
       }, "-=.5")
-      .to(pre, { opacity: 0, duration: .35, onComplete: function () { pre.classList.add("done"); } }, "-=.2");
+      .to(pre, { opacity: 0, duration: .35, onComplete: function () { pre.classList.add("done"); } }, "-=.2")
+      .add(function () {
+        if (location.hash !== "#arminak") return;
+        var f = document.querySelector(".feat__a"); if (!f) return;
+        scrollTo(0, f.getBoundingClientRect().top + scrollY - 80); openSheet(0, f, true);
+      });
   })();
 
   /* ── the hero's bottom row belongs to the first screen: it fades as you scroll away ── */
@@ -654,7 +835,7 @@ main{position:relative;z-index:1}
   });
 
   /* ── work: the right column drifts  /* ── work: the right column drifts a little against the left ── */
-  if (innerWidth > 760) gsap.utils.toArray(".piece:nth-child(even)").forEach(function (el) {
+  if (innerWidth > 760) gsap.utils.toArray(".piece:nth-child(odd):not(.feat)").forEach(function (el) {
     gsap.fromTo(el, { y: 60 }, { y: -60, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: .5 } });
   });
 
