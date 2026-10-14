@@ -13,7 +13,8 @@ Eight websites built with AI in my free time. Every one opens the real, running 
 ## Built with
 
 Plain HTML, CSS and JavaScript with no build step. Animation by GSAP and ScrollTrigger. Archivo and Martian Mono.
-Fonts and scripts are served from this repository, and the page sets no cookies and runs no analytics or trackers.
+Fonts and scripts are served from this repository, and the page sets no cookies. Visits are counted with Vercel Web Analytics,
+which is cookieless and served from this same domain; there are no third-party trackers.
 
 ## Notes
 

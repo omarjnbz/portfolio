@@ -258,6 +258,9 @@ main{position:relative;z-index:1}
   .wv{opacity:1}
 }
 </style>
+<!-- Vercel Web Analytics: served from this domain, no cookies -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="loading">
 <div class="pre" aria-hidden="true" data-pre>
@@ -644,13 +647,14 @@ main{position:relative;z-index:1}
   })();
 
   /* ── clean address bar: Instagram and others add utm_ and fbclid tags to every
-     link; drop them from the URL once the page has opened ── */
-  if (location.search && history.replaceState) {
+     link; drop them from the URL once the page has opened. It waits until
+     after load so Analytics has recorded where the visit came from first ── */
+  if (location.search && history.replaceState) addEventListener("load", function () { setTimeout(function () {
     var qs = new URLSearchParams(location.search), keep = new URLSearchParams();
     qs.forEach(function (v, k) { if (!/^(utm_|fbclid$|gclid$|igshid$|igsh$|mc_|ref$|si$|v$|reel$|cb$)/.test(k)) keep.append(k, v); });
     var rest = keep.toString();
     history.replaceState(null, "", location.pathname + (rest ? "?" + rest : "") + location.hash);
-  }
+  }, 1200); });
 
   var pre = document.querySelector("[data-pre]");
   if (!animate) {
