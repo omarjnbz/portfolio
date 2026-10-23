@@ -6,9 +6,9 @@ Eight websites built with AI in my free time. Every one opens the real, running 
 
 ## What's on the page
 
-- A gallery of first-screen shots flying through a 3D corridor
-- A plain list of the eight sites; hover a row (or tap on a phone) for a short description and a link
-- Everything appears as you scroll
+- The headline arrives word by word, then the first site rises under it
+- Every project is a silent loop of the real site in a black frame, passing through the middle of the screen one after another; click one for its details
+- Arminak Caravan opens into the whole system behind it: logo, two openings, the catalogue she runs, brand book and handover
 
 ## Built with
 
