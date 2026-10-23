@@ -156,7 +156,8 @@ main{position:relative;z-index:1}
 .card__d{margin:0;max-width:22ch;font-size:.8rem;line-height:1.4;color:#3d3b37}
 .card svg.ic{width:22px;height:22px;flex:none}
 /* the bridge: giant words come in from both sides, a small live picture of the system sits among them */
-.bridge{padding:clamp(5rem,12vh,8rem) var(--gutter) clamp(6rem,14vh,9rem)}
+/* clipped sideways: the words wait off to the side before they come in */
+.bridge{overflow-x:clip;padding:clamp(5rem,12vh,8rem) var(--gutter) clamp(6rem,14vh,9rem)}
 .bridge__a{display:block;width:min(100%,1180px);margin:0 auto}
 .bl{display:flex;align-items:center;justify-content:center;gap:clamp(.8rem,2.4vw,2.4rem);font-size:clamp(3.2rem,9.6vw,9.6rem);font-weight:500;line-height:.92;letter-spacing:-.055em}
 .bl.l1{justify-content:flex-start;padding-left:12%}
