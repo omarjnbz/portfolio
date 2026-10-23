@@ -60,6 +60,9 @@ body.loading .hdr{opacity:0}
 .hero__title{margin:0;font-size:clamp(2.6rem,6vw,6.2rem);font-weight:500;line-height:.95;letter-spacing:-.05em;cursor:default;will-change:transform}
 .hero__title .hw{display:inline-block;will-change:transform}
 .hero__credit{margin:auto 0 clamp(.9rem,2vh,1.3rem)}
+/* the mark: a few clay pixels under the headline that keep finding a new shape */
+.mark{--px:7px;position:relative;width:calc(var(--px) * 7);height:calc(var(--px) * 7);margin:clamp(1.6rem,5vh,3rem) auto 0;flex:none}
+.mark i{position:absolute;left:0;top:0;width:var(--px);height:var(--px);background:var(--clay);will-change:transform}
 @media (max-width:560px){.hero__title .hb{display:none}}
 
 /* the dark comes in as a soft edge you scroll through */
@@ -78,7 +81,7 @@ body.loading .hdr{opacity:0}
 .hdr .talk{background:var(--fg);color:var(--paper);padding:.25rem .45rem;transition:background .5s,color .5s}
 body.dark .hdr .talk{color:var(--ink)}
 .hdr .talk::after{display:none}
-@media (max-width:560px){.hdr nav{gap:.9rem}}
+@media (max-width:560px){.hdr nav{gap:.9rem}.hdr nav a[href="#services"]{display:none}}
 
 /* ─── every section is one screen, centred ─── */
 main{position:relative;z-index:1}
@@ -133,6 +136,48 @@ main{position:relative;z-index:1}
 .more__b i{display:grid;place-items:center;width:2.2rem;height:2.2rem;background:var(--paper);color:var(--ink);font-style:normal;font-family:var(--f-sans);font-size:1.15rem;transition:transform .5s cubic-bezier(.32,.72,0,1)}
 .more__b:hover i{transform:translateX(3px)}
 .more__b:active{transform:scale(.98)}
+/* services: the sentence is the menu. Each word brings its card to the top of the deck */
+.svc{position:relative;overflow-x:clip;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(6rem,14vh,9rem) var(--gutter) clamp(4rem,10vh,6rem)}
+.svc__title{margin:0;max-width:22ch;font-size:clamp(1.9rem,3.8vw,3.8rem);font-weight:500;line-height:1.02;letter-spacing:-.04em;color:rgba(248,246,242,.34)}
+.svc__w{font:inherit;letter-spacing:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;transition:color .5s cubic-bezier(.32,.72,0,1)}
+.svc__w:hover{color:rgba(248,246,242,.7)}
+.svc__w.is-on{color:var(--paper)}
+.svc__w:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+.deck{--cw:clamp(210px,21vw,290px);position:relative;width:calc(var(--cw) * 2.6);max-width:100%;height:calc(var(--cw) * 1.95);margin-top:clamp(2rem,5vh,3.4rem);perspective:1600px}
+.card{position:absolute;left:50%;top:0;width:var(--cw);height:calc(var(--cw) * 1.4);margin-left:calc(var(--cw) / -2);transform-style:preserve-3d;cursor:pointer;will-change:transform}
+.card__f,.card__b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:10px;overflow:hidden}
+.card__f{display:flex;flex-direction:column;justify-content:space-between;padding:1rem;background:var(--paper);color:var(--ink);text-align:left;box-shadow:0 40px 80px -40px rgba(0,0,0,.7)}
+.card__b{transform:rotateY(180deg);background:#1b1916;border:1px solid rgba(248,246,242,.12);box-shadow:0 30px 60px -36px rgba(0,0,0,.8)}
+.card__b svg{position:absolute;inset:8%;width:84%;height:84%}
+.card__top,.card__bot{display:flex;justify-content:space-between;align-items:flex-start}
+.card__bot{transform:rotate(180deg)}
+.card__t{font-size:clamp(1rem,1.25vw,1.2rem);font-weight:500;letter-spacing:-.02em;line-height:1.05}
+.card__n{display:block;margin-bottom:.4rem;color:var(--grey)}
+.card__d{margin:0;max-width:22ch;font-size:.8rem;line-height:1.4;color:#3d3b37}
+.card svg.ic{width:22px;height:22px;flex:none}
+/* the bridge: giant words come in from both sides, a small live picture of the system sits among them */
+.bridge{padding:clamp(5rem,12vh,8rem) var(--gutter) clamp(6rem,14vh,9rem)}
+.bridge__a{display:block;width:min(100%,1180px);margin:0 auto}
+.bl{display:flex;align-items:center;justify-content:center;gap:clamp(.8rem,2.4vw,2.4rem);font-size:clamp(3.2rem,9.6vw,9.6rem);font-weight:500;line-height:.92;letter-spacing:-.055em}
+.bl.l1{justify-content:flex-start;padding-left:12%}
+.bl.l3{justify-content:flex-end;padding-right:22%}
+.bl.l4{justify-content:flex-end;padding-right:6%}
+.bw{display:inline-block;will-change:transform}
+.bridge__k{align-self:flex-end;margin-bottom:.9em;font-size:.66rem;letter-spacing:.02em;font-weight:400;color:var(--grey)}
+.chip{display:flex;flex-direction:column;align-items:center;gap:.4rem;flex:none}
+.chip__pic{position:relative;width:clamp(4.4rem,7vw,7rem);aspect-ratio:16/10;overflow:hidden;background:#1b1916}
+.chip__pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .6s cubic-bezier(.32,.72,0,1)}
+.chip__pic img.on{opacity:1}
+.chip .mono{font-size:.6rem;letter-spacing:.02em;color:var(--grey);font-weight:400}
+.bridge__arrow{font-style:normal;color:var(--clay);transition:transform .6s cubic-bezier(.32,.72,0,1)}
+.bridge__a:hover .bridge__arrow{transform:translateX(.12em)}
+.bridge__a:focus-visible{outline:2px solid var(--paper);outline-offset:8px}
+@media (max-width:760px){
+  .bl,.bl.l1,.bl.l3,.bl.l4{justify-content:center;padding:0}
+  .bridge__k{display:none}
+  .deck{--cw:min(62vw,240px);width:100%;height:calc(var(--cw) * 2)}
+}
+
 /* the cursor: over a site it becomes a View tag that follows the pointer */
 .cur{position:fixed;left:0;top:0;z-index:60;pointer-events:none;will-change:transform}
 .cur__in{display:block;padding:.6rem .85rem;background:var(--ink);color:var(--paper);font-family:var(--f-mono);font-size:.66rem;letter-spacing:.02em;text-transform:uppercase;transform:translate(-50%,-50%) scale(0);transition:transform .45s cubic-bezier(.32,.72,0,1)}
@@ -277,6 +322,7 @@ body.dark .cur__in{background:var(--paper);color:var(--ink)}
   <a href="#top" class="dim"><span data-clock>--:--</span></a>
   <nav>
     <a href="#work">Work</a>
+    <a href="#services">Services</a>
     <a href="#about">About</a>
     <a class="talk" href="#contact">Get in touch</a>
   </nav>
@@ -287,6 +333,7 @@ body.dark .cur__in{background:var(--paper);color:var(--ink)}
   <div class="stage">
     <section class="hero" aria-label="Start">
       <h1 class="hero__title" data-title>Websites that feel <br class="hb">as good as they look</h1>
+      <div class="mark" data-mark aria-hidden="true"></div>
       <p class="hero__credit mono dim" data-credit>Omar · Designer &amp; Developer</p>
     </section>
     <section class="column" id="work" aria-label="Work">
@@ -297,6 +344,21 @@ body.dark .cur__in{background:var(--paper);color:var(--ink)}
       <span class="links" data-foot="right"><a href="https://www.instagram.com/omarjnbz/" target="_blank" rel="noopener">Instagram<i>↗</i></a><a href="https://www.linkedin.com/in/omarjnbz" target="_blank" rel="noopener">LinkedIn<i>↗</i></a><a href="mailto:Omarjnbz@gmail.com">Email<i>↗</i></a></span>
     </div>
   </div>
+
+  <section class="svc" id="services" aria-label="Services">
+    <p class="label mono dim" data-w>Services_In every project</p>
+    <h2 class="svc__title">Every project includes <button type="button" class="svc__w is-on" data-svc="0" aria-pressed="true">design,</button> <button type="button" class="svc__w" data-svc="1" aria-pressed="false">development,</button> <button type="button" class="svc__w" data-svc="2" aria-pressed="false">motion</button> and <button type="button" class="svc__w" data-svc="3" aria-pressed="false">the system behind it</button></h2>
+    <div class="deck" data-deck></div>
+  </section>
+
+  <section class="bridge" aria-label="Next chapter">
+    <a class="bridge__a" href="#arminak" data-bridge aria-label="Explore the details of my work: the system behind Arminak Caravan">
+      <span class="bl l1" aria-hidden="true"><span class="bridge__k mono">Next_Chapter</span><span class="bw" data-side="left">Explore</span></span>
+      <span class="bl l2" aria-hidden="true"><span class="bw" data-side="right">the</span><span class="chip"><span class="chip__pic" data-flip data-chip></span><span class="mono" data-chip-label>Logo</span></span><span class="bw" data-side="left">details</span></span>
+      <span class="bl l3" aria-hidden="true"><span class="bw" data-side="right">of my</span></span>
+      <span class="bl l4" aria-hidden="true"><span class="bw" data-side="left">work</span><i class="bridge__arrow bw" data-side="right">→</i></span>
+    </a>
+  </section>
 
   <section class="screen about" id="about">
     <figure class="about__pic" data-w><img src="img/omar.jpg" alt="Omar"></figure>
@@ -448,6 +510,98 @@ body.dark .cur__in{background:var(--paper);color:var(--ink)}
     }
     pieces.appendChild(art);
   });
+  /* ── the mark: 7 by 7 pixels; each shape is drawn as rows, X for a pixel ── */
+  var SHAPES = [
+    ["XX...XX", "XX.X.XX", "..XXX..", ".XX.XX.", "..XXX..", "XX.X.XX", "XX...XX"],
+    ["...X...", ".X.X.X.", "..XXX..", "XXX.XXX", "..XXX..", ".X.X.X.", "...X..."],
+    ["..XXX..", ".XX....", "XX.....", "XX...X.", "XX.....", ".XX....", "..XXX.."],
+    ["..XXXXX", ".....XX", "....X.X", "...X..X", "..X....", ".X.....", "X......"],
+    ["..XXX..", ".X...X.", "X..X..X", "X.XXX.X", "X..X..X", ".X...X.", "..XXX.."]
+  ];
+  function cells(sh) { var c = []; sh.forEach(function (row, y) { for (var x = 0; x < 7; x++) if (row[x] === "X") c.push([x, y]); }); return c; }
+  var markEl = document.querySelector("[data-mark]"), markPx = [];
+  (function () {
+    var n = Math.max.apply(null, SHAPES.map(function (sh) { return cells(sh).length; })), first = cells(SHAPES[0]);
+    for (var k = 0; k < n; k++) {
+      var i = document.createElement("i"), c = first[k % first.length];
+      i._c = [c[0], c[1], k < first.length ? 1 : 0];
+      i.style.transform = "translate(" + c[0] * 100 + "%," + c[1] * 100 + "%) scale(" + i._c[2] + ")";
+      markEl.appendChild(i); markPx.push(i);
+    }
+  })();
+
+  /* ── the deck: four playing cards, a front with the service, a back with an ornament ── */
+  var SVC = [
+    ["Website Design", "Interfaces people enjoy using, designed screen by screen, never a template", SHAPES[0]],
+    ["Development", "From design to a live site on its own domain, without losing the details", SHAPES[3]],
+    ["Motion", "Animation that makes a site feel a little more alive, never just for show", SHAPES[1]],
+    ["The system", "The admin, the CRM, the catalogue and the handover that keep it running after launch", SHAPES[4]]
+  ];
+  function icon(sh, fill) {
+    return '<svg class="ic" viewBox="0 0 7 7" aria-hidden="true">' + cells(sh).map(function (c) { return '<rect x="' + c[0] + '" y="' + c[1] + '" width="1" height="1" fill="' + fill + '"/>'; }).join("") + "</svg>";
+  }
+  /* the back: a symmetric pixel ornament, the same for every card so the deck reads as one deck */
+  var ORN = (function () {
+    var seed = 7, W = 11, H = 15, r = "";
+    function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+    for (var y = 0; y < Math.ceil(H / 2); y++) for (var x = 0; x < Math.ceil(W / 2); x++) {
+      var edge = x === 0 || y === 0, on = edge ? (x + y) % 2 === 0 : rnd() > .52;
+      if (!on) continue;
+      [[x, y], [W - 1 - x, y], [x, H - 1 - y], [W - 1 - x, H - 1 - y]].forEach(function (c) { r += '<rect x="' + c[0] + '" y="' + c[1] + '" width="1" height="1"/>'; });
+    }
+    return '<svg viewBox="0 0 11 15" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g fill="rgba(248,246,242,.5)">' + r + "</g></svg>";
+  })();
+  var deck = document.querySelector("[data-deck]"), cards = [], svcOn = 0;
+  SVC.forEach(function (v, k) {
+    var c = document.createElement("div"); c.className = "card"; c.setAttribute("aria-hidden", k ? "true" : "false");
+    c.innerHTML = '<div class="card__f"><div class="card__top"><p class="card__t"><span class="card__n mono">0' + (k + 1) + "</span>" + v[0] + "</p>" + icon(v[2], "#b8573a") + "</div>" +
+      '<p class="card__d">' + v[1] + "</p>" +
+      '<div class="card__bot"><p class="card__t">' + v[0] + "</p>" + icon(v[2], "#b8573a") + "</div></div>" +
+      '<div class="card__b">' + ORN + "</div>";
+    c.addEventListener("click", function () { pickSvc(svcOn === k ? (k + 1) % SVC.length : k); });
+    deck.appendChild(c); cards.push(c);
+  });
+  /* where each card rests: the chosen one face up in the middle, the rest face down, fanned behind it */
+  var SLOTS = [{ x: -.62, y: .5, r: -26 }, { x: .62, y: .5, r: 26 }, { x: 0, y: .62, r: 4 }];
+  function restOf(k) {
+    var cw = cards[0].offsetWidth, j = (k - svcOn + SVC.length) % SVC.length;
+    if (!j) return { x: 0, y: 0, rotation: -2, rotationY: 0, zIndex: 10 };
+    /* on a phone the fan closes in so the side cards stay on the screen */
+    var sl = SLOTS[j - 1], sp = innerWidth < 760 ? .55 : 1;
+    return { x: sl.x * cw * sp, y: sl.y * cw, rotation: sl.r * (innerWidth < 760 ? .7 : 1), rotationY: 180, zIndex: 4 - j };
+  }
+  function layDeck(d) {
+    cards.forEach(function (c, k) {
+      var t = restOf(k); c.setAttribute("aria-hidden", k === svcOn ? "false" : "true");
+      if (window.gsap && d) gsap.to(c, Object.assign({ duration: d, ease: "expo.inOut", overwrite: true }, t));
+      else if (window.gsap) gsap.set(c, t);
+      else { c.style.zIndex = t.zIndex; c.style.transform = "translate(" + t.x + "px," + t.y + "px) rotate(" + t.rotation + "deg) rotateY(" + t.rotationY + "deg)"; }
+    });
+  }
+  var svcWords = [].slice.call(document.querySelectorAll("[data-svc]"));
+  function pickSvc(k) {
+    if (k === svcOn) return; svcOn = k;
+    svcWords.forEach(function (b, j) { b.classList.toggle("is-on", j === k); b.setAttribute("aria-pressed", j === k ? "true" : "false"); });
+    layDeck(reduced ? 0 : 1);
+  }
+  svcWords.forEach(function (b, j) { b.addEventListener("click", function () { pickSvc(j); }); });
+  layDeck(0);
+  addEventListener("resize", function () { layDeck(0); });
+
+  /* ── the bridge: a small picture of the system changes among the giant words; it opens Arminak's system ── */
+  var CHIP = [["ac_logo", "Logo"], ["ac_cms_list", "Catalogue"], ["ac_cms_edit", "Both languages"], ["ac_brand", "Brand book"], ["ac_handover", "Handover"]];
+  var chip = document.querySelector("[data-chip]"), chipLabel = document.querySelector("[data-chip-label]"), chipOn = 0;
+  CHIP.forEach(function (c, k) { var im = document.createElement("img"); im.src = "img/" + (touch ? "sm/" : "") + c[0] + ".jpg"; im.alt = ""; im.loading = "lazy"; if (!k) im.className = "on"; chip.appendChild(im); });
+  function nextChip() {
+    var ims = chip.querySelectorAll("img"); ims[chipOn].classList.remove("on");
+    chipOn = (chipOn + 1) % CHIP.length; ims[chipOn].classList.add("on"); chipLabel.textContent = CHIP[chipOn][1];
+  }
+  var bridgeA = document.querySelector("[data-bridge]");
+  bridgeA.addEventListener("click", function (e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+    e.preventDefault(); openSheet(0, bridgeA, true);
+  });
+
   /* ── the detail sheet ──
      Opening: the card's picture is lifted out as a flying copy, the paper fades
      in behind it, the copy lands in the sheet, then the name, the summary (word
@@ -849,7 +1003,7 @@ body.dark .cur__in{background:var(--paper);color:var(--ink)}
     var mx = gsap.quickTo(cur, "x", { duration: .32, ease: "power3.out" }), my = gsap.quickTo(cur, "y", { duration: .32, ease: "power3.out" }), over = false;
     addEventListener("pointermove", function (e) {
       mx(e.clientX); my(e.clientY);
-      var o = !sOpen && !!(e.target.closest && e.target.closest(".show__frame"));
+      var o = !sOpen && !!(e.target.closest && e.target.closest(".show__frame, [data-bridge]"));
       if (o !== over) { over = o; cur.classList.toggle("on", o); }
     }, { passive: true });
   })();
@@ -882,10 +1036,51 @@ body.dark .cur__in{background:var(--paper);color:var(--ink)}
     if (!touch) el.addEventListener("pointerenter", roll);
   });
 
-  /* ── paper → dark as About arrives ── */
+  /* ── the mark keeps finding a new shape: pixels fly from where they are to
+     the cells of the next shape, the spare ones shrink away. It rests while
+     it is off screen. ── */
+  (function () {
+    var at = 0, live = true, call = null;
+    function morph() {
+      at = (at + 1) % SHAPES.length;
+      var to = cells(SHAPES[at]).sort(function () { return Math.random() - .5; });
+      markPx.forEach(function (i, k) {
+        var c = to[k] || to[k % to.length];
+        gsap.to(i, { xPercent: c[0] * 100, yPercent: c[1] * 100, x: 0, y: 0, scale: k < to.length ? 1 : 0, duration: .75, ease: "expo.inOut", delay: Math.random() * .22, overwrite: true });
+      });
+      call = gsap.delayedCall(2.4, function () { if (live) morph(); else call = null; });
+    }
+    markPx.forEach(function (i) { i.style.transform = ""; gsap.set(i, { xPercent: i._c[0] * 100, yPercent: i._c[1] * 100, scale: i._c[2] }); });
+    gsap.set(markEl, { scale: 0 });
+    gsap.to(markEl, { scale: 1, duration: .9, ease: "back.out(1.6)", delay: 1.9, onComplete: function () { call = gsap.delayedCall(1.2, morph); } });
+    ScrollTrigger.create({ trigger: markEl, start: "top bottom", end: "bottom top", onToggle: function (self) { live = self.isActive; if (live && !call) call = gsap.delayedCall(.4, morph); } });
+  })();
+
+  /* ── the deck falls into place the first time it comes into view ── */
+  cards.forEach(function (c, k) { gsap.set(c, { y: "-=" + (innerHeight * .9), rotation: (k % 2 ? 1 : -1) * (30 + k * 12), opacity: 0 }); });
+  ScrollTrigger.create({ trigger: deck, start: "top 82%", once: true, onEnter: function () {
+    cards.forEach(function (c, k) {
+      var t = restOf(k), order = (k - svcOn + SVC.length) % SVC.length;
+      gsap.to(c, Object.assign({ opacity: 1, duration: 1.3, ease: "expo.out", delay: (SVC.length - 1 - order) * .14 }, t));
+    });
+  } });
+
+  /* ── the bridge: each giant word comes in from its side as you scroll to it ── */
+  gsap.utils.toArray(".bridge .bw").forEach(function (w) {
+    var right = w.dataset.side === "right";
+    gsap.fromTo(w, { x: right ? 144 : -144, scale: .15, opacity: 0, transformOrigin: (right ? "right" : "left") + " top" },
+      { x: 0, scale: 1, opacity: 1, ease: "none", scrollTrigger: { trigger: w, start: "top 98%", end: "top 70%", scrub: .5 } });
+  });
+  (function () {
+    var live = false, call = null;
+    function tick() { nextChip(); call = gsap.delayedCall(1.6, function () { if (live) tick(); else call = null; }); }
+    ScrollTrigger.create({ trigger: chip, start: "top bottom", end: "bottom top", onToggle: function (self) { live = self.isActive; if (live && !call) call = gsap.delayedCall(1.2, tick); } });
+  })();
+
+  /* ── paper → dark as Services arrives ── */
   var root = document.documentElement;
   ScrollTrigger.create({
-    trigger: "#about", start: "top bottom", end: "top 25%", scrub: .35,
+    trigger: "#services", start: "top bottom", end: "top 25%", scrub: .35,
     onUpdate: function (self) {
       root.style.setProperty("--p", (125 - self.progress * 155) + "%");
       document.body.classList.toggle("dark", self.progress > .5);
